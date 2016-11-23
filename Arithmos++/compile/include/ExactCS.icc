@@ -1,0 +1,280 @@
+/**
+ ** @file    ExactCS.icc
+ ** @brief   inline functions for the ExactCS class
+ ** 
+ ** $Id: ExactCS.icc,v 1.1 2001/03/15 09:33:34 jvvloet Exp $
+ ** $Date: 2001/03/15 09:33:34 $
+ ** $Author: jvvloet $
+ **/
+ 
+/**
+ ** @brief  Sets exception bits in the control word.
+ ** @param  exceptions Exception bits to be set.
+ ** @remark bits of `exceptions' which don't represent any exception
+ **         are ignored.
+ ** @see    ExceptionsType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void ExactCS::controlSet( ExceptionsType exceptions )
+{
+  mControlWord |= (exceptions & csAllExceptions);
+}
+
+/**
+ ** @brief  Clears exception bits in the control word.
+ ** @param  exceptions Exception bits to be cleared.
+ ** @remark bits of `exceptions' which don't represent any exception
+ **         are ignored.
+ ** @see    ExceptionsType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void ExactCS::controlClr( ExceptionsType exceptions )
+{
+  mControlWord &= ~(exceptions & csAllExceptions);
+}
+
+/**
+ ** @brief  Tests for exception bits in the control word.
+ ** @param  exceptions Exception bits to be tested.
+ ** @return Logical or of the exception bits and `exceptions'.
+ ** @remark Bits of `exceptions' which don't represent any exception
+ **   	    are ignored.
+ ** @see    ExceptionsType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+ExceptionsType ExactCS::controlTst( ExceptionsType exceptions ) const
+{
+  return mControlWord & exceptions & csAllExceptions;
+}
+
+/**
+ ** @brief  Sets exception bits in the status word.
+ ** @param  exceptions Exception bits to be set.
+ ** @remark bits of `exceptions' which don't represent any exception
+ **         are ignored.
+ ** @see    ExceptionsType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void ExactCS::exceptionSet( ExceptionsType exceptions )
+{
+  mStatusWord |= (exceptions & csAllExceptions);
+}
+
+/**
+ ** @brief  Clears exception bits in the status word.
+ ** @param  exceptions Exception bits to be cleared.
+ ** @remark bits of `exceptions' which don't represent any exception
+ **         are ignored.
+ ** @see    ExceptionsType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void ExactCS::exceptionClr( ExceptionsType exceptions )
+{
+  mStatusWord &= ~(exceptions & csAllExceptions);
+}
+
+/**
+ ** @brief  Tests for exception bits in the status word.
+ ** @param  exceptions Exception bits to be tested.
+ ** @return Logical or of the exception bits and `exceptions'.
+ ** @remark Bits of `exceptions' which don't represent any exception
+ **   	    are ignored.
+ ** @see    ExceptionsType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+ExceptionsType ExactCS::exceptionTst( ExceptionsType exceptions ) const
+{
+  return mStatusWord & exceptions & csAllExceptions;
+}
+
+/**
+ ** @brief  Sets the global rounding mode.
+ ** @param  roundingMode Rounding mode to be set.
+ ** @remark `roundingMode' should be a bitwise or of an integer
+ **   	    rounding mode and a rational rounding mode.
+ ** @see    RoundingModeType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void ExactCS::setRoundingMode( RoundingModeType roundingmode )
+{
+  mControlWord &= ~ecsRoundingMask;  // clear previous rounding mode
+  mControlWord |= roundingmode;       // set new rounding mode
+}
+
+/**
+ ** @brief  Gets the global rounding mode.
+ ** @return The current rounding mode.  This is a bitwise or of the
+ **   	    current integer rounding mode and the current rational
+ **   	    rounding mode.
+ ** @see    RoundingModeType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+RoundingModeType ExactCS::getRoundingMode() const
+{
+  return mControlWord & ecsRoundingMask;
+}
+
+/**
+ ** @brief  Sets the integer rounding mode.
+ ** @param  roundingMode Rounding mode to be set.
+ ** @see    RoundingModeType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void ExactCS::setIntRoundingMode( RoundingModeType roundingmode )
+{
+  mControlWord &= ~ecsIntRoundingMask;  // clear previous rounding mode
+  mControlWord |= (roundingmode & ecsIntRoundingMask);// set new rounding mode
+}
+
+/**
+ ** @brief  Gets the integer rounding mode.
+ ** @return The current integer rounding mode.
+ ** @see    RoundingModeType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+RoundingModeType ExactCS::getIntRoundingMode() const
+{
+  return mControlWord & ecsIntRoundingMask;
+}
+
+/**
+ ** @brief  Sets the rational rounding mode.
+ ** @param  roundingMode Rounding mode to be set.
+ ** @see    RoundingModeType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void ExactCS::setRatRoundingMode( RoundingModeType roundingmode )
+{
+  mControlWord &= ~ecsRatRoundingMask;  // clear previous rounding mode
+  mControlWord |= roundingmode;        	// set new rounding mode
+}
+
+/**
+ ** @brief  Gets the rational rounding mode.
+ ** @return roundimgMode The current rational rounding mode.
+ ** @see    RoundingModeType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+RoundingModeType ExactCS::getRatRoundingMode() const
+{
+  return mControlWord & ecsRatRoundingMask;
+}
+
+
+
+/**
+ ** @brief  Sets the number system for I/O
+ ** @param  base New base for I/O
+ ** @remark If `base' is larger than 36, the format for I/O is
+ **   	    (digit_{n-1}, ..., digit_0), where the digit_i are
+ **   	    the decimal representations of the `base'-ary digits.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void ExactCS::setBaseForIO( unsigned int base )
+{
+  mBaseForIO = base;
+}
+
+/**
+ ** @brief  Returns the current number system for I/O
+ ** @return current base for I/O
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int ExactCS::getBaseForIO() const
+{
+  return mBaseForIO;
+}
+
+/**
+ ** @brief  Sets the precision for rational output.
+ ** @param  precision New precision for rational output.
+ ** @remark If the precision equals 0, output of a rational number will be
+ **   	    formatted as `numerator/denominator'.  If it is greater
+ **   	    than zero, it should be at least 4, and the output of
+ **   	    rational numbers will be in decimal notation, displaying
+ **   	    `precision' digits.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void ExactCS::setRationalOutputPrecision( unsigned int precision )
+{
+  mRationalOutputPrecision = precision;
+}
+
+/**
+ ** @brief  Gets the precision for rational output.
+ ** @return Current precision for rational output.
+ ** @remark If the precision equals 0, output of a rational number will be
+ **   	    formatted as `numerator/denominator'.  If it is greater
+ **   	    than zero, it should be at least 4, and the output of
+ **   	    rational numbers will be in decimal notation, displaying
+ **   	    `precision' digits.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int ExactCS::getRationalOutputPrecision() const
+{
+  return mRationalOutputPrecision;
+}
+
+/**
+ ** @brief	Sets the rounding precision for rational Arithmetic
+ ** @param	precision Rounding precision to set.
+ ** @remark	This value is only used when the inexact control bit is
+ **		set.  In that case the result is rounded, and the
+ **		higher the rounding precision, the lower the rounding
+ **		error.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void ExactCS::setRoundingPrecision( unsigned int precision )
+{
+  mControlWord &= ~ecsPrecisionControlMask;
+  mControlWord |= (precision << ecsControlBitsUsed);
+}
+
+/**
+ ** @brief	Returns the rounding precision for rational Arithmetic
+ ** @remark	This value is only used when the inexact control bit is
+ **		set.  In that case the result is rounded, and the
+ **		higher the rounding precision, the lower the rounding
+ **		error.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int ExactCS::getRoundingPrecision() const
+{
+  return ((mControlWord & ecsPrecisionControlMask) >> ecsControlBitsUsed);
+}

@@ -1,0 +1,139 @@
+/**
+ ** @file	ControlStatus.icc
+ ** @brief	Inline functions for the ControlStatus class.
+ **		The functions in this file should'nt be called; they
+ **		are just the empty virtual ones.  So if you call them,
+ **		they'll produce a warning on the stderr.
+ ** @remark	In most of the cases these functions aren't coded
+ **		inline, because they are virtual.  But in some cases
+ **		they can be coded inline, and this will be done if
+ **		the compiler uses certain optimization techniques.
+ **
+ ** $Id: ControlStatus.icc,v 1.5 2001/04/19 08:13:10 kuterna Exp $
+ ** $Date: 2001/04/19 08:13:10 $
+ ** $Author: kuterna $
+ **/
+
+/**
+ ** @brief	Sets exception bits in the control word.
+ ** @param	exceptions Exception bits to be set
+ ** @warning	This is just an empty virtual function; you should
+ **		use an implementation of an inheriting class.
+ ** @see	ExceptionsType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void ControlStatus::controlSet( ExceptionsType exceptions )
+{
+  warning();
+}
+
+/**
+ ** @brief	Clears exception bits in the control word.
+ ** @param	exceptions Exception bits to be cleared
+ ** @warning	This is just an empty virtual function; you should
+ **		use an implementation of an inheriting class.
+ ** @see	ExceptionsType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void ControlStatus::controlClr( ExceptionsType exceptions )
+{
+  warning();
+}
+
+/**
+ ** @brief	Tests exception bits in the control word.
+ ** @param	exceptions Exception bits to be tested
+ ** @return	logical and of the exception bits and `exceptions'
+ ** @warning	This is just an empty virtual function; you should
+ **		use an implementation of an inheriting class.
+ ** @see	ExceptionsType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+ExceptionsType ControlStatus::controlTst( ExceptionsType exceptions ) const
+{
+  warning();
+  return 0;
+}
+
+/**
+ ** @brief	Sets exception bits in the status word.
+ ** @param	exceptions Exception bits to be set
+ ** @warning	This is just an empty virtual function; you should
+ **		use an implementation of an inheriting class.
+ ** @see	ExceptionsType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void ControlStatus::exceptionSet( ExceptionsType exceptions )
+{
+  warning();
+}
+
+/**
+ ** @brief	Clears exception bits in the status word.
+ ** @param	exceptions Exception bits to be cleared
+ ** @warning	This is just an empty virtual function; you should
+ **		use an implementation of an inheriting class.
+ ** @see	ExceptionsType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void ControlStatus::exceptionClr( ExceptionsType exceptions )
+{
+  warning();
+}
+
+/**
+ ** @brief	Tests exception bits in the status word.
+ ** @param	exceptions Exception bits to be tested
+ ** @return	logical and of the exception bits and `exceptions'
+ ** @warning	This is just an empty virtual function; you should
+ **		use an implementation of an inheriting class.
+ ** @see	ExceptionsType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+ExceptionsType ControlStatus::exceptionTst( ExceptionsType exceptions ) const
+{
+  warning();
+  return 0;
+}
+
+/**
+ ** @brief	Sets the rounding mode
+ ** @param	roundingMode Rounding mode to be set
+ ** @warning	This is just an empty virtual function; you should
+ **		use an implementation of an inheriting class.
+ ** @see	RoundingModeType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void ControlStatus::setRoundingMode( RoundingModeType roundingmode )
+{
+  warning();
+}
+
+/**
+ ** @brief	Returns the rounding mode
+ ** @param	return The current rounding mode
+ ** @warning	This is just an empty virtual function; you should
+ **		use an implementation of an inheriting class.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+RoundingModeType ControlStatus::getRoundingMode() const
+{
+  warning();
+  return 0;
+}

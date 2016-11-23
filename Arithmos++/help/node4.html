@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="description" CONTENT="Hands-on experience">
+   <META NAME="keywords" CONTENT="acbv">
+   <META NAME="resource-type" CONTENT="document">
+   <META NAME="distribution" CONTENT="global">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.07 [en] (X11; I; Linux 2.0.36 i686) [Netscape]">
+<!--Converted with LaTeX2HTML 98.2 beta6 (August 14th, 1998)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<LINK REL="STYLESHEET" HREF="acbv.css">
+<LINK REL="previous" HREF="node3.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node5.html">
+</HEAD>
+<BODY>
+<!--Navigation Panel-->
+<BR><B>Next: </B><A HREF="node5.html" NAME="tex2html64">Numerical Techniques</A>
+<B>Up:
+</B><A HREF="node2.html" NAME="tex2html62">Computer Arithmetic</A>
+<B>Previous:
+</B><A HREF="node3.html" NAME="tex2html58">Theory</A>
+<P><!--End of Navigation Panel-->
+<H1>
+Hands-on experience</H1>
+The material covered in the ``Computer Arithmetic" part of the course is
+essentially simple and clear-cut. Yet students have difficulties grasping
+all the intricacies of the material and understanding the interaction of
+the different types of errors that can occur. It is clear that concepts
+such as data and rounding error, overflow and underflow, catastrophic and
+benign cancellation, numerical instability, ill-conditioning, and so on
+should best not only be studied from a theoretical point of view. To make
+them as tangible as possible, we have developed what we call an ``arithmetic
+explorer''.
+<P>In this software environment it is possible to specify and simulate
+that computations are performed, not in the hardware IEEE singles or doubles,
+but in a user-defined set of floating-point numbers. By choosing a small
+precision <I>t</I> and a limited exponent range, students can then easily
+follow the computations at the bit-level. Moreover, in a low-precision
+floating-point set, one can easily zoom in on the unmistakable effects
+of data and rounding error, cancellation, ill-conditioning and numerical
+instability and develop a better feeling for different computer arithmetic
+issues. In this respect it is important to mention that the floating-point
+arithmetic, as implemented in the didactical tool, fully complies with
+the philosophy of the IEEE standard. Except for the fact that the precision
+and exponent range can be specified freely, all aspects of the IEEE standard
+are implemented and can be visualized, including exact rounding, denormals,
+signed zero, infinities, not-a-numbers and exception flags to name just
+a few. Hence it is possible for students to really ``discover" the full
+details of floating-point arithmetic, something which is not so obvious
+when other tools are used. While a similar analysis can be done by using
+Mathematica or for instance by direct programming and using a traditional
+compiler, the result is often a time-consuming and confusing task, obscuring
+more points than one is trying to make.
+<BR>&nbsp;
+<CENTER>
+<P><IMG SRC="./img12.png" ALT="\includegraphics[width=\textwidth]{csecrs.fig1.eps}" BORDER=0 ALIGN=BOTTOM></CENTER>
+
+<CENTER>Computing 0.1+0.5 in&nbsp;<IMG SRC="./img13.png" ALT="$\ifmmode{I\hskip -3pt F}\else{\hbox{$I\hskip -3pt F$}}\fi (2,7,-6,7)$" BORDER=0 ALIGN=CENTER>
+and in&nbsp;<IMG SRC="./img6.png"  BORDER=0 ALIGN=CENTER>.</CENTER>
+
+<P>For a specified set of floating-point numbers, the didactical tool provides
+the whole functionality described in Sections 2-6, from basic operations
+to complete algorithms. Moreover, interval arithmetic, where the intervals
+have endpoints in the user-defined set of floating-point numbers, and rational
+arithmetic are supported. In the future the program will include rational
+interval arithmetic and rational rounding for irrational numbers.
+<P>The implementation of the didactical environment was realized using
+C++ classes, and was developed in cooperation with the students themselves,
+who were fascinated by the computer arithmetic issues discussed in the
+course. Full use of operator overloading also enables a user, in addition
+to using the environment for simple expressions, to run downloaded code
+from within the didactical software tool, using a user-specified precision
+and exponent range, rather than the IEEE single or double hardware floats.
+It should be mentioned that, since this is a true didactical program, no
+attention has been paid to the efficiency of the implementation. The tool
+was developed in Borland C++ with a Windows interface. It is in its last
+debugging phase and will be available in the coming winter term.
+<P>
+<HR><!--Navigation Panel-->
+<BR><B>Next: </B><A HREF="node5.html" NAME="tex2html64">Numerical Techniques</A>
+<B>Up:
+</B><A HREF="node2.html" NAME="tex2html62">Computer Arithmetic</A>
+<B>Previous:
+</B><A HREF="node3.html" NAME="tex2html58">Theory</A><!--End of Navigation Panel-->
+<ADDRESS>
+<I>Stefan.Becuwe</I></ADDRESS>
+
+<BR><I>1999-05-05</I>
+</BODY>
+</HTML>

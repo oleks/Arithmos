@@ -1,0 +1,299 @@
+<html>
+<head>
+<title> bigint.h </title>
+</head>
+<body>
+<hr WIDTH="100%">
+<p><b>Back:</b>&nbsp;&nbsp;<a href="heart.html">heart.h</a>&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp; <b>Next:</b>&nbsp;&nbsp;
+<a href="rational.html">rational.h</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>
+Up:&nbsp;&nbsp;</b> <a href="indexProgram.html">Program Index Help</a>
+<br>
+<hr WIDTH="100%">
+<h1> bigint.h </h1>
+<h1>Classes</h1>
+<dl>
+<dd> <a href="#bigint"> bigint </a> --  (<em><a href="#bigint:description">full description</a></em>)
+<dd> <a href="#tbigint"> tbigint </a> --  (<em><a href="#tbigint:description">full description</a></em>)
+</dl>
+<hr>
+
+<h1>class bigint</h1>
+<h1>Interface</h1>
+<dl>
+<dd> <b>Public Members</b>
+
+<dl>
+
+<dd> static void <a href="#bigint:set_io_base(int)">set_io_base</a> (int base)
+<dd> static int <a href="#bigint:get_io_base()">get_io_base</a> ()
+<dd> static void <a href="#bigint:exception_set(long)">exception_set</a> (long ex)
+<dd> static void <a href="#bigint:exception_clr(long)">exception_clr</a> (long ex)
+<dd> static long <a href="#bigint:exception_tst(long)">exception_tst</a> (long ex)
+<dd> static void <a href="#bigint:control_set(long)">control_set</a> (long tr)
+<dd> static void <a href="#bigint:control_clr(long)">control_clr</a> (long tr)
+<dd> static long <a href="#bigint:control_tst(long)">control_tst</a> (long tr)
+<dd> static void <a href="#bigint:set_rounding_mode(long)">set_rounding_mode</a> (long rm)
+<dd> static long <a href="#bigint:get_rounding_mode()">get_rounding_mode</a> ()
+<dd> inline <a href="#bigint:bigint()">bigint</a> ()
+<dd> <a href="#bigint:bigint(int)">bigint</a> (int l)
+<dd> <a href="#bigint:bigint(long)">bigint</a> (long l)
+<dd> <a href="#bigint:bigint(unsigned)">bigint</a> (unsigned long l)
+<dd> <a href="#bigint:bigint(atom)">bigint</a> (atom a)
+<dd> <a href="#bigint:bigint(char*)">bigint</a> (char* s)
+<dd> <a href="#bigint:bigint(const Mpieee&amp;)">bigint</a> (const <a href="Mpieee.html#Mpieee">Mpieee</a>&amp; f)
+<dd> <a href="#bigint:bigint(const bigint&amp;)">bigint</a> (const bigint&amp; B)
+<dd> inline <a href="#bigint:bigint(const tbigint&amp;)">bigint</a> (const tbigint&amp; B)
+<dd> inline <a href="#bigint:~bigint()">~bigint</a> ()
+<dd> void <a href="#bigint:resize(unsigned)">resize</a> (unsigned long s)
+<dd> inline void <a href="#bigint:setsign(int)">setsign</a> (int s)
+<dd> inline int <a href="#bigint:getsign()const">getsign</a> () const
+<dd> inline void <a href="#bigint:setzero()">setzero</a> ()
+<dd> inline void <a href="#bigint:setinf()">setinf</a> ()
+<dd> inline void <a href="#bigint:setnan(unsigned)">setnan</a> (unsigned char nv = NAN_VALUE)
+<dd> inline void <a href="#bigint:setextnan(char)">setextnan</a> (char nv)
+<dd> inline void <a href="#bigint:setext()">setext</a> ()
+<dd> inline void <a href="#bigint:clrext()">clrext</a> ()
+<dd> inline int <a href="#bigint:tstzero()const">tstzero</a> () const
+<dd> inline int <a href="#bigint:tstinf()const">tstinf</a>() const
+<dd> inline int <a href="#bigint:tstnan()const">tstnan</a> () const
+<dd> inline int <a href="#bigint:tstext()const">tstext</a> () const
+<dd> inline unsigned long <a href="#bigint:nbits()const">nbits</a> () const
+<dd> unsigned long <a href="#bigint:trailing_zeros()const">trailing_zeros</a> () const
+<dd> bigint&amp; <a href="#bigint:operator=(const bigint&amp;)">operator=</a> (const bigint&amp; B)
+<dd> bigint&amp; <a href="#bigint:operator=(long)">operator=</a> (long l)
+<dd> inline bigint&amp; <a href="#bigint:operator=(atom)">operator=</a> (atom a)
+<dd> bigint&amp; <a href="#bigint:operator=(twoatoms)">operator=</a> (twoatoms ll)
+<dd> inline bigint&amp; <a href="#bigint:operator=(int)">operator=</a> (int i)
+<dd> inline bigint&amp; <a href="#bigint:operator=(const tbigint&amp;)">operator=</a> (const tbigint&amp; B)
+<dd> inline void <a href="#bigint:transfer(bigint&amp;)">transfer</a> (bigint&amp; B)
+<dd> friend void <a href="#bigint:sum(bigint&amp;,const bigint&amp;,const bigint&amp;)">sum</a> (bigint&amp; C, const bigint&amp; A, const bigint&amp; B)
+<dd> friend void <a href="#bigint:sum(bigint&amp;,const bigint&amp;,atom)">sum</a> (bigint&amp; C, const bigint&amp; A, atom b)
+<dd> friend void <a href="#bigint:dif(bigint&amp;,const bigint&amp;,const bigint&amp;)">dif</a> (bigint&amp; C, const bigint&amp; A, const bigint&amp; B)
+<dd> friend void <a href="#bigint:prod(bigint&amp;,const bigint&amp;,const bigint&amp;)">prod</a> (bigint&amp; C, const bigint&amp; A, const bigint&amp; B)
+<dd> friend void <a href="#bigint:gcd(bigint&amp;,const bigint&amp;,const bigint&amp;)">gcd</a> (bigint&amp; C, const bigint&amp; A, const bigint&amp; B)
+<dd> friend void <a href="#bigint:quotexact(bigint&amp;,const bigint&amp;,const bigint&amp;)">quotexact</a> (bigint&amp; C, const bigint&amp; A, const bigint&amp; B)
+<dd> friend void <a href="#bigint:p2prod(bigint&amp;,const bigint&amp;,unsigned)">p2prod</a> (bigint&amp; C, const bigint&amp; A, unsigned long b)
+<dd> friend void <a href="#bigint:p2quot(bigint&amp;,const bigint&amp;,unsigned)">p2quot</a> (bigint&amp; C, const bigint&amp; A, unsigned long b)
+<dd> friend void <a href="#bigint:pow(bigint&amp;,const bigint&amp;,unsigned)">pow</a> (bigint&amp; C, const bigint&amp; A, unsigned long b)
+<dd> friend void <a href="#bigint:pow(bigint&amp;,const bigint&amp;,const bigint&amp;)">pow</a> (bigint&amp; C, const bigint&amp; A, const bigint&amp; B)
+<dd> friend void <a href="#bigint:root(bigint&amp;,const bigint&amp;,atom)">root</a> (bigint&amp; C, const bigint&amp; A, atom b)
+<dd> friend void <a href="#bigint:root(bigint&amp;,const bigint&amp;,const bigint&amp;)">root</a> (bigint&amp;C, const bigint&amp; A, const bigint&amp; B)
+<dd> friend void <a href="#bigint:qrem(bigint&amp;,bigint&amp;,const bigint&amp;,const bigint&amp;)">qrem</a> (bigint&amp; Q, bigint&amp; R, const bigint&amp; A, const bigint&amp; B)
+<dd> friend void <a href="#bigint:quot(bigint&amp;,const bigint&amp;,const bigint&amp;)">quot</a> (bigint&amp; C, const bigint&amp; A, const bigint&amp; B)
+<dd> friend void <a href="#bigint:abs(bigint&amp;,const bigint&amp;)">abs</a> (bigint&amp; C, const bigint&amp; A)
+<dd> friend void <a href="#bigint:neg(bigint&amp;,const bigint&amp;)">neg</a> (bigint&amp; C, const bigint&amp; A)
+<dd> friend void <a href="#bigint:sqrt(bigint&amp;,const bigint&amp;)">sqrt</a> (bigint&amp; C, const bigint&amp; A)
+<dd> friend int <a href="#bigint:comp(const bigint&amp;,const bigint&amp;)">comp</a> (const bigint&amp; A, const bigint&amp; B)
+<dd> inline friend int <a href="#bigint:operator&lt;(const bigint&amp;,const bigint&amp;)">operator&lt;</a> (const bigint&amp; A, const bigint&amp; B)
+<dd> inline friend int <a href="#bigint:operator&gt;(const bigint&amp;,const bigint&amp;)">operator&gt;</a> (const bigint&amp; A, const bigint&amp; B)
+<dd> friend int <a href="#bigint:operator==(const bigint&amp;,const bigint&amp;)">operator==</a> (const bigint&amp; A, const bigint&amp; B)
+<dd> friend int <a href="#bigint:operator&lt;=(const bigint&amp;,const bigint&amp;)">operator&lt;=</a> (const bigint&amp; A, const bigint&amp; B)
+<dd> friend int <a href="#bigint:operator&gt;=(const bigint&amp;,const bigint&amp;)">operator&gt;=</a> (const bigint&amp; A, const bigint&amp; B)
+<dd> inline friend int <a href="#bigint:operator!=(const bigint&amp;,const bigint&amp;)">operator!=</a> (const bigint&amp; A, const bigint&amp; B)
+<dd> friend int <a href="#bigint:unordered(const bigint&amp;,const bigint&amp;)">unordered</a> (const bigint&amp; A, const bigint&amp; B)
+<dd> inline int bigint::<a href="#bigint:operator==(long)const">operator==</a> (long b) const
+<dd> inline int bigint::<a href="#bigint:operator!=(long)const">operator!=</a> (long b) const
+<dd> inline friend tbigint <a href="#bigint:operator+(const bigint&amp;,const bigint&amp;)">operator+</a> (const bigint&amp; A, const bigint&amp; B)
+<dd> inline friend tbigint <a href="#bigint:operator+(const bigint&amp;,const tbigint&amp;)">operator+</a> (const bigint&amp; A, const tbigint&amp; B)
+<dd> inline friend tbigint <a href="#bigint:operator+(const tbigint&amp;,const bigint&amp;)">operator+</a> (const tbigint&amp; A, const bigint&amp; B)
+<dd> inline friend tbigint <a href="#bigint:operator+(const tbigint&amp;,const tbigint&amp;)">operator+</a> (const tbigint&amp; A, const tbigint&amp; B)
+<dd> inline friend tbigint <a href="#bigint:operator-(const bigint&amp;,const bigint&amp;)">operator-</a> (const bigint&amp; A, const bigint&amp; B)
+<dd> inline friend tbigint <a href="#bigint:operator-(const bigint&amp;,const tbigint&amp;)">operator-</a> (const bigint&amp; A, const tbigint&amp; B)
+<dd> inline friend tbigint <a href="#bigint:operator-(const tbigint&amp;,const bigint&amp;)">operator-</a> (const tbigint&amp; A, const bigint&amp; B)
+<dd> inline friend tbigint <a href="#bigint:operator-(const tbigint&amp;,const tbigint&amp;)">operator-</a> (const tbigint&amp; A, const tbigint&amp; B)
+<dd> inline friend tbigint <a href="#bigint:operator*(const bigint&amp;,const bigint&amp;)">operator*</a> (const bigint&amp; A, const bigint&amp; B)
+<dd> inline friend tbigint <a href="#bigint:operator/(const bigint&amp;,const bigint&amp;)">operator/</a> (const bigint&amp; A, const bigint&amp; B)
+<dd> inline friend tbigint <a href="#bigint:gcd(const bigint&amp;,const bigint&amp;)">gcd</a> (const bigint&amp; A, const bigint&amp; B)
+<dd> inline friend tbigint <a href="#bigint:gcd(const bigint&amp;,const tbigint&amp;)">gcd</a> (const bigint&amp; A, const tbigint&amp; B)
+<dd> inline friend tbigint <a href="#bigint:gcd(const tbigint&amp;,const bigint&amp;)">gcd</a> (const tbigint&amp; A, const bigint&amp; B)
+<dd> inline friend tbigint <a href="#bigint:gcd(const tbigint&amp;,const tbigint&amp;)">gcd</a> (const tbigint&amp; A, const tbigint&amp; B)
+<dd> inline friend tbigint <a href="#bigint:pow(const bigint&amp;,const bigint&amp;)">pow</a> (const bigint&amp; A, const bigint&amp; B)
+<dd> inline friend tbigint <a href="#bigint:root(const bigint&amp;,const bigint&amp;)">root</a> (const bigint&amp; A, const bigint&amp; B)
+<dd> inline tbigint <a href="#bigint:p2prod(unsigned)const">p2prod</a> (unsigned long b) const
+<dd> inline tbigint <a href="#bigint:p2quot(unsigned)const">p2quot</a> (unsigned long b) const
+<dd> inline tbigint <a href="#bigint:pow(unsigned)const">pow</a> (unsigned long b) const
+<dd> inline tbigint <a href="#bigint:operator+(atom)const">operator+</a> (atom b) const
+<dd> inline bigint&amp; <a href="#bigint:operator+=(atom)">operator+=</a> (atom b)
+<dd> inline bigint&amp; <a href="#bigint:operator+=(const bigint&amp;)">operator+=</a> (const bigint&amp; B)
+<dd> inline tbigint <a href="#bigint:operator-(atom)const">operator-</a> (atom b) const
+<dd> inline bigint&amp; <a href="#bigint:operator-=(atom)">operator-=</a> (atom b)
+<dd> inline bigint&amp; <a href="#bigint:operator-=(const bigint&amp;)">operator-=</a> (const bigint&amp; B)
+<dd> inline bigint&amp; <a href="#bigint:operator*=(const bigint&amp;)">operator*=</a> (const bigint&amp; B)
+<dd> inline bigint&amp; <a href="#bigint:operator/=(const bigint&amp;)">operator/=</a> (const bigint&amp; B)
+<dd> inline bigint&amp; <a href="#bigint:operator++()">operator++</a> ()
+<dd> inline bigint&amp; <a href="#bigint:operator--()">operator--</a> ()
+<dd> inline tbigint <a href="#bigint:abs()const">abs</a> () const
+<dd> inline tbigint <a href="#bigint:sqrt()const">sqrt</a> () const
+<dd> inline tbigint <a href="#bigint:operator-()const">operator-</a> () const
+<dd> friend ostream&amp; <a href="#bigint:operator&lt;&lt;(ostream&amp;,const bigint&amp;)">operator&lt;&lt;</a> (ostream&amp; os, const bigint&amp; B)
+<dd> friend istream&amp; <a href="#bigint:operator&gt;&gt;(istream&amp;,bigint&amp;)">operator&gt;&gt;</a> (istream&amp; is, bigint&amp; B)
+<dd> int <a href="#bigint:to_int()const">to_int</a> () const
+<dd> long <a href="#bigint:to_long()const">to_long</a> () const
+<dd> float <a href="#bigint:to_float()const">to_float</a> () const
+<dd> double <a href="#bigint:to_double()const">to_double</a> () const
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#bigint:to_Mpieee()const">to_Mpieee</a> () const
+<dd> void <a href="#bigint:to_string(char*,int)const">to_string</a> (char* string, int lengte) const
+</dl>
+</dl>
+<h1><a name="bigint:description">Description</a></h1>
+
+<h1>Member Description</h1>
+<h3>static void <a name="bigint:set_io_base(int)">set_io_base</a> (int base)</h3>
+<h3>static int <a name="bigint:get_io_base()">get_io_base</a> ()</h3>
+<h3>static void <a name="bigint:exception_set(long)">exception_set</a> (long ex)</h3>
+<h3>static void <a name="bigint:exception_clr(long)">exception_clr</a> (long ex)</h3>
+<h3>static long <a name="bigint:exception_tst(long)">exception_tst</a> (long ex)</h3>
+<h3>static void <a name="bigint:control_set(long)">control_set</a> (long tr)</h3>
+<h3>static void <a name="bigint:control_clr(long)">control_clr</a> (long tr)</h3>
+<h3>static long <a name="bigint:control_tst(long)">control_tst</a> (long tr)</h3>
+<h3>static void <a name="bigint:set_rounding_mode(long)">set_rounding_mode</a> (long rm)</h3>
+<h3>static long <a name="bigint:get_rounding_mode()">get_rounding_mode</a> ()</h3>
+<h3>inline <a name="bigint:bigint()">bigint</a> ()</h3>
+<h3><a name="bigint:bigint(int)">bigint</a> (int l)</h3>
+<h3><a name="bigint:bigint(long)">bigint</a> (long l)</h3>
+<h3><a name="bigint:bigint(unsigned)">bigint</a> (unsigned long l)</h3>
+<h3><a name="bigint:bigint(atom)">bigint</a> (atom a)</h3>
+<h3><a name="bigint:bigint(char*)">bigint</a> (char* s)</h3>
+<h3><a name="bigint:bigint(const Mpieee&amp;)">bigint</a> (const <a href="Mpieee.html#Mpieee">Mpieee</a>&amp; f)</h3>
+<h3><a name="bigint:bigint(const bigint&amp;)">bigint</a> (const bigint&amp; B)</h3>
+<h3>inline <a name="bigint:bigint(const tbigint&amp;)">bigint</a> (const tbigint&amp; B)</h3>
+<h3>inline <a name="bigint:~bigint()">~bigint</a> ()</h3>
+<h3>void <a name="bigint:resize(unsigned)">resize</a> (unsigned long s)</h3>
+<h3>inline void <a name="bigint:setsign(int)">setsign</a> (int s)</h3>
+<h3>inline int <a name="bigint:getsign()const">getsign</a> () const</h3>
+<h3>inline void <a name="bigint:setzero()">setzero</a> ()</h3>
+<h3>inline void <a name="bigint:setinf()">setinf</a> ()</h3>
+<h3>inline void <a name="bigint:setnan(unsigned)">setnan</a> (unsigned char nv = NAN_VALUE)</h3>
+<h3>inline void <a name="bigint:setextnan(char)">setextnan</a> (char nv)</h3>
+<h3>inline void <a name="bigint:setext()">setext</a> ()</h3>
+<h3>inline void <a name="bigint:clrext()">clrext</a> ()</h3>
+<h3>inline int <a name="bigint:tstzero()const">tstzero</a> () const</h3>
+<h3>inline int <a name="bigint:tstinf()const">tstinf</a>() const</h3>
+<h3>inline int <a name="bigint:tstnan()const">tstnan</a> () const</h3>
+<h3>inline int <a name="bigint:tstext()const">tstext</a> () const</h3>
+<h3>inline unsigned long <a name="bigint:nbits()const">nbits</a> () const</h3>
+<h3>unsigned long <a name="bigint:trailing_zeros()const">trailing_zeros</a> () const</h3>
+<h3>bigint&amp; <a name="bigint:operator=(const bigint&amp;)">operator=</a> (const bigint&amp; B)</h3>
+<h3>bigint&amp; <a name="bigint:operator=(long)">operator=</a> (long l)</h3>
+<h3>inline bigint&amp; <a name="bigint:operator=(atom)">operator=</a> (atom a)</h3>
+<h3>bigint&amp; <a name="bigint:operator=(twoatoms)">operator=</a> (twoatoms ll)</h3>
+<h3>inline bigint&amp; <a name="bigint:operator=(int)">operator=</a> (int i)</h3>
+<h3>inline bigint&amp; <a name="bigint:operator=(const tbigint&amp;)">operator=</a> (const tbigint&amp; B)</h3>
+<h3>inline void <a name="bigint:transfer(bigint&amp;)">transfer</a> (bigint&amp; B)</h3>
+<h3>friend void <a name="bigint:sum(bigint&amp;,const bigint&amp;,const bigint&amp;)">sum</a> (bigint&amp; C, const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>friend void <a name="bigint:sum(bigint&amp;,const bigint&amp;,atom)">sum</a> (bigint&amp; C, const bigint&amp; A, atom b)</h3>
+<h3>friend void <a name="bigint:dif(bigint&amp;,const bigint&amp;,const bigint&amp;)">dif</a> (bigint&amp; C, const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>friend void <a name="bigint:prod(bigint&amp;,const bigint&amp;,const bigint&amp;)">prod</a> (bigint&amp; C, const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>friend void <a name="bigint:gcd(bigint&amp;,const bigint&amp;,const bigint&amp;)">gcd</a> (bigint&amp; C, const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>friend void <a name="bigint:quotexact(bigint&amp;,const bigint&amp;,const bigint&amp;)">quotexact</a> (bigint&amp; C, const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>friend void <a name="bigint:p2prod(bigint&amp;,const bigint&amp;,unsigned)">p2prod</a> (bigint&amp; C, const bigint&amp; A, unsigned long b)</h3>
+<h3>friend void <a name="bigint:p2quot(bigint&amp;,const bigint&amp;,unsigned)">p2quot</a> (bigint&amp; C, const bigint&amp; A, unsigned long b)</h3>
+<h3>friend void <a name="bigint:pow(bigint&amp;,const bigint&amp;,unsigned)">pow</a> (bigint&amp; C, const bigint&amp; A, unsigned long b)</h3>
+<h3>friend void <a name="bigint:pow(bigint&amp;,const bigint&amp;,const bigint&amp;)">pow</a> (bigint&amp; C, const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>friend void <a name="bigint:root(bigint&amp;,const bigint&amp;,atom)">root</a> (bigint&amp; C, const bigint&amp; A, atom b)</h3>
+<h3>friend void <a name="bigint:root(bigint&amp;,const bigint&amp;,const bigint&amp;)">root</a> (bigint&amp;C, const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>friend void <a name="bigint:qrem(bigint&amp;,bigint&amp;,const bigint&amp;,const bigint&amp;)">qrem</a> (bigint&amp; Q, bigint&amp; R, const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>friend void <a name="bigint:quot(bigint&amp;,const bigint&amp;,const bigint&amp;)">quot</a> (bigint&amp; C, const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>friend void <a name="bigint:abs(bigint&amp;,const bigint&amp;)">abs</a> (bigint&amp; C, const bigint&amp; A)</h3>
+<h3>friend void <a name="bigint:neg(bigint&amp;,const bigint&amp;)">neg</a> (bigint&amp; C, const bigint&amp; A)</h3>
+<h3>friend void <a name="bigint:sqrt(bigint&amp;,const bigint&amp;)">sqrt</a> (bigint&amp; C, const bigint&amp; A)</h3>
+<h3>friend int <a name="bigint:comp(const bigint&amp;,const bigint&amp;)">comp</a> (const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>inline friend int <a name="bigint:operator&lt;(const bigint&amp;,const bigint&amp;)">operator&lt;</a> (const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>inline friend int <a name="bigint:operator&gt;(const bigint&amp;,const bigint&amp;)">operator&gt;</a> (const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>friend int <a name="bigint:operator==(const bigint&amp;,const bigint&amp;)">operator==</a> (const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>friend int <a name="bigint:operator&lt;=(const bigint&amp;,const bigint&amp;)">operator&lt;=</a> (const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>friend int <a name="bigint:operator&gt;=(const bigint&amp;,const bigint&amp;)">operator&gt;=</a> (const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>inline friend int <a name="bigint:operator!=(const bigint&amp;,const bigint&amp;)">operator!=</a> (const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>friend int <a name="bigint:unordered(const bigint&amp;,const bigint&amp;)">unordered</a> (const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>inline int bigint::<a name="bigint:operator==(long)const">operator==</a> (long b) const</h3>
+<h3>inline int bigint::<a name="bigint:operator!=(long)const">operator!=</a> (long b) const</h3>
+<h3>inline friend tbigint <a name="bigint:operator+(const bigint&amp;,const bigint&amp;)">operator+</a> (const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>inline friend tbigint <a name="bigint:operator+(const bigint&amp;,const tbigint&amp;)">operator+</a> (const bigint&amp; A, const tbigint&amp; B)</h3>
+<h3>inline friend tbigint <a name="bigint:operator+(const tbigint&amp;,const bigint&amp;)">operator+</a> (const tbigint&amp; A, const bigint&amp; B)</h3>
+<h3>inline friend tbigint <a name="bigint:operator+(const tbigint&amp;,const tbigint&amp;)">operator+</a> (const tbigint&amp; A, const tbigint&amp; B)</h3>
+<h3>inline friend tbigint <a name="bigint:operator-(const bigint&amp;,const bigint&amp;)">operator-</a> (const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>inline friend tbigint <a name="bigint:operator-(const bigint&amp;,const tbigint&amp;)">operator-</a> (const bigint&amp; A, const tbigint&amp; B)</h3>
+<h3>inline friend tbigint <a name="bigint:operator-(const tbigint&amp;,const bigint&amp;)">operator-</a> (const tbigint&amp; A, const bigint&amp; B)</h3>
+<h3>inline friend tbigint <a name="bigint:operator-(const tbigint&amp;,const tbigint&amp;)">operator-</a> (const tbigint&amp; A, const tbigint&amp; B)</h3>
+<h3>inline friend tbigint <a name="bigint:operator*(const bigint&amp;,const bigint&amp;)">operator*</a> (const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>inline friend tbigint <a name="bigint:operator/(const bigint&amp;,const bigint&amp;)">operator/</a> (const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>inline friend tbigint <a name="bigint:gcd(const bigint&amp;,const bigint&amp;)">gcd</a> (const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>inline friend tbigint <a name="bigint:gcd(const bigint&amp;,const tbigint&amp;)">gcd</a> (const bigint&amp; A, const tbigint&amp; B)</h3>
+<h3>inline friend tbigint <a name="bigint:gcd(const tbigint&amp;,const bigint&amp;)">gcd</a> (const tbigint&amp; A, const bigint&amp; B)</h3>
+<h3>inline friend tbigint <a name="bigint:gcd(const tbigint&amp;,const tbigint&amp;)">gcd</a> (const tbigint&amp; A, const tbigint&amp; B)</h3>
+<h3>inline friend tbigint <a name="bigint:pow(const bigint&amp;,const bigint&amp;)">pow</a> (const bigint&amp; A, const bigint&amp; B)</h3>
+<p>
+<h3>inline friend tbigint <a name="bigint:root(const bigint&amp;,const bigint&amp;)">root</a> (const bigint&amp; A, const bigint&amp; B)</h3>
+<h3>inline tbigint <a name="bigint:p2prod(unsigned)const">p2prod</a> (unsigned long b) const</h3>
+<h3>inline tbigint <a name="bigint:p2quot(unsigned)const">p2quot</a> (unsigned long b) const</h3>
+<h3>inline tbigint <a name="bigint:pow(unsigned)const">pow</a> (unsigned long b) const</h3>
+<h3>inline tbigint <a name="bigint:operator+(atom)const">operator+</a> (atom b) const</h3>
+<h3>inline bigint&amp; <a name="bigint:operator+=(atom)">operator+=</a> (atom b)</h3>
+<h3>inline bigint&amp; <a name="bigint:operator+=(const bigint&amp;)">operator+=</a> (const bigint&amp; B)</h3>
+<h3>inline tbigint <a name="bigint:operator-(atom)const">operator-</a> (atom b) const</h3>
+<h3>inline bigint&amp; <a name="bigint:operator-=(atom)">operator-=</a> (atom b)</h3>
+<h3>inline bigint&amp; <a name="bigint:operator-=(const bigint&amp;)">operator-=</a> (const bigint&amp; B)</h3>
+<h3>inline bigint&amp; <a name="bigint:operator*=(const bigint&amp;)">operator*=</a> (const bigint&amp; B)</h3>
+<h3>inline bigint&amp; <a name="bigint:operator/=(const bigint&amp;)">operator/=</a> (const bigint&amp; B)</h3>
+<h3>inline bigint&amp; <a name="bigint:operator++()">operator++</a> ()</h3>
+<h3>inline bigint&amp; <a name="bigint:operator--()">operator--</a> ()</h3>
+<h3>inline tbigint <a name="bigint:abs()const">abs</a> () const</h3>
+<h3>inline tbigint <a name="bigint:sqrt()const">sqrt</a> () const</h3>
+<h3>inline tbigint <a name="bigint:operator-()const">operator-</a> () const</h3>
+<h3>friend ostream&amp; <a name="bigint:operator&lt;&lt;(ostream&amp;,const bigint&amp;)">operator&lt;&lt;</a> (ostream&amp; os, const bigint&amp; B)</h3>
+<h3>friend istream&amp; <a name="bigint:operator&gt;&gt;(istream&amp;,bigint&amp;)">operator&gt;&gt;</a> (istream&amp; is, bigint&amp; B)</h3>
+<h3>int <a name="bigint:to_int()const">to_int</a> () const</h3>
+<h3>long <a name="bigint:to_long()const">to_long</a> () const</h3>
+<h3>float <a name="bigint:to_float()const">to_float</a> () const</h3>
+<h3>double <a name="bigint:to_double()const">to_double</a> () const</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="bigint:to_Mpieee()const">to_Mpieee</a> () const</h3>
+<h3>void <a name="bigint:to_string(char*,int)const">to_string</a> (char* string, int lengte) const</h3>
+<hr>
+
+<h1>class tbigint: public <a href="bigint.html#bigint">bigint</a></h1>
+<h1>Interface</h1>
+<dl>
+<dd> <a href="#tbigint:tbigint(): bigint)">tbigint</a> () : bigint ()
+<dd> <a href="#tbigint:tbigint(int)">tbigint</a> (int i) : bigint (i)
+<dd> <a href="#tbigint:tbigint(atom)">tbigint</a> (atom a) : bigint (a)
+<dd> <a href="#tbigint:tbigint(long)">tbigint</a> (long l) : bigint (l)
+<dd> <a href="#tbigint:tbigint(unsigned)">tbigint</a> (unsigned long l) : bigint (l)
+<dd> <a href="#tbigint:tbigint(const bigint&amp;)">tbigint</a> (const bigint&amp; B) : bigint (B)
+<dd> <a href="#tbigint:tbigint(const tbigint&amp;)">tbigint</a> (const tbigint&amp; B) : bigint (B)
+<dd> <a href="#tbigint:tbigint(twoatoms,twoatoms)">tbigint</a> (twoatoms ll1, twoatoms ll2)
+<dd> <a href="#tbigint:~tbigint()">~tbigint</a> ()
+<dd> inline tbigint <a href="#tbigint:abs()const">abs</a> () const
+<dd> inline tbigint <a href="#tbigint:operator-()const">operator-</a> () const
+<dd> inline bigint&amp; <a href="#tbigint:operator=(const bigint&amp;)">operator=</a> (const bigint&amp; B)
+<dd> inline bigint&amp; <a href="#tbigint:operator=(const tbigint&amp;)">operator=</a> (const tbigint&amp; B)
+<dd> inline tbigint <a href="#tbigint:operator+(atom)const">operator+</a> (atom b) const
+<dd> inline tbigint <a href="#tbigint:operator-(atom)const">operator-</a> (atom b) const
+<dd> inline tbigint <a href="#tbigint:p2prod(unsigned)const">p2prod</a> (unsigned long b) const
+<dd> inline tbigint <a href="#tbigint:p2quot(unsigned)const">p2quot</a> (unsigned long b) const
+<dd> inline tbigint <a href="#tbigint:pow(unsigned)const">pow</a> (unsigned long b) const
+</dl>
+</dl>
+<h1><a name="tbigint:description">Description</a></h1>
+
+<h1>Member Description</h1>
+<h3><a name="tbigint:tbigint(): bigint)">tbigint</a> () : bigint ()</h3>
+<h3><a name="tbigint:tbigint(int)">tbigint</a> (int i) : bigint (i)</h3>
+<h3><a name="tbigint:tbigint(atom)">tbigint</a> (atom a) : bigint (a)</h3>
+<h3><a name="tbigint:tbigint(long)">tbigint</a> (long l) : bigint (l)</h3>
+<h3><a name="tbigint:tbigint(unsigned)">tbigint</a> (unsigned long l) : bigint (l)</h3>
+<h3><a name="tbigint:tbigint(const bigint&amp;)">tbigint</a> (const bigint&amp; B) : bigint (B)</h3>
+<h3><a name="tbigint:tbigint(const tbigint&amp;)">tbigint</a> (const tbigint&amp; B) : bigint (B)</h3>
+<h3><a name="tbigint:tbigint(twoatoms,twoatoms)">tbigint</a> (twoatoms ll1, twoatoms ll2)</h3>
+<h3><a name="tbigint:~tbigint()">~tbigint</a> ()</h3>
+<h3>inline tbigint <a name="tbigint:abs()const">abs</a> () const</h3>
+<h3>inline tbigint <a name="tbigint:operator-()const">operator-</a> () const</h3>
+<h3>inline bigint&amp; <a name="tbigint:operator=(const bigint&amp;)">operator=</a> (const bigint&amp; B)</h3>
+<h3>inline bigint&amp; <a name="tbigint:operator=(const tbigint&amp;)">operator=</a> (const tbigint&amp; B)</h3>
+<h3>inline tbigint <a name="tbigint:operator+(atom)const">operator+</a> (atom b) const</h3>
+<h3>inline tbigint <a name="tbigint:operator-(atom)const">operator-</a> (atom b) const</h3>
+<h3>inline tbigint <a name="tbigint:p2prod(unsigned)const">p2prod</a> (unsigned long b) const</h3>
+<h3>inline tbigint <a name="tbigint:p2quot(unsigned)const">p2quot</a> (unsigned long b) const</h3>
+<h3>inline tbigint <a name="tbigint:pow(unsigned)const">pow</a> (unsigned long b) const</h3>
+</body>
+</html>

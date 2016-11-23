@@ -1,0 +1,482 @@
+/******************************************************************************
+**
+** Arithmos class library
+** 
+** MpIeee : Multiprecision floating-point software library
+**
+** Copyright (C) 2000
+** Research Group Computer Arithmetic & Numerical Techniques (CANT)
+** Department of Mathematics & Computer Science
+** University of Antwerp
+** Universiteitsplein 1
+** B-2610 Wilrijk
+** BELGIUM
+**
+** contact : cant@uia.ua.ac.be
+**
+******************************************************************************/
+
+
+#ifdef log2
+#undef log2
+#endif
+
+
+/**
+** @brief	Set MpIeee to biggest (in abs. value) normal.
+** @param	s sign
+**/
+#ifndef OUTLINE
+inline
+#endif
+void MpIeee::setMax( sign s )
+{
+  int i = prec();
+  Digit* d = mpSignificand;
+  Digit raMin1 = fpEnv.getRadix() - 1;
+  
+  setExp( getU() );
+  setSign( s );
+
+  while (i--)
+    {
+      *(++d) = raMin1; // eerste digit wordt blkbr ni gebruik.
+    }
+}
+
+#ifndef OUTLINE
+inline 
+#endif
+Digit log2(Digit x) {
+  return (Digit) (log10((double)x)/log10(2));
+}
+
+#ifndef OUTLINE
+inline 
+#endif
+int PrecisionMismatch(void) {
+  cout << "Precision mismatch between numbers" << endl << flush;
+  return 0;
+}
+
+
+#ifndef OUTLINE
+inline
+#endif
+void MpIeee::iCopy(const Digit *src, Digit *dst, int n) {
+  int i = n + 1;
+
+  while (i-- > 0) {
+    *dst++=*src++;
+  }
+}
+
+#ifndef OUTLINE
+inline
+#endif
+unsigned int MpIeee::fillPrecStack(unsigned int prec,unsigned int *nstack) {
+  unsigned int ne,nd=prec,ndt,kst;
+    
+  ne = (unsigned int) ::floor((MAX_BITS - 1) / MpIeee::fpEnv.fpenvLog2Radix);
+  // ne is the min. number of correct digits after conversion from double
+  kst = 1;
+  nstack[1] = nd;
+  ndt = (nd/2);
+  while (ndt >= ne) {
+    if (2*ndt < nd) ndt += 1;
+    nd = ndt;
+    kst += 1;
+    nstack[kst]= nd;
+    ndt = (nd/2);
+  } // while
+  return kst;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+int MpIeee::isZero() const {
+  if (mpExponent == L - 1) {
+    /*
+     * Signed zero
+     */
+    unsigned int i = 1;
+    while ((i <= mpPrecision) && (mpSignificand[i] == 0)) i++;
+    return (i > mpPrecision);
+  }
+  /*
+   * Unsigned zeros are only supported if SpecialValue support is on.
+   */
+  else if ((fpEnv.getMask() & FP_IRP) && isIeeeNan())
+  {
+    /* 
+     * Extract special value from nan-mantissa.
+     */
+    SpecialValue s;
+    s.setBitPattern( mpSignificand[2] );
+    return s.isZero();
+  }
+  else
+    return 0;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void MpIeee::setZero(sign newsign) {
+  mpExponent = L - 1;
+  for (unsigned int i = 1;i <= mpPrecision;i++)
+    mpSignificand[i] = 0;
+  setSign(newsign);
+}
+
+#ifndef OUTLINE
+inline
+#endif
+int MpIeee::isInf() const {
+  if (mpExponent == U + 1)
+  {
+    if (mpSignificand[1] == 0)
+    {
+      /*
+       * Signed infinity
+       */
+      return 1;
+    }
+    else if (fpEnv.getMask() & FP_IRP)
+    {
+      /*
+       * Unsigned infinity is represented as NaN, but is only
+       * recognized as unsigned infinity if the FP_IRP mask is
+       * set.
+       */
+      SpecialValue s;
+      s.setBitPattern( mpSignificand[2] );
+      return s.isInf();
+    }
+    return 0;
+  }
+  else return 0;
+    
+//  return ((mpExponent == U + 1) && (mpSignificand[1] == 0));
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void MpIeee::setInf(sign newsign) {
+  mpExponent = U;
+  mpExponent++;
+  mpSignificand[1] = 0;
+  setSign(newsign);
+}
+  
+#ifndef OUTLINE
+inline
+#endif
+int MpIeee::isIeeeNan() const {
+  return (mpExponent == U + 1) && (mpSignificand[1] != 0);
+}
+    
+#ifndef OUTLINE
+inline
+#endif
+int MpIeee::isNan() const {
+  if ((mpExponent == U + 1) && (mpSignificand[1] != 0))
+  {
+    if (fpEnv.getMask() & FP_IRP)
+    {
+      /*
+       * Only check for `real' nan
+       */
+      SpecialValue s;
+      s.setBitPattern( mpSignificand[2] );
+      return s.isNan();
+    }
+    else
+    {
+      return 1;
+    }
+  }
+  else
+  {
+    return 0;
+  }
+}
+    
+#ifndef OUTLINE
+inline
+#endif
+void MpIeee::setNan() {
+  mpExponent = U;
+  mpExponent++;
+  mpSignificand[1] = 1;
+  mpSignificand[2] = SpecialValue::nan().getBitPattern();
+  mpSign = plus;
+}
+
+/**
+ ** @brief  Checks for special value
+ ** @return Nonzero iff the MpIeee represents a special value.
+ ** @remark Zero is considered as special too.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+int MpIeee::isSpecial() const
+{
+  return isZero() || isInf() || isIeeeNan();
+}      
+      
+#ifndef OUTLINE
+inline
+#endif
+void MpIeee::setSpecial( SpecialValue sv ) {
+  if (sv.isZero() && sv.getSignBits() != spUnsigned) {
+    setZero( sv.getSignBits() == spPlus ? plus : minus );
+  }
+  else if (sv.isInf () && sv.getSignBits() != spUnsigned) {
+    setInf( sv.getSignBits() == spPlus ? plus : minus );
+  }
+  else {
+    setNan();
+    if (fpEnv.getMask() & FP_IRP)
+    {
+      mpSignificand[2] = sv.getBitPattern();
+    }
+    else
+    {
+      /*
+       * Indien de FP_IRP vlag niet gezet is, moeten unsigned zeros
+       * naar +0 of -0 geconverteerd worden.
+       */
+      if (sv.isZero())
+	{
+	  if (fpEnv.getRound() != FP_RM)
+	    {
+	      setZero( plus );
+	    }
+	  else
+	    {
+	      setZero( minus );
+	    }
+	}
+      else
+	{
+	  /*
+	   * Andere speciale waarden worden NaN.
+	   */
+	  mpSignificand[2] = SpecialValue::nan().getBitPattern();
+	  /*
+	   * Indien niet-nan naar NaN geconverteerd wordt, wordt invalid
+	   * vlag gezet.
+	   */
+	  if (!sv.isNan())
+	    {
+	      fpEnv.signalExcep( FP_INV );
+	    }
+	}
+    }
+  }
+}
+  
+#ifndef OUTLINE
+inline
+#endif
+sign MpIeee::getSign() const {
+  if (isIeeeNan())
+  {
+    SpecialValue sp;
+    sp.setBitPattern( mpSignificand[2] );
+    if (sp.isNan() || sp.getSignBits() == spUnsigned || !(fpEnv.getMask() & FP_IRP))
+    {
+      // fpEnv.setExcep( FP_INV );
+      //
+      // Wegelaten owv conflicten met rest van implementatie.
+    }
+    return (sp.getSignBits() == spMinus ? minus : plus);
+  }
+  else
+  {
+    return mpSign;
+  }
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void MpIeee::setSign(sign newsign) {
+  if (isIeeeNan())
+  {
+    SpecialValue sp;
+    sp.setBitPattern( mpSignificand[2] );
+    if (sp.getIaxBits() <= spIar)
+    {
+      sp = (newsign == plus) ? sp.abs() : -sp.abs();
+    }
+    mpSignificand[2] = sp.getBitPattern();
+  }
+  mpSign = newsign;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+int MpIeee::getExp() const {
+  return mpExponent;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void MpIeee::setExp(long int e) {
+  mpExponent =  e;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+unsigned int MpIeee::prec() const {
+  return mpPrecision;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+int MpIeee::getL() const
+{
+  return L;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+int MpIeee::getU() const
+{
+  return U;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+Digit& MpIeee::operator[](unsigned int i) {
+  return mpSignificand[i];
+}
+
+#ifndef OUTLINE
+inline
+#endif
+Digit MpIeee::operator[](unsigned int i) const {
+  return mpSignificand[i];
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void MpIeee::operator=( int i ) {
+  fromInt(i);
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void MpIeee::operator=( unsigned int i ) {
+  fromUint(i);
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void MpIeee::operator=( long i ) {
+  fromLong(i);
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void MpIeee::operator=( unsigned long i ) {
+  fromUlong(i);
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void MpIeee::operator=( longlong i ) {
+  fromLlong(i);
+}
+
+#ifndef _WINDOWS_MSVC_
+#ifndef OUTLINE
+inline
+#endif
+void MpIeee::operator=( ulonglong i ) {
+  fromUllong(i);
+}
+#endif
+
+#ifndef OUTLINE
+inline
+#endif
+void MpIeee::operator=(double d) {
+  fromDouble(d);
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void MpIeee::operator=(long double l) {
+  fromDouble(l);
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void MpIeee::operator=( SpecialValue s )
+{
+  setSpecial( s );
+}
+
+/**
+ ** @brief  Checks for valid character for MpIeee
+ ** @param  c character to check validness of
+ ** @return nonzero if the character is valid
+ ** @remark Valid characters are [0-9A-Za-z.+-]
+ **/
+#ifndef OUTLINE
+inline 
+#endif
+unsigned int validChar( char c )
+{
+  return (c >= '0' && c <= '9' || c >= 'A' && c <= 'Z' || c >='a' && c
+          <= 'z' || c == '.' || c == '+' || c == '-');
+}
+
+#ifndef OUTLINE
+inline
+#endif
+Digit MpIeee::setSticky(const MpIeee &X, unsigned int from)
+{
+  for ( int i = from; i <= X.prec(); i++ )
+    if ( X[i] != 0 )
+      return 1;
+  
+  return 0;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+MpIeee& MpIeee::fastAssign ( const MpIeee& source, MpIeee& destination )
+{
+  if (destination.mpPrecision ==  source.mpPrecision) {
+    destination.L = source.L;
+    destination.U = source.U;
+    destination.mpSign = source.mpSign;
+    MpIeee::iCopy(source.mpSignificand, destination.mpSignificand, 
+		  source.mpPrecision);
+    destination.mpExponent = source.mpExponent;
+    return destination;
+  }
+  else
+    destination = source;
+}

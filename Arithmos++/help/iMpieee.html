@@ -1,0 +1,125 @@
+<html>
+<head>
+<title> iMpieee.h </title>
+</head>
+<body>
+<hr WIDTH="100%">
+<p><b>Back:</b>&nbsp;&nbsp;<a href="Mpieee.html">Mpieee.h</a>&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp; <b>Next:</b>&nbsp;&nbsp;
+<a href="heart.html">heart.h</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>
+Up:&nbsp;&nbsp;</b> <a href="indexProgram.html">Program Index Help</a>
+<br>
+<hr WIDTH="100%">
+<h1> iMpieee.h </h1>
+<h1>Classes</h1>
+<dl>
+<dd> <a href="#iMpieee"> iMpieee </a> --  (<em><a href="#iMpieee:description">full description</a></em>)
+</dl>
+<hr>
+
+<h1>class iMpieee </h1>
+<h1>Interface</h1>
+<dl>
+<dd> <b>Public Members</b>
+
+<dl>
+
+<dd> <a href="#iMpieee:iMpieee()">iMpieee</a>()
+<dd> <a href="#iMpieee:iMpieee(unsigned)">iMpieee</a>(unsigned int prec)
+<dd> <a href="#iMpieee:iMpieee(Mpieee&amp;)">iMpieee</a>(<a href="Mpieee.html#Mpieee">Mpieee</a> &amp;R)
+<dd> <a href="#iMpieee:iMpieee(Mpieee&amp;,Mpieee&amp;)">iMpieee</a>(<a href="Mpieee.html#Mpieee">Mpieee</a> &amp;Inf, <a href="Mpieee.html#Mpieee">Mpieee</a> &amp;Sup)
+<dd> <a href="#iMpieee:iMpieee(const iMpieee&amp;)">iMpieee</a>(const iMpieee &amp;R)
+<dd> <a href="#iMpieee:~iMpieee()">~iMpieee</a>()
+<dd> void <a href="#iMpieee:operator=(const iMpieee&amp;)">operator=</a>(const iMpieee &amp;R)
+<dd> unsigned int <a href="#iMpieee:prec()const">prec</a>() const
+<dd> <a href="Mpieee.html#Mpieee">Mpieee</a> <a href="#iMpieee:getInf()const">getInf</a>() const
+<dd> <a href="Mpieee.html#Mpieee">Mpieee</a> <a href="#iMpieee:getSup()const">getSup</a>() const
+<dd> iMpieee <a href="#iMpieee:operator+(const iMpieee&amp;)">operator+</a>(const iMpieee &amp;Y)
+<dd> iMpieee <a href="#iMpieee:operator-(const iMpieee&amp;)">operator-</a>(const iMpieee &amp;Y)
+<dd> iMpieee <a href="#iMpieee:operator*(const iMpieee&amp;)">operator*</a>(const iMpieee &amp;Y)
+<dd> iMpieee <a href="#iMpieee:operator/(const iMpieee&amp;)">operator/</a>(const iMpieee &amp;Y)
+<dd> iMpieee <a href="#iMpieee:sqrt()">sqrt</a>()
+<dd> int <a href="#iMpieee:operator==(const iMpieee&amp;)">operator==</a>(const iMpieee &amp;Y)
+<dd> int <a href="#iMpieee:operator!=(const iMpieee&amp;)">operator!=</a>(const iMpieee &amp;Y)
+<dd> int <a href="#iMpieee:operator&lt;(const iMpieee&amp;)">operator&lt;</a>(const iMpieee &amp;Y)
+<dd> int <a href="#iMpieee:operator&lt;=(const iMpieee&amp;)">operator&lt;=</a>(const iMpieee &amp;Y)
+<dd> int <a href="#iMpieee:operator&gt;(const iMpieee&amp;)">operator&gt;</a>(const iMpieee &amp;Y)
+<dd> int <a href="#iMpieee:operator&gt;=(const iMpieee&amp;)">operator&gt;=</a>(const iMpieee &amp;Y)
+<dd> int <a href="#iMpieee:unordered(const iMpieee&amp;)">unordered</a>(const iMpieee &amp;Y)
+<dd> iMpieee <a href="#iMpieee:rint()">rint</a>()
+<dd> void <a href="#iMpieee:fromdecimal(char*)">fromdecimal</a>(char *decimal)
+<dd> void <a href="#iMpieee:todecimal(char*,unsigned)">todecimal</a>(char *decimal, unsigned int prec)
+<dd> <a href="Mpieee.html#Mpieee">Mpieee</a> <a href="#iMpieee:diam()">diam</a>()
+<dd> void <a href="#iMpieee:scaleTo2Pi(Mpieee&amp;,Mpieee&amp;)">scaleTo2Pi</a>(<a href="Mpieee.html#Mpieee">Mpieee</a> &amp;Inf, <a href="Mpieee.html#Mpieee">Mpieee</a> &amp;Sup)
+<dd> iMpieee <a href="#iMpieee:sin()">sin</a>()
+<dd> iMpieee <a href="#iMpieee:cos()">cos</a>()
+<dd> iMpieee <a href="#iMpieee:tan()">tan</a>()
+<dd> iMpieee <a href="#iMpieee:cotan()">cotan</a>()
+<dd> iMpieee <a href="#iMpieee:atan()">atan</a>()
+<dd> iMpieee <a href="#iMpieee:asin()">asin</a>()
+<dd> iMpieee <a href="#iMpieee:acos()">acos</a>()
+<dd> iMpieee <a href="#iMpieee:exp()">exp</a>()
+<dd> iMpieee <a href="#iMpieee:sinh()">sinh</a>()
+<dd> iMpieee <a href="#iMpieee:cosh()">cosh</a>()
+<dd> iMpieee <a href="#iMpieee:tanh()">tanh</a>()
+<dd> iMpieee <a href="#iMpieee:ln()">ln</a>()
+<dd> iMpieee <a href="#iMpieee:log10()">log10</a>()
+<dd> iMpieee <a href="#iMpieee:log2()">log2</a>()
+<dd> friend ostream&amp; <a href="#iMpieee:operator&lt;&lt;(ostream&amp;,const iMpieee&amp;)">operator&lt;&lt;</a>(ostream &amp;o,const iMpieee &amp;s)
+</dl>  
+
+<dd> <b>Private Members</b>
+
+<dl>
+
+<dd> static int <a href="#iMpieee:quadrant(Mpieee&amp;)">quadrant</a>(<a href="Mpieee.html#Mpieee">Mpieee</a> &amp;mp)
+</dl>
+</dl>
+<h1><a name="iMpieee:description">Description</a></h1>
+
+<h1>Member Description</h1>
+<h3><a name="iMpieee:iMpieee()">iMpieee</a>()</h3>
+<h3><a name="iMpieee:iMpieee(unsigned)">iMpieee</a>(unsigned int prec)</h3>
+<h3><a name="iMpieee:iMpieee(Mpieee&amp;)">iMpieee</a>(<a href="Mpieee.html#Mpieee">Mpieee</a> &amp;R)</h3>
+<h3><a name="iMpieee:iMpieee(Mpieee&amp;,Mpieee&amp;)">iMpieee</a>(<a href="Mpieee.html#Mpieee">Mpieee</a> &amp;Inf, <a href="Mpieee.html#Mpieee">Mpieee</a> &amp;Sup)</h3>
+<h3><a name="iMpieee:iMpieee(const iMpieee&amp;)">iMpieee</a>(const iMpieee &amp;R)</h3>
+<h3><a name="iMpieee:~iMpieee()">~iMpieee</a>()</h3>
+<h3>void <a name="iMpieee:operator=(const iMpieee&amp;)">operator=</a>(const iMpieee &amp;R)</h3>
+<h3>unsigned int <a name="iMpieee:prec()const">prec</a>() const</h3>
+<h3><a href="Mpieee.html#Mpieee">Mpieee</a> <a name="iMpieee:getInf()const">getInf</a>() const</h3>
+<h3><a href="Mpieee.html#Mpieee">Mpieee</a> <a name="iMpieee:getSup()const">getSup</a>() const</h3>
+<h3>iMpieee <a name="iMpieee:operator+(const iMpieee&amp;)">operator+</a>(const iMpieee &amp;Y)</h3>
+<h3>iMpieee <a name="iMpieee:operator-(const iMpieee&amp;)">operator-</a>(const iMpieee &amp;Y)</h3>
+<h3>iMpieee <a name="iMpieee:operator*(const iMpieee&amp;)">operator*</a>(const iMpieee &amp;Y)</h3>
+<h3>iMpieee <a name="iMpieee:operator/(const iMpieee&amp;)">operator/</a>(const iMpieee &amp;Y)</h3>
+<h3>iMpieee <a name="iMpieee:sqrt()">sqrt</a>()</h3>
+<h3>int <a name="iMpieee:operator==(const iMpieee&amp;)">operator==</a>(const iMpieee &amp;Y)</h3>
+<h3>int <a name="iMpieee:operator!=(const iMpieee&amp;)">operator!=</a>(const iMpieee &amp;Y)</h3>
+<h3>int <a name="iMpieee:operator&lt;(const iMpieee&amp;)">operator&lt;</a>(const iMpieee &amp;Y)</h3>
+<h3>int <a name="iMpieee:operator&lt;=(const iMpieee&amp;)">operator&lt;=</a>(const iMpieee &amp;Y)</h3>
+<h3>int <a name="iMpieee:operator&gt;(const iMpieee&amp;)">operator&gt;</a>(const iMpieee &amp;Y)</h3>
+<h3>int <a name="iMpieee:operator&gt;=(const iMpieee&amp;)">operator&gt;=</a>(const iMpieee &amp;Y)</h3>
+<h3>int <a name="iMpieee:unordered(const iMpieee&amp;)">unordered</a>(const iMpieee &amp;Y)</h3>
+<h3>iMpieee <a name="iMpieee:rint()">rint</a>()</h3>
+<h3>void <a name="iMpieee:fromdecimal(char*)">fromdecimal</a>(char *decimal)</h3>
+<h3>void <a name="iMpieee:todecimal(char*,unsigned)">todecimal</a>(char *decimal, unsigned int prec)</h3>
+<h3><a href="Mpieee.html#Mpieee">Mpieee</a> <a name="iMpieee:diam()">diam</a>()</h3>
+<h3>void <a name="iMpieee:scaleTo2Pi(Mpieee&amp;,Mpieee&amp;)">scaleTo2Pi</a>(<a href="Mpieee.html#Mpieee">Mpieee</a> &amp;Inf, <a href="Mpieee.html#Mpieee">Mpieee</a> &amp;Sup)</h3>
+<h3>iMpieee <a name="iMpieee:sin()">sin</a>()</h3>
+<h3>iMpieee <a name="iMpieee:cos()">cos</a>()</h3>
+<h3>iMpieee <a name="iMpieee:tan()">tan</a>()</h3>
+<h3>iMpieee <a name="iMpieee:cotan()">cotan</a>()</h3>
+<h3>iMpieee <a name="iMpieee:atan()">atan</a>()</h3>
+<h3>iMpieee <a name="iMpieee:asin()">asin</a>()</h3>
+<h3>iMpieee <a name="iMpieee:acos()">acos</a>()</h3>
+<h3>iMpieee <a name="iMpieee:exp()">exp</a>()</h3>
+<h3>iMpieee <a name="iMpieee:sinh()">sinh</a>()</h3>
+<h3>iMpieee <a name="iMpieee:cosh()">cosh</a>()</h3>
+<h3>iMpieee <a name="iMpieee:tanh()">tanh</a>()</h3>
+<h3>iMpieee <a name="iMpieee:ln()">ln</a>()</h3>
+<h3>iMpieee <a name="iMpieee:log10()">log10</a>()</h3>
+<h3>iMpieee <a name="iMpieee:log2()">log2</a>()</h3>
+<h3>friend ostream&amp; <a name="iMpieee:operator&lt;&lt;(ostream&amp;,const iMpieee&amp;)">operator&lt;&lt;</a>(ostream &amp;o,const iMpieee &amp;s)</h3>
+<h3>static int <a name="iMpieee:quadrant(Mpieee&amp;)">quadrant</a>(<a href="Mpieee.html#Mpieee">Mpieee</a> &amp;mp)</h3>
+</body>
+</html>

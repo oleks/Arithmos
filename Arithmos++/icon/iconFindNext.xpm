@@ -1,0 +1,32 @@
+/* XPM */
+static const char *iconFindNext[] = {
+/* width height num_colors chars_per_pixel */
+"    20    20        5            1",
+/* colors */
+". c #000000",
+"# c #000080",
+"a c #808080",
+"b c none",
+"c c #c0c0c0",
+/* pixels */
+"bbbbbbbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbbbbbbb",
+"bbbb..b..bbbbbbbbbbb",
+"bbbb..b..bbbbbbbbbbb",
+"bbb.a...a.bbbbbbbbbb",
+"bb.........bbbbbbbbb",
+"bb.c..b.c..bbbbbbbbb",
+"bb.a..b.a..bbbbbbbbb",
+"bb...bbb...bbbbbbbbb",
+"bb...bbb...bbbbbbbbb",
+"bbbbbbbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbb#bbbbb",
+"bbbbbbbbbbbbbb##bbbb",
+"bbbbb#b#b#b######bbb",
+"bbbbbbbbbbbbbb##bbbb",
+"bbbbbbbbbbbbbb#bbbbb",
+"bbbbbbbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbbbbbbb"
+};

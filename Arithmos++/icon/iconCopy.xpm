@@ -1,0 +1,31 @@
+/* XPM */
+static const char *iconCopy[] = {
+/* width height num_colors chars_per_pixel */
+"    20    20        4            1",
+/* colors */
+". c #000000",
+"# c #000080",
+"a c none",
+"b c #ffffff",
+/* pixels */
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aa......aaaaaaaaaaaa",
+"aa.bbbb..aaaaaaaaaaa",
+"aa.bbbb.b.aaaaaaaaaa",
+"aa.b..b.######aaaaaa",
+"aa.bbbbb#bbbb##aaaaa",
+"aa.b....#bbbb#b#aaaa",
+"aa.bbbbb#b..b####aaa",
+"aa.b....#bbbbbbb#aaa",
+"aa.bbbbb#b.....b#aaa",
+"aa......#bbbbbbb#aaa",
+"aaaaaaaa#b.....b#aaa",
+"aaaaaaaa#bbbbbbb#aaa",
+"aaaaaaaa#########aaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa"
+};

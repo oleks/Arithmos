@@ -1,0 +1,210 @@
+/**
+ ** @file    IMpIeee.icc
+ ** @brief   inline functions for the ImPieee class
+ **
+ ** $Id: IMpIeee.icc,v 1.7 2001/05/17 12:29:34 jvvloet Exp $
+ ** $Date: 2001/05/17 12:29:34 $
+ ** $Author: jvvloet $
+ **/   
+
+
+#include <string.h>
+
+
+/**
+ ** @brief	Return the precision of the interval
+ ** @return	precision of the interval
+ **/ 
+#ifndef OUTLINE
+inline
+#endif
+unsigned int IMpIeee::prec() const 
+{ 
+  /*
+   * In theorie moeten de precisie van infimum en supremum gelijk
+   * zijn, maar je weet maar nooit...  
+   */
+  return min( inf->prec(), sup->prec() ); 
+}
+
+/**
+ ** @brief	Return the minimal exponent of the interval
+ ** @return	Guess... ;-)
+ **/
+#ifndef OUTLINE
+inline
+#endif
+int IMpIeee::getL() const
+{
+  /*
+   * Normaal is L gelijk voor infimum en supremum, maar just in
+   * case...  */
+  return max( inf->getL(), sup->getL() );
+}
+
+/**
+ ** @brief	Return the maximal exponent of the interval
+ ** @return	Guess... ;-)
+ **/
+#ifndef OUTLINE
+inline
+#endif
+int IMpIeee::getU() const
+{
+  /*
+   * Normaal is L gelijk voor infimum en supremum, maar just in
+   * case...  */
+  return min( inf->getU(), sup->getU() );
+}
+
+/**
+ ** @brief   Assigns NaN to this IMpIeee
+ ** @return  Reference to this IMpIeee
+ **/
+#ifndef OUTLINE
+inline
+#endif
+IMpIeee& IMpIeee::setNan()
+{
+  /*
+   * [NaN, NaN] is a representation for the empty interval
+   */
+  inf->setNan();
+  sup->setNan();
+  properties.setNan();
+  return *this;
+}
+
+
+#ifndef OUTLINE
+inline
+#endif
+int IMpIeee::isPhi() const { 
+  return !(*inf <= *sup) && properties.isPhi(); 
+}
+
+
+#ifndef OUTLINE
+inline
+#endif
+int IMpIeee::isZero() const {
+  return ((inf->isZero() && sup->isZero() && properties.isPhi())
+	  || (!(*inf <= *sup) && properties.isZero()));
+}
+
+
+#ifndef OUTLINE
+inline
+#endif
+int IMpIeee::isInf() const { 
+  return !(*inf <= *sup) && properties.isInf(); 
+}
+
+
+#ifndef OUTLINE
+inline
+#endif
+int IMpIeee::iisPhi() const { 
+  return !(*inf <= *sup); 
+}
+
+
+#ifndef OUTLINE
+inline
+#endif
+IMpIeee IMpIeee::withoutInf() const {
+  IMpIeee result(*this);
+  result.properties.removeInf();
+  return result;
+}
+
+    
+#ifndef OUTLINE
+inline
+#endif
+MpIeee IMpIeee::getInf() const { 
+  return (*inf); 
+}
+
+
+#ifndef OUTLINE
+inline
+#endif
+MpIeee IMpIeee::getSup() const { 
+  return (*sup); 
+}
+
+
+#ifndef OUTLINE
+inline
+#endif
+int operator== ( const IMpIeee& A, const IMpIeee& B ) { 
+  return ceq( A, B ); 
+}
+
+
+#ifndef OUTLINE
+inline
+#endif
+int operator!= ( const IMpIeee& A, const IMpIeee& B ) { 
+  return pneq( A, B ); 
+}
+
+
+#ifndef OUTLINE
+inline
+#endif
+int operator< ( const IMpIeee& A, const IMpIeee& B ) { 
+  return cles( A, B ); 
+}
+
+
+#ifndef OUTLINE
+inline
+#endif
+int operator<= ( const IMpIeee& A, const IMpIeee& B ) { 
+  return cleq( A, B ); 
+}
+
+
+#ifndef OUTLINE
+inline
+#endif
+int operator> ( const IMpIeee& A, const IMpIeee& B ) { 
+  return cgtr( A, B ); 
+}
+
+
+#ifndef OUTLINE
+inline
+#endif
+int operator>= ( const IMpIeee& A, const IMpIeee& B ) { 
+  return cgeq( A, B ); 
+}
+
+
+#ifndef OUTLINE
+inline
+#endif
+int unordered ( const IMpIeee& A, const IMpIeee& B ) { 
+  return !cleq( A, B ) && !cgeq( A, B ); 
+}
+
+
+#ifndef OUTLINE
+inline
+#endif
+void IMpIeee::splitInterval ( char *str, char *&sep, char *&inf, char *&sup ) {
+  sep = strchr(str, ';');
+  if (!sep)
+    sep = strchr(str, ',');
+
+  if (sep) {
+    inf = str;
+    sup = sep+1;
+  }
+  else {
+    inf = str;
+    sup = str;
+  }
+}

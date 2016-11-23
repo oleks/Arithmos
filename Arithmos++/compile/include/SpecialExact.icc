@@ -1,0 +1,18 @@
+/**
+ ** @file    SpecialExact.icc
+ ** @brief   Inline functions for Special Value support for exact arithmetic.
+ **
+ ** $Id: SpecialExact.icc,v 1.1 2001/04/12 08:14:27 jvvloet Exp $
+ ** $Date: 2001/04/12 08:14:27 $
+ ** $Author: jvvloet $
+ **/
+
+#ifndef OUTLINE
+inline
+#endif
+SpecialExact& SpecialExact::operator=( SpecialValue sv )
+{
+	mProperties = sv.getBitPattern();
+	mcs = sv.getCSP();
+	return *this;
+}

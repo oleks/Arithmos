@@ -1,0 +1,30 @@
+/* XPM */
+static const char *iconUndo[] = {
+/* width height num_colors chars_per_pixel */
+"    20    20        3            1",
+/* colors */
+". c #000080",
+"# c #808080",
+"a c none",
+/* pixels */
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaa....#aaaaa",
+"aaaa.aaa..aaaa.#aaaa",
+"aaaa..a.aaaaaaa.aaaa",
+"aaaa...aaaaaaaa.aaaa",
+"aaaa....aaaaaaa.aaaa",
+"aaaa.....aaaaa.#aaaa",
+"aaaaaaaaaaaaa#.aaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa"
+};

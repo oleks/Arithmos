@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="description" CONTENT="Approximation theory">
+   <META NAME="keywords" CONTENT="acbv">
+   <META NAME="resource-type" CONTENT="document">
+   <META NAME="distribution" CONTENT="global">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.07 [en] (X11; I; Linux 2.0.36 i686) [Netscape]">
+<!--Converted with LaTeX2HTML 98.2 beta6 (August 14th, 1998)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<LINK REL="STYLESHEET" HREF="acbv.css">
+<LINK REL="next" HREF="node9.html">
+<LINK REL="previous" HREF="node7.html">
+<LINK REL="up" HREF="node5.html">
+<LINK REL="next" HREF="node9.html">
+</HEAD>
+<BODY>
+<!--Navigation Panel-->
+<BR><B>Next: </B><A HREF="node9.html" NAME="tex2html109">Random number
+generators</A>
+<B>Up: </B><A HREF="node5.html" NAME="tex2html107">Numerical
+Techniques</A>
+<B>Previous: </B><A HREF="node7.html" NAME="tex2html101">Root-finding</A>
+<P><!--End of Navigation Panel-->
+<H1>
+Approximation theory</H1>
+Motivating problems in this context are:
+<UL>
+<LI>
+CAD-CAM applications</LI>
+
+<LI>
+implementation of elementary functions on a chip</LI>
+</UL>
+Of all the modules, this is the most comprehensive one since it covers
+several mathematical techniques, including interpolation, Chebyshev approximation,
+splines, least squares and rational approximation. For all except the last
+of these techniques, polynomials are used as approximating functions. After
+a brief theoretical discussion, we emphasize how the nature of the problem
+influences the choice of the approximation method. There is a cross-reference
+to the arithmetic part of the course, since the quality of the numeric
+data will determine whether the problem needs to be tackled in the least-squares
+or in the interpolation sense. The implementation of the function <I>e<SUP>x</SUP></I>
+in the mathematical function library
+<TT>fdlibm</TT>, made publicly available
+by SUN [<A HREF="node14.html#sunlib">6</A>], is thoroughly discussed as
+an example, including the choice of approximation and the computer arithmetic
+details of the implementation.
+<CENTER>
+<P><IMG SRC="./img14.png" ALT="\includegraphics[angle=-90,width=\textwidth]{sinus-col.eps}" BORDER=0 HEIGHT=383 WIDTH=547 ALIGN=BOTTOM></CENTER>
+
+<CENTER>Scatterplot for the polynomial approximation</CENTER>
+
+<CENTER>of degree 13 for&nbsp;<IMG SRC="./img15.png" ALT="$\sin(x)$" BORDER=0 ALIGN=CENTER>
+used in <TT>fdlibm</TT></CENTER>
+
+<P><BR>
+<HR>
+<ADDRESS>
+<I>Stefan.Becuwe</I></ADDRESS>
+
+<BR><I>1999-05-05</I>
+</BODY>
+</HTML>

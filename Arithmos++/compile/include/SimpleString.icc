@@ -1,0 +1,103 @@
+/**
+ ** @file     SimpleString.icc
+ ** @brief    Inline functions of SimpleString
+ ** @version  $Id: SimpleString.icc,v 1.2 2000/12/22 10:11:07 jvvloet Exp $
+ ** @date     $Date: 2000/12/22 10:11:07 $
+ ** @author   $Author: jvvloet $
+ **
+ ** The SimpleString class is used for the input of the IMpIeee
+ ** class.  In the future, it will be used for BigInt input too.
+ **/
+
+/**
+ ** @brief  Constructor
+ ** @param  Initial amount of bits to allocate for the string.
+ **/ 
+#ifndef OUTLINE
+inline
+#endif
+SimpleString::SimpleString( unsigned int size )
+{
+  /*
+   * Buffer cannot be empty, because the [] operator doubles the
+   * in case of overflow.  An empty buffer indicates memory
+   * shortage.
+   */
+  size = size ? size : 1;
+  mBuffer = (unsigned char*)malloc( size );
+  mBufferSize = size;
+}
+
+/**
+ ** @brief  Destructor
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SimpleString::~SimpleString()
+{
+  free( mBuffer );
+}
+
+/**
+ ** @brief    Access to the characters of the string
+ ** @param    i Number of the character to be accessed
+ ** @return   Character on the i'th position.
+ ** @remark   If the desired character isn't part of the string
+ **   	      buffer, zero is returned.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned char SimpleString::operator[]( unsigned int i ) const
+{
+  return (i < mBufferSize) ? mBuffer[i] : 0;
+}
+
+/**
+ ** @brief    Access to the characters of the string
+ ** @param    i Number of the character to be accessed
+ ** @return   Reference to character on the i'th position.
+ ** @remark   If the desired character isn't part of the string
+ **   	      buffer, the string buffer will be enlarged.  If there's
+ **   	      not enough memory available, a reference to the 
+ **   	      SimpleString#mMemoryOverflow character will be returned.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned char& SimpleString::operator[]( unsigned int i )
+{
+  while (mBufferSize && i >= mBufferSize)
+  {
+    resize( mBufferSize << 1 ); /* double buffer size */
+  }
+  return (mBufferSize ? mBuffer[i] : mMemoryOverflow);
+}
+
+
+/**
+ ** @brief  Conversion to an `ordinary' string.
+ ** @return String in the buffer (const)
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SimpleString::operator const char*() const
+{
+  return (const char*)mBuffer;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void SimpleString::resize( unsigned int size )
+{
+  /*
+   * Cryptic code...
+   * Resizes the buffer to size size, and sets mBufferSize to size.
+   * If resize operation fails, mBufferSize is set to zero.
+   */
+  mBufferSize = ((mBuffer = (unsigned char*)realloc( mBuffer, size ))
+                 != 0) ? size : 0;
+}

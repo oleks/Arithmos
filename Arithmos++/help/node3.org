@@ -1,0 +1,131 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="description" CONTENT="Theory">
+   <META NAME="keywords" CONTENT="acbv">
+   <META NAME="resource-type" CONTENT="document">
+   <META NAME="distribution" CONTENT="global">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (X11; I; Linux 2.0.34 i586) [Netscape]">
+<!--Converted with LaTeX2HTML 98.2 beta6 (August 14th, 1998)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<LINK REL="STYLESHEET" HREF="acbv.css">
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+<BODY>
+<!--Navigation Panel-->
+<BR><B>Next:&nbsp;<A NAME="tex2html56" HREF="node4.html"></A><A NAME="tex2html56" HREF="node4.html"></A><A NAME="tex2html56" HREF="node4.html"></A></B><A HREF="node4.html" NAME="tex2html56">Hands-on
+experience</A> <B>Up:<A NAME="tex2html54" HREF="node2.html"></A><A NAME="tex2html54" HREF="node2.html"></A><A NAME="tex2html54" HREF="node2.html"></A></B><A HREF="node2.html" NAME="tex2html54">Computer
+Arithmetic</A> <B>Previous:<A NAME="tex2html48" HREF="node2.html"></A><A NAME="tex2html48" HREF="node2.html"></A><A NAME="tex2html48" HREF="node2.html"></A></B><A HREF="node2.html" NAME="tex2html48">Computer
+Arithmetic</A>
+
+<P><!--End of Navigation Panel-->
+<H1>
+Theory</H1>
+<FONT SIZE=+2>
+The essence of this part of the course is to discuss how
+the number sets&nbsp;
+<IMG SRC="img1.png" BORDER=0 ALIGN=BOTTOM>
+and&nbsp;<IMG SRC="img2.png" BORDER=0  ALIGN=TEXTTOP>
+can be represented on a computer and to show how computing with the computer
+representation of these numbers instead of with the numbers themselves
+influences the computations. Throughout this part of the course, the level
+of complexity evolves in two directions. On one hand, the complexity evolves
+as we go from&nbsp;<IMG SRC="img3.png" ALT="$\ifmmode{Z\hskip -4.8pt Z}\else{\hbox{$Z\hskip -4.8pt Z$}}\fi $" BORDER=0  ALIGN=TEXTTOP>
+(integer arithmetic) to&nbsp;<IMG SRC="img4.png" ALT="$\ifmmode{Q\hskip-5.0pt\vrule height6.0pt depth 0pt\hskip6pt}\else{\hbox{$Q\hskip-5.0pt\vrule height6.0pt depth 0pt\hskip6pt$}}\fi $" BORDER=0  ALIGN=TEXTTOP>
+(exact rational arithmetic) to&nbsp;<IMG SRC="img2.png" ALT="$\ifmmode{I\hskip -3pt R}\else{\hbox{$I\hskip -3pt R$}}\fi $" BORDER=0  ALIGN=TEXTTOP>
+(exactly rounded arithmetic). On the other hand, the complexity increases
+as we allow more complex operations on each of these number sets.
+
+<P>Section 1 covers computer representations of the mathematical
+number sets&nbsp;<IMG SRC="img3.png" ALT="$\ifmmode{Z\hskip -4.8pt Z}\else{\hbox{$Z\hskip -4.8pt Z$}}\fi $" BORDER=0  ALIGN=BOTTOM>,&nbsp;<IMG SRC="img4.png" ALT="$\ifmmode{Q\hskip-5.0pt\vrule height6.0pt depth 0pt\hskip6pt}\else{\hbox{$Q\hskip-5.0pt\vrule height6.0pt depth 0pt\hskip6pt$}}\fi $" BORDER=0  ALIGN=CENTER>
+and&nbsp;<IMG SRC="img2.png" ALT="$\ifmmode{I\hskip -3pt R}\else{\hbox{$I\hskip -3pt R$}}\fi $" BORDER=0  ALIGN=BOTTOM>:
+the set of machine integers&nbsp;<IMG SRC="img5.png" ALT="$\ifmmode{Z\hskip -4.8pt Z}\else{\hbox{$Z\hskip -4.8pt Z$}}\fi _t$" BORDER=0  ALIGN=CENTER>,
+where <I>t</I> indicates the number of bits provided to represent the integer
+(including its sign), the set&nbsp;<IMG SRC="img6.png" ALT="$\ifmmode{Q\hskip-5.0pt\vrule height6.0pt depth 0pt\hskip3pt _M}\else{\hbox{$Q\hskip-5.0pt\vrule height6.0pt depth 0pt\hskip3pt _M$}}\fi $" BORDER=0  ALIGN=TEXTTOP>
+of rationals that can be represented in finite machine memory, and the
+set of floating-point numbers&nbsp;<IMG SRC="img7.png" ALT="$\ifmmode{I\hskip -3pt F}\else{\hbox{$I\hskip -3pt F$}}\fi (\beta,t,L,U)$" BORDER=0  ALIGN=TEXTTOP>,
+with base&nbsp;<IMG SRC="img8.png" ALT="$\beta$" BORDER=0  ALIGN=TEXTTOP>,
+precision <I>t</I>, and exponent range [<I>L</I>,<I>U</I>]. For short,
+when no confusion is possible, we shall often write&nbsp;<IMG SRC="img9.png" ALT="$\ifmmode{I\hskip -3pt F}\else{\hbox{$I\hskip -3pt F$}}\fi _t$" BORDER=0  ALIGN=TEXTTOP>
+instead of&nbsp;<IMG SRC="img7.png" ALT="$\ifmmode{I\hskip -3pt F}\else{\hbox{$I\hskip -3pt F$}}\fi (\beta,t,L,U)$" BORDER=0  ALIGN=TEXTTOP>.
+Several considerations have to be taken into account when defining these
+sets of computer numbers: the choice of the base&nbsp;<IMG SRC="img8.png" ALT="$\beta$" BORDER=0  ALIGN=TEXTTOP>,
+the base conversions incurred on input and output of data, the amount of
+bits provided for the exponent versus the significand in floating-point
+numbers of predetermined size, the rounding error involved in going from
+either&nbsp;<IMG SRC="img1.png" ALT="$\ifmmode{Z\hskip -4.8pt Z}\else{\hbox{$Z\hskip -4.8pt Z$}}\fi , \ifmmode{Q\hsk......skip6pt}\else{\hbox{$Q\hskip-5.0pt\vrule height6.0pt depth 0pt\hskip6pt$}}\fi $" BORDER=0  ALIGN=TEXTTOP>
+or&nbsp;<IMG SRC="img2.png" ALT="$\ifmmode{I\hskip -3pt R}\else{\hbox{$I\hskip -3pt R$}}\fi $" BORDER=0  ALIGN=TEXTTOP>
+to&nbsp;<IMG SRC="img9.png" ALT="$\ifmmode{I\hskip -3pt F}\else{\hbox{$I\hskip -3pt F$}}\fi _t$" BORDER=0  ALIGN=TEXTTOP>
+etc.
+
+<P>In the next sections, operations on these computer number
+sets are discussed in increasing order of complexity. Section 2 discusses
+the elementary operations +,-, x ,/ and the essential difference between
+these operations in&nbsp;<IMG SRC="img10.png" ALT="$\ifmmode{Z\hskip -4.8pt Z}\else{\hbox{$Z\hskip -4.8pt Z$}}\fi _t,\ifmmode{Q\hs...... _M}\else{\hbox{$Q\hskip-5.0pt\vrule height6.0pt depth 0pt\hskip3pt _M$}}\fi $" BORDER=0  ALIGN=TEXTTOP>
+on one hand and&nbsp;<IMG SRC="img9.png" ALT="$\ifmmode{I\hskip -3pt F}\else{\hbox{$I\hskip -3pt F$}}\fi _t$" BORDER=0  ALIGN=TEXTTOP>
+on the other hand, due to the absence, respectively effect of rounding
+errors. In Section 3 relational operators are discussed, emphasizing that
+programmers should hardly ever try to test whether two floating-point values
+are exactly equal to each other. Section 4 discusses in short the problem
+of implementing the elementary functions. Taylor series expansions bring
+out the concept of truncation error in a very natural way.
+
+<P>A next level of complexity arises in Section 5 when, instead
+of a single operation, compound statements are programmed. Compound statements
+involve such problems as the accumulation of rounding errors and the choice
+of an evaluation strategy (widest format available, widest needed precision,&nbsp;<IMG SRC="img11.png" ALT="$\ldots$" BORDER=0  ALIGN=BOTTOM>),
+especially when operands of different precisions are mixed. The effect
+of the evaluation strategy is clearly illustrated by running the same numeric
+code on different hardware platforms, for example SUN-Sparc versus Intel-PC.
+
+<P>With the functionality described in the previous sections,
+all ingredients are there to implement complete numerical algorithms in&nbsp;<IMG SRC="img9.png" ALT="$\ifmmode{I\hskip -3pt F}\else{\hbox{$I\hskip -3pt F$}}\fi _t$" BORDER=0  ALIGN=CENTER>.
+The build-up of rounding and data errors in the implementation of algorithms
+leads to the essential concepts of forward and backward error analysis,
+numerical stability and ill-conditioning. These are discussed and illustrated
+in great detail in Section 6.
+
+<P>To top off the build-up in the previous sections, Section
+7 discusses the IEEE standard [<A HREF="node14.html#ieee85">3</A>,<A HREF="node14.html#ieee87">4</A>]
+for floating-point arithmetic. This standard embodies all of the details
+encountered when effectively implementing floating-point arithmetic on
+a binary machine. Several important but very detailistic concepts such
+as denormals, special representations, exception flags and so on come about.
+
+<P>For users not satisfied with IEEE floating-point arithmetic,
+the next few sections present and discuss alternatives. A first alternative
+is multi-precision floating-point arithmetic, discussed in Section 8. Several
+software implementations of multi-precision floating-point arithmetic exist,
+some of which are based on the vector (or doubled-precision) approach,
+while others are based on increasing the precision <I>t</I> and the base&nbsp;<IMG SRC="img8.png" ALT="$\beta$" BORDER=0  ALIGN=CENTER>.
+Another alternative for floating-point arithmetic is interval arithmetic.
+This is discussed in some detail in Section 9. The last section covers
+rational arithmetic or computing in&nbsp;<IMG SRC="img6.png" ALT="$\ifmmode{Q\hskip-5.0pt\vrule height6.0pt depth 0pt\hskip3pt _M}\else{\hbox{$Q\hskip-5.0pt\vrule height6.0pt depth 0pt\hskip3pt _M$}}\fi $" BORDER=0  ALIGN=CENTER>,
+as an alternative to computing in&nbsp;<IMG SRC="img9.png" ALT="$\ifmmode{I\hskip -3pt F}\else{\hbox{$I\hskip -3pt F$}}\fi _t$" BORDER=0  ALIGN=CENTER>.
+For the implementation of rational arithmetic other building blocks are
+required than for the implementation of floating-point arithmetic: computing
+the Greatest Common Divisor, rational rounding (with lowest complexity)
+from&nbsp;<IMG SRC="img2.png" ALT="$\ifmmode{I\hskip -3pt R}\else{\hbox{$I\hskip -3pt R$}}\fi $" BORDER=0  ALIGN=BOTTOM>
+to&nbsp;<IMG SRC="img6.png" ALT="$\ifmmode{Q\hskip-5.0pt\vrule height6.0pt depth 0pt\hskip3pt _M}\else{\hbox{$Q\hskip-5.0pt\vrule height6.0pt depth 0pt\hskip3pt _M$}}\fi $" BORDER=0  ALIGN=CENTER>,
+etc. This section, which concludes the computer arithmetic part of the
+course, is at the same time a good starting-point for extra material on
+polynomial and symbolic computation.
+
+<P>
+<HR><!--Navigation Panel-->
+<BR><B>Next:&nbsp;<A NAME="tex2html56" HREF="node4.html"></A><A NAME="tex2html56" HREF="node4.html"></A><A NAME="tex2html56" HREF="node4.html"></A></B><A HREF="node4.html" NAME="tex2html56">Hands-on
+experience</A> <B>Up:<A NAME="tex2html54" HREF="node2.html"></A><A NAME="tex2html54" HREF="node2.html"></A><A NAME="tex2html54" HREF="node2.html"></A></B><A HREF="node2.html" NAME="tex2html54">Computer
+Arithmetic</A> <B>Previous:<A NAME="tex2html48" HREF="node2.html"></A><A NAME="tex2html48" HREF="node2.html"></A><A NAME="tex2html48" HREF="node2.html"></A></B><A HREF="node2.html" NAME="tex2html48">Computer
+Arithmetic<!--End of Navigation Panel--></A>
+<ADDRESS>
+<I>Stefan.Becuwe</I></ADDRESS>
+
+<BR><I>1999-05-05</I>
+</BODY>
+</HTML>

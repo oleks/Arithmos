@@ -1,0 +1,312 @@
+<html>
+<head>
+<title> Mpieee.h </title>
+</head>
+<body>
+<hr WIDTH="100%">
+<p><b>Back:</b>&nbsp;&nbsp;<a href="fpenv.html">fpenv.h</a>&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp; <b>Next:</b>&nbsp;&nbsp;
+<a href="iMpieee.html">iMpieee.h</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>
+Up:&nbsp;&nbsp;</b> <a href="indexProgram.html">Program Index Help</a>
+<br>
+<hr WIDTH="100%">
+<h1> Mpieee.h </h1>
+<h1>Classes</h1>
+<dl>
+<dd> <a href="#signs"> signs </a> --  (<em><a href="#signs:description">full description</a></em>)
+<dd> <a href="#Mpieee"> Mpieee </a> --  (<em><a href="#Mpieee:description">full description</a></em>)
+<dd> <a href="#TmpMpieee"> TmpMpieee </a> --  (<em><a href="#TmpMpieee:description">full description</a></em>)
+</dl>
+<hr>
+
+<h1>typedef enum signs </h1>
+<blockquote>
+
+<dl>
+<dt> <b>plus</b> = 0
+<dd>
+</dd>
+<dt> <b>minus</b> = 1
+<dd>
+</dd>
+</dl>
+</blockquote>
+<h1><a name="signs:description">Description</a></h1>
+<p>
+<hr>
+
+<h1>class Mpieee </h1>
+<h1>Interface</h1>
+<dl>
+<dd> <b>Private Members</b>
+
+<dl>
+
+<dd> int <a href="#Mpieee:is_abs_greater_than(const Mpieee&amp;)const">is_abs_greater_than</a>(const Mpieee &amp;Y) const
+<dd> long int <a href="#Mpieee:log(const Mpieee&amp;)const">log</a>(const Mpieee &amp;X) const
+<dd> void <a href="#Mpieee:add(Mpieee&amp;,unsigned,digit&amp;,digit&amp;,digit&amp;,digit&amp;)">add</a>(Mpieee &amp;Y, unsigned int prec,digit &amp;extrax1,digit &amp;extrax2,digit &amp;extray1,digit &amp;extray2)
+<dd> unsigned int <a href="#Mpieee:div2(const Mpieee&amp;,const Mpieee&amp;,unsigned,digit&amp;,digit&amp;)">div2</a>(const Mpieee &amp;X, const Mpieee &amp;Y,unsigned int prec,digit &amp;extra1,digit &amp;extra2)
+<dd> void <a href="#Mpieee:divby2(unsigned,digit&amp;,digit&amp;)">divby2</a>(unsigned int prec,digit &amp;extra1,digit &amp;extra2)
+<dd> void <a href="#Mpieee:round(digit,digit,digit)">round</a>(digit g, digit r, digit s)
+<dd> void <a href="#Mpieee:dround(unsigned,digit)">dround</a>(unsigned int precision, digit ulps)
+<dd> double <a href="#Mpieee:todigit()const">todigit</a>() const
+<dd> void <a href="#Mpieee:mulby2()">mulby2</a>()
+<dd> void <a href="#Mpieee:add(const Mpieee&amp;,const Mpieee&amp;,sign)">add</a>(const Mpieee &amp;X, const Mpieee &amp;Y, sign newsign)
+<dd> void <a href="#Mpieee:sub(const Mpieee&amp;,const Mpieee&amp;,sign)">sub</a>(const Mpieee &amp;X, const Mpieee &amp;Y, sign newsign)
+<dd> void <a href="#Mpieee:mul(const Mpieee&amp;,const Mpieee&amp;)">mul</a>(const Mpieee &amp;X, const Mpieee &amp;Y)
+<dd> void <a href="#Mpieee:shortproduct(const Mpieee&amp;,const Mpieee&amp;)">shortproduct</a>(const Mpieee &amp;X, const Mpieee &amp;Y)
+<dd> void <a href="#Mpieee:div(const Mpieee&amp;,const Mpieee&amp;)">div</a>(const Mpieee &amp;X, const Mpieee &amp;Y)
+<dd> void <a href="#Mpieee:sqroot(const Mpieee&amp;)">sqroot</a>(const Mpieee &amp;X)
+<dd> void <a href="#Mpieee:remainder(const Mpieee&amp;,const Mpieee&amp;)">remainder</a>(const Mpieee &amp;X, const Mpieee &amp;Y)
+<dd> void <a href="#Mpieee:sine(const Mpieee&amp;)">sine</a>(const Mpieee &amp;X)
+<dd> void <a href="#Mpieee:cosine(const Mpieee&amp;)">cosine</a>(const Mpieee &amp;X)
+<dd> void <a href="#Mpieee:tangent(const Mpieee&amp;)">tangent</a>(const Mpieee &amp;X)
+<dd> void <a href="#Mpieee:cotangent(const Mpieee&amp;)">cotangent</a>(const Mpieee &amp;X)
+<dd> void <a href="#Mpieee:arctangent(const Mpieee&amp;)">arctangent</a>(const Mpieee &amp;X)
+<dd> void <a href="#Mpieee:arcsine(const Mpieee&amp;)">arcsine</a>(const Mpieee &amp;X)
+<dd> void <a href="#Mpieee:arccosine(const Mpieee&amp;)">arccosine</a>(const Mpieee &amp;X)
+<dd> void <a href="#Mpieee:exponential(const Mpieee&amp;)">exponential</a>(const Mpieee &amp;X)
+<dd> void <a href="#Mpieee:hyperbolicsine(const Mpieee&amp;)">hyperbolicsine</a>(const Mpieee &amp;X)
+<dd> void <a href="#Mpieee:hyperboliccosine(const Mpieee&amp;)">hyperboliccosine</a>(const Mpieee &amp;X)
+<dd> void <a href="#Mpieee:hyperbolictangent(const Mpieee&amp;)">hyperbolictangent</a>(const Mpieee &amp;X)
+<dd> void <a href="#Mpieee:naturallog(const Mpieee&amp;)">naturallog</a>(const Mpieee &amp;X)
+<dd> void <a href="#Mpieee:naturallog1(const Mpieee&amp;)">naturallog1</a>(const Mpieee &amp;X)
+</dl>  
+
+<dd> <b>Public Members</b>
+
+<dl>
+
+<dd> friend ostream&amp; <a href="#Mpieee:operator&lt;&lt;(ostream&amp;,const Mpieee&amp;)">operator&lt;&lt;</a>(ostream &amp;o,const Mpieee &amp;s)
+<dd> <a href="#Mpieee:Mpieee()">Mpieee</a>()
+<dd> <a href="#Mpieee:Mpieee(unsigned,int,int)">Mpieee</a>(unsigned int prec,int L,int U)
+<dd> <a href="#Mpieee:Mpieee(unsigned,unsigned)">Mpieee</a>(unsigned int prec,unsigned int expsize = 0)
+<dd> <a href="#Mpieee:Mpieee(char*,unsigned,unsigned)">Mpieee</a>(char *str,unsigned int prec = 0, unsigned int expsize = 0)
+<dd> <a href="#Mpieee:Mpieee(const Mpieee&amp;)">Mpieee</a>(const Mpieee &amp;R)
+<dd> <a href="#Mpieee:Mpieee(TmpMpieee&amp;)">Mpieee</a>(<a href="Mpieee.html#TmpMpieee">TmpMpieee</a> &amp;T)
+<dd> <a href="#Mpieee:~Mpieee()">~Mpieee</a>()
+<dd> void <a href="#Mpieee:operator=(const Mpieee&amp;)">operator=</a>(const Mpieee &amp;R)
+<dd> void <a href="#Mpieee:operator=(TmpMpieee&amp;)">operator=</a>(<a href="Mpieee.html#TmpMpieee">TmpMpieee</a> &amp;T)
+<dd> void <a href="#Mpieee:resize(const unsigned)">resize</a>(const unsigned int new_prec)
+<dd> int <a href="#Mpieee:iszero()const">iszero</a>() const
+<dd> void <a href="#Mpieee:setzero(sign)">setzero</a>(sign newsign)
+<dd> int <a href="#Mpieee:isinf()const">isinf</a>() const
+<dd> void <a href="#Mpieee:setinf(sign)">setinf</a>(sign newsign)
+<dd> int <a href="#Mpieee:isnan()const">isnan</a>() const
+<dd> void <a href="#Mpieee:setnan()">setnan</a>()
+<dd> sign <a href="#Mpieee:getsign()const">getsign</a>() const
+<dd> void <a href="#Mpieee:setsign(sign)">setsign</a>(sign newsign)
+<dd> int <a href="#Mpieee:getexp()const">getexp</a>() const
+<dd> void <a href="#Mpieee:setexp(long)">setexp</a>(long int e)
+<dd> unsigned int <a href="#Mpieee:prec()const">prec</a>() const
+<dd> digit&amp; <a href="#Mpieee:operator[](unsigned)">operator[]</a>(unsigned int i)
+<dd> digit <a href="#Mpieee:operator[](unsigned)const">operator[]</a>(unsigned int i) const
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:operator+(const Mpieee&amp;)">operator+</a>(const Mpieee &amp;Y)
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:operator-(const Mpieee&amp;)">operator-</a>(const Mpieee &amp;Y)
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:operator*(const Mpieee&amp;)">operator*</a>(const Mpieee &amp;Y)
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:operator/(const Mpieee&amp;)">operator/</a>(const Mpieee &amp;Y)
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:sqrt()">sqrt</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:operator%(const Mpieee&amp;)">operator%</a>(const Mpieee &amp;Y)
+<dd> void <a href="#Mpieee:operator+=(const Mpieee&amp;)">operator+=</a>(const Mpieee &amp;Y)
+<dd> void <a href="#Mpieee:operator-=(const Mpieee&amp;)">operator-=</a>(const Mpieee &amp;Y)
+<dd> void <a href="#Mpieee:operator*=(const Mpieee&amp;)">operator*=</a>(const Mpieee &amp;Y)
+<dd> void <a href="#Mpieee:operator/=(const Mpieee&amp;)">operator/=</a>(const Mpieee &amp;Y)
+<dd> int <a href="#Mpieee:operator==(const Mpieee&amp;)const">operator==</a>(const Mpieee &amp;Y) const
+<dd> int <a href="#Mpieee:operator!=(const Mpieee&amp;)">operator!=</a>(const Mpieee &amp;Y)
+<dd> int <a href="#Mpieee:operator&gt;(const Mpieee&amp;)">operator&gt;</a>(const Mpieee &amp;Y)
+<dd> int <a href="#Mpieee:operator&lt;(const Mpieee&amp;)">operator&lt;</a>(const Mpieee &amp;Y)
+<dd> int <a href="#Mpieee:operator&gt;=(const Mpieee&amp;)">operator&gt;=</a>(const Mpieee &amp;Y)
+<dd> int <a href="#Mpieee:operator&lt;=(const Mpieee&amp;)">operator&lt;=</a>(const Mpieee &amp;Y)
+<dd> int <a href="#Mpieee:unordered(const Mpieee&amp;)">unordered</a>(const Mpieee &amp;Y)
+<dd> <a href="#Mpieee:Mpieee(double)">Mpieee</a>(double d)
+<dd> void <a href="#Mpieee:operator=(double)">operator=</a>(double d)
+<dd> void <a href="#Mpieee:fromdouble(double)">fromdouble</a>(double x)
+<dd> void <a href="#Mpieee:rint()">rint</a>()
+<dd> long Mpieee::<a href="#Mpieee:toint32()">toint32</a>()
+<dd> unsigned long Mpieee::<a href="#Mpieee:touint32()">touint32</a>()
+<dd> long long Mpieee::<a href="#Mpieee:toint64()">toint64</a>()
+<dd> unsigned long long Mpieee::<a href="#Mpieee:touint64()">touint64</a>()
+<dd> float Mpieee::<a href="#Mpieee:to_float()">to_float</a>()
+<dd> void <a href="#Mpieee:fromdecimal(char*)">fromdecimal</a>(char *decimal)
+<dd> void <a href="#Mpieee:todecimal(char*,unsigned)">todecimal</a>(char *decimal,unsigned int prec)
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:sin()">sin</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:cos()">cos</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:tan()">tan</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:cotan()">cotan</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:atan()">atan</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:acotan()">acotan</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:asin()">asin</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:acos()">acos</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:exp()">exp</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:exp2()">exp2</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:exp10()">exp10</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:sinh()">sinh</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:cosh()">cosh</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:tanh()">tanh</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:cotanh()">cotanh</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:arsinh()">arsinh</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:arcosh()">arcosh</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:artanh()">artanh</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:arcotanh()">arcotanh</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:ln()">ln</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:log10()">log10</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:log2()">log2</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:pow(const Mpieee&amp;)">pow</a>(const Mpieee &amp;Y)
+<dd> void <a href="#Mpieee:pi()">pi</a>()
+<dd> void <a href="#Mpieee:pi2()">pi2</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:abs()">abs</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:floor()">floor</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#Mpieee:ceil()">ceil</a>()
+</dl>
+</dl>
+<h1><a name="Mpieee:description">Description</a></h1>
+
+<h1>Member Description</h1>
+<h3>int <a name="Mpieee:is_abs_greater_than(const Mpieee&amp;)const">is_abs_greater_than</a>(const Mpieee &amp;Y) const</h3>
+<p>
+<h3>long int <a name="Mpieee:log(const Mpieee&amp;)const">log</a>(const Mpieee &amp;X) const</h3>
+<h3>void <a name="Mpieee:add(Mpieee&amp;,unsigned,digit&amp;,digit&amp;,digit&amp;,digit&amp;)">add</a>(Mpieee &amp;Y, unsigned int prec,digit &amp;extrax1,digit &amp;extrax2,digit &amp;extray1,digit &amp;extray2)</h3>
+<h3>unsigned int <a name="Mpieee:div2(const Mpieee&amp;,const Mpieee&amp;,unsigned,digit&amp;,digit&amp;)">div2</a>(const Mpieee &amp;X, const Mpieee &amp;Y,unsigned int prec,digit &amp;extra1,digit &amp;extra2)</h3>
+<h3>void <a name="Mpieee:divby2(unsigned,digit&amp;,digit&amp;)">divby2</a>(unsigned int prec,digit &amp;extra1,digit &amp;extra2)</h3>
+<h3>void <a name="Mpieee:round(digit,digit,digit)">round</a>(digit g, digit r, digit s)</h3>
+<h3>void <a name="Mpieee:dround(unsigned,digit)">dround</a>(unsigned int precision, digit ulps)</h3>
+<h3>double <a name="Mpieee:todigit()const">todigit</a>() const</h3>
+<h3>void <a name="Mpieee:mulby2()">mulby2</a>()</h3>
+<h3>void <a name="Mpieee:add(const Mpieee&amp;,const Mpieee&amp;,sign)">add</a>(const Mpieee &amp;X, const Mpieee &amp;Y, sign newsign)</h3>
+<h3>void <a name="Mpieee:sub(const Mpieee&amp;,const Mpieee&amp;,sign)">sub</a>(const Mpieee &amp;X, const Mpieee &amp;Y, sign newsign)</h3>
+<h3>void <a name="Mpieee:mul(const Mpieee&amp;,const Mpieee&amp;)">mul</a>(const Mpieee &amp;X, const Mpieee &amp;Y)</h3>
+<h3>void <a name="Mpieee:shortproduct(const Mpieee&amp;,const Mpieee&amp;)">shortproduct</a>(const Mpieee &amp;X, const Mpieee &amp;Y)</h3>
+<h3>void <a name="Mpieee:div(const Mpieee&amp;,const Mpieee&amp;)">div</a>(const Mpieee &amp;X, const Mpieee &amp;Y)</h3>
+<h3>void <a name="Mpieee:sqroot(const Mpieee&amp;)">sqroot</a>(const Mpieee &amp;X)</h3>
+<h3>void <a name="Mpieee:remainder(const Mpieee&amp;,const Mpieee&amp;)">remainder</a>(const Mpieee &amp;X, const Mpieee &amp;Y)</h3>
+<h3>void <a name="Mpieee:sine(const Mpieee&amp;)">sine</a>(const Mpieee &amp;X)</h3>
+<h3>void <a name="Mpieee:cosine(const Mpieee&amp;)">cosine</a>(const Mpieee &amp;X)</h3>
+<h3>void <a name="Mpieee:tangent(const Mpieee&amp;)">tangent</a>(const Mpieee &amp;X)</h3>
+<h3>void <a name="Mpieee:cotangent(const Mpieee&amp;)">cotangent</a>(const Mpieee &amp;X)</h3>
+<h3>void <a name="Mpieee:arctangent(const Mpieee&amp;)">arctangent</a>(const Mpieee &amp;X)</h3>
+<h3>void <a name="Mpieee:arcsine(const Mpieee&amp;)">arcsine</a>(const Mpieee &amp;X)</h3>
+<h3>void <a name="Mpieee:arccosine(const Mpieee&amp;)">arccosine</a>(const Mpieee &amp;X)</h3>
+<h3>void <a name="Mpieee:exponential(const Mpieee&amp;)">exponential</a>(const Mpieee &amp;X)</h3>
+<h3>void <a name="Mpieee:hyperbolicsine(const Mpieee&amp;)">hyperbolicsine</a>(const Mpieee &amp;X)</h3>
+<h3>void <a name="Mpieee:hyperboliccosine(const Mpieee&amp;)">hyperboliccosine</a>(const Mpieee &amp;X)</h3>
+<h3>void <a name="Mpieee:hyperbolictangent(const Mpieee&amp;)">hyperbolictangent</a>(const Mpieee &amp;X)</h3>
+<h3>void <a name="Mpieee:naturallog(const Mpieee&amp;)">naturallog</a>(const Mpieee &amp;X)</h3>
+<h3>void <a name="Mpieee:naturallog1(const Mpieee&amp;)">naturallog1</a>(const Mpieee &amp;X)</h3>
+<h3>friend ostream&amp; <a name="Mpieee:operator&lt;&lt;(ostream&amp;,const Mpieee&amp;)">operator&lt;&lt;</a>(ostream &amp;o,const Mpieee &amp;s)</h3>
+<p>
+<h3><a name="Mpieee:Mpieee()">Mpieee</a>()</h3>
+<h3><a name="Mpieee:Mpieee(unsigned,int,int)">Mpieee</a>(unsigned int prec,int L,int U)</h3>
+<h3><a name="Mpieee:Mpieee(unsigned,unsigned)">Mpieee</a>(unsigned int prec,unsigned int expsize = 0)</h3>
+<h3><a name="Mpieee:Mpieee(char*,unsigned,unsigned)">Mpieee</a>(char *str,unsigned int prec = 0, unsigned int expsize = 0)</h3>
+<h3><a name="Mpieee:Mpieee(const Mpieee&amp;)">Mpieee</a>(const Mpieee &amp;R)</h3>
+<h3><a name="Mpieee:Mpieee(TmpMpieee&amp;)">Mpieee</a>(<a href="Mpieee.html#TmpMpieee">TmpMpieee</a> &amp;T)</h3>
+<h3><a name="Mpieee:~Mpieee()">~Mpieee</a>()</h3>
+<h3>void <a name="Mpieee:operator=(const Mpieee&amp;)">operator=</a>(const Mpieee &amp;R)</h3>
+<p>
+<h3>void <a name="Mpieee:operator=(TmpMpieee&amp;)">operator=</a>(<a href="Mpieee.html#TmpMpieee">TmpMpieee</a> &amp;T)</h3>
+<h3>void <a name="Mpieee:resize(const unsigned)">resize</a>(const unsigned int new_prec)</h3>
+<h3>int <a name="Mpieee:iszero()const">iszero</a>() const</h3>
+<p>
+<h3>void <a name="Mpieee:setzero(sign)">setzero</a>(sign newsign)</h3>
+<h3>int <a name="Mpieee:isinf()const">isinf</a>() const</h3>
+<h3>void <a name="Mpieee:setinf(sign)">setinf</a>(sign newsign)</h3>
+<h3>int <a name="Mpieee:isnan()const">isnan</a>() const</h3>
+<h3>void <a name="Mpieee:setnan()">setnan</a>()</h3>
+<h3>sign <a name="Mpieee:getsign()const">getsign</a>() const</h3>
+<h3>void <a name="Mpieee:setsign(sign)">setsign</a>(sign newsign)</h3>
+<h3>int <a name="Mpieee:getexp()const">getexp</a>() const</h3>
+<h3>void <a name="Mpieee:setexp(long)">setexp</a>(long int e)</h3>
+<h3>unsigned int <a name="Mpieee:prec()const">prec</a>() const</h3>
+<h3>digit&amp; <a name="Mpieee:operator[](unsigned)">operator[]</a>(unsigned int i)</h3>
+<h3>digit <a name="Mpieee:operator[](unsigned)const">operator[]</a>(unsigned int i) const</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:operator+(const Mpieee&amp;)">operator+</a>(const Mpieee &amp;Y)</h3>
+<p>
+<p>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:operator-(const Mpieee&amp;)">operator-</a>(const Mpieee &amp;Y)</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:operator*(const Mpieee&amp;)">operator*</a>(const Mpieee &amp;Y)</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:operator/(const Mpieee&amp;)">operator/</a>(const Mpieee &amp;Y)</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:sqrt()">sqrt</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:operator%(const Mpieee&amp;)">operator%</a>(const Mpieee &amp;Y)</h3>
+<h3>void <a name="Mpieee:operator+=(const Mpieee&amp;)">operator+=</a>(const Mpieee &amp;Y)</h3>
+<p>
+<h3>void <a name="Mpieee:operator-=(const Mpieee&amp;)">operator-=</a>(const Mpieee &amp;Y)</h3>
+<h3>void <a name="Mpieee:operator*=(const Mpieee&amp;)">operator*=</a>(const Mpieee &amp;Y)</h3>
+<h3>void <a name="Mpieee:operator/=(const Mpieee&amp;)">operator/=</a>(const Mpieee &amp;Y)</h3>
+<h3>int <a name="Mpieee:operator==(const Mpieee&amp;)const">operator==</a>(const Mpieee &amp;Y) const</h3>
+<p>
+<h3>int <a name="Mpieee:operator!=(const Mpieee&amp;)">operator!=</a>(const Mpieee &amp;Y)</h3>
+<h3>int <a name="Mpieee:operator&gt;(const Mpieee&amp;)">operator&gt;</a>(const Mpieee &amp;Y)</h3>
+<h3>int <a name="Mpieee:operator&lt;(const Mpieee&amp;)">operator&lt;</a>(const Mpieee &amp;Y)</h3>
+<h3>int <a name="Mpieee:operator&gt;=(const Mpieee&amp;)">operator&gt;=</a>(const Mpieee &amp;Y)</h3>
+<h3>int <a name="Mpieee:operator&lt;=(const Mpieee&amp;)">operator&lt;=</a>(const Mpieee &amp;Y)</h3>
+<h3>int <a name="Mpieee:unordered(const Mpieee&amp;)">unordered</a>(const Mpieee &amp;Y)</h3>
+<h3><a name="Mpieee:Mpieee(double)">Mpieee</a>(double d)</h3>
+<p>
+<h3>void <a name="Mpieee:operator=(double)">operator=</a>(double d)</h3>
+<h3>void <a name="Mpieee:fromdouble(double)">fromdouble</a>(double x)</h3>
+<h3>void <a name="Mpieee:rint()">rint</a>()</h3>
+<h3>long Mpieee::<a name="Mpieee:toint32()">toint32</a>()</h3>
+<h3>unsigned long Mpieee::<a name="Mpieee:touint32()">touint32</a>()</h3>
+<h3>long long Mpieee::<a name="Mpieee:toint64()">toint64</a>()</h3>
+<h3>unsigned long long Mpieee::<a name="Mpieee:touint64()">touint64</a>()</h3>
+<h3>float Mpieee::<a name="Mpieee:to_float()">to_float</a>()</h3>
+<h3>void <a name="Mpieee:fromdecimal(char*)">fromdecimal</a>(char *decimal)</h3>
+<h3>void <a name="Mpieee:todecimal(char*,unsigned)">todecimal</a>(char *decimal,unsigned int prec)</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:sin()">sin</a>()</h3>
+<p>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:cos()">cos</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:tan()">tan</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:cotan()">cotan</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:atan()">atan</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:acotan()">acotan</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:asin()">asin</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:acos()">acos</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:exp()">exp</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:exp2()">exp2</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:exp10()">exp10</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:sinh()">sinh</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:cosh()">cosh</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:tanh()">tanh</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:cotanh()">cotanh</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:arsinh()">arsinh</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:arcosh()">arcosh</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:artanh()">artanh</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:arcotanh()">arcotanh</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:ln()">ln</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:log10()">log10</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:log2()">log2</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:pow(const Mpieee&amp;)">pow</a>(const Mpieee &amp;Y)</h3>
+<h3>void <a name="Mpieee:pi()">pi</a>()</h3>
+<h3>void <a name="Mpieee:pi2()">pi2</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:abs()">abs</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:floor()">floor</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="Mpieee:ceil()">ceil</a>()</h3>
+<hr>
+
+<h1>class TmpMpieee: public <a href="Mpieee.html#Mpieee">Mpieee</a></h1>
+<h1>Interface</h1>
+<dl>
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a>()
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a>(const unsigned int prec)
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a>(const <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> &amp;T)
+<dd> <a href="#TmpMpieee:TmpMpieee(const Mpieee&amp;)">TmpMpieee</a>(const <a href="Mpieee.html#Mpieee">Mpieee</a>&amp; R)
+<dd> <a href="#TmpMpieee:~TmpMpieee()">~TmpMpieee</a>()
+<dd> void <a href="#TmpMpieee:operator=(const Mpieee&amp;)">operator=</a>(const <a href="Mpieee.html#Mpieee">Mpieee</a> &amp;R)
+<dd> void <a href="#TmpMpieee:operator=(TmpMpieee&amp;)">operator=</a>(TmpMpieee &amp;T)
+<dd> void TmpMpieee::<a href="#TmpMpieee:fromint(int*)">fromint</a>(int *decimal)
+</dl>
+</dl>
+<h1><a name="TmpMpieee:description">Description</a></h1>
+
+<h1>Member Description</h1>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a>()</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a>(const unsigned int prec)</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a>(const <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> &amp;T)</h3>
+<h3><a name="TmpMpieee:TmpMpieee(const Mpieee&amp;)">TmpMpieee</a>(const <a href="Mpieee.html#Mpieee">Mpieee</a>&amp; R)</h3>
+<h3><a name="TmpMpieee:~TmpMpieee()">~TmpMpieee</a>()</h3>
+<h3>void <a name="TmpMpieee:operator=(const Mpieee&amp;)">operator=</a>(const <a href="Mpieee.html#Mpieee">Mpieee</a> &amp;R)</h3>
+<h3>void <a name="TmpMpieee:operator=(TmpMpieee&amp;)">operator=</a>(TmpMpieee &amp;T)</h3>
+<h3>void TmpMpieee::<a name="TmpMpieee:fromint(int*)">fromint</a>(int *decimal)</h3>
+<p>
+</body>
+</html>

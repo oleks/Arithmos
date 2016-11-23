@@ -1,0 +1,204 @@
+/******************************************************************************
+**
+** Arithmos class library
+** 
+** fpenv : Class which represents the floating-point environment
+**
+** Copyright (C) 2000
+** Research Group Computer Arithmetic & Numerical Techniques (CANT)
+** Department of Mathematics & Computer Science
+** University of Antwerp
+** Universiteitsplein 1
+** B-2610 Wilrijk
+** BELGIUM
+**
+** contact : cant@uia.ua.ac.be
+**
+******************************************************************************/
+
+/**
+ ** @file	FPEnv.icc
+ ** @brief	Inline functions for the FPEnv class.
+ **
+ ** $Id: FPEnv.icc,v 1.14 2001/08/23 13:30:38 sbecuwe Exp $
+ ** $Date: 2001/08/23 13:30:38 $
+ ** $Author: sbecuwe $
+ **/
+
+#ifndef OUTLINE
+inline
+#endif
+FPEnv::FPEnv() {
+  setRadix( (Digit)MAX_RADIX );    // choose the maximum to be the default
+  fpenvGlobalL = fpenvLMIN;
+  fpenvGlobalU = fpenvUMAX;
+  fpenvPrecision = 223;            // default precision
+  fpenvRounding = FP_RN;           // default
+  fpenvExceptions = 0;
+  fpenvMask = FP_ALLEX&(~FP_IRP);  // no traps, but no special values too
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void FPEnv::signalExcep (FP_Excep e) {
+  /*
+   * If the irrepresentable flag is cleared, the invalid flag will be
+   * signaled.
+   */
+  if (~fpenvMask & e & FP_IRP)
+  {
+    e &= ~FP_IRP; /* ignore `irrepresentable' flag */
+    e |= FP_INV;  /* add invalid flag */
+  }
+  /*
+   * Continue like before...
+   */
+  if (fpenvMask && e)
+    fpenvExceptions |= e;
+  else
+    cout << "No trapping supported yet!" << endl;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void FPEnv::setRound(FP_Rnd rounding) {
+  fpenvRounding = rounding;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+FP_Rnd FPEnv::getRound(void) const {
+  return fpenvRounding;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+Digit FPEnv::getRadix() const {
+  return fpenvRadix;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+unsigned int FPEnv::getPrecision() const {
+  return fpenvPrecision;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+int FPEnv::getGlobalL() const {
+  return fpenvGlobalL;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+int FPEnv::getGlobalU() const {
+  return fpenvGlobalU;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void FPEnv::switchRound(void) {
+  switch ( fpenvRounding ) {
+    case FP_RP : fpenvRounding = FP_RM; break;
+    case FP_RM : fpenvRounding = FP_RP; break;
+  }
+}
+
+#ifndef OUTLINE
+inline
+#endif
+FP_Excep FPEnv::getMask(void) const {
+  return fpenvMask;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void FPEnv::setMask(FP_Excep mask) {
+  fpenvMask = mask;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void FPEnv::setExcep(FP_Excep e) {
+  fpenvExceptions = e;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+FP_Excep FPEnv::getExcep(void) const {
+  return fpenvExceptions;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void FPEnv::clearExcep(void) {
+  fpenvExceptions = 0;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void FPEnv::setRadix(Digit newRadix) {
+  if (newRadix <= 2)
+    fpenvRadix = 2;
+  else if (newRadix >= MAX_RADIX)
+    fpenvRadix = (Digit) MAX_RADIX;
+  else if ((fmod(newRadix,2) == 0) || (fmod(newRadix,10) == 0))
+    fpenvRadix = newRadix;
+  else 
+    exit(0);
+  fpenvRadixDiv2 = fpenvRadix / 2;
+  fpenvLog2Radix = (Digit) floor(log(fpenvRadix)/log(2));
+
+  // maximum representable integer in digit
+  Digit mint = (Digit) pow(2,MAX_BITS) - 1;  
+  // maximum representable value before multiplication by a digit to be stored
+  // exactly
+  fpenvMaxNorm = (Digit) floor(mint / (fpenvRadix - 1)); 
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void FPEnv::setExpRange(int newL, int newU) {
+  if (newL < newU) {
+    fpenvGlobalL = newL;
+    fpenvGlobalU = newU;
+  }
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void FPEnv::setPrecision(unsigned int newPrec) {
+  if (newPrec <= 4) {
+    fpenvPrecision = 4; // minimum precision
+  }
+  else
+    fpenvPrecision = newPrec;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void FPEnv::setExpSize(int expSize) {
+  if ((expSize > sizeof(unsigned int)*8) || (expSize == 0)) {
+    ;
+  }
+  else {
+    fpenvGlobalU = (int) (::pow(2,expSize-1) - 1);
+    fpenvGlobalL = 1 - fpenvGlobalU;
+  }
+}

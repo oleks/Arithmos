@@ -1,0 +1,31 @@
+/* XPM */
+static const char *iconSave[] = {
+/* width height num_colors chars_per_pixel */
+"    20    20        4            1",
+/* colors */
+". c #000000",
+"# c #808000",
+"a c none",
+"b c none",
+/* pixels */
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaa..............aaa",
+"aaa.#.bbbbbbbb.b.aaa",
+"aaa.#.bbbbbbbb...aaa",
+"aaa.#.bbbbbbbb.#.aaa",
+"aaa.#.bbbbbbbb.#.aaa",
+"aaa.#.bbbbbbbb.#.aaa",
+"aaa.#.bbbbbbbb.#.aaa",
+"aaa.##........##.aaa",
+"aaa.############.aaa",
+"aaa.##.........#.aaa",
+"aaa.##......bb.#.aaa",
+"aaa.##......bb.#.aaa",
+"aaa.##......bb.#.aaa",
+"aaaa.............aaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa"
+};

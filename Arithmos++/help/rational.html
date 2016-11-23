@@ -1,0 +1,248 @@
+<html>
+<head>
+<title> rational.h </title>
+</head>
+<body>
+<hr WIDTH="100%">
+<p><b>Back:</b>&nbsp;&nbsp;<a href="bigint.html">bigint.h</a>&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp; <b>Next:</b>&nbsp;&nbsp;
+<a href="output.html">output.h</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>
+Up:&nbsp;&nbsp;</b> <a href="indexProgram.html">Program Index Help</a>
+<br>
+<hr WIDTH="100%">
+<h1> rational.h </h1>
+<h1>Classes</h1>
+<dl>
+<dd> <a href="#rational"> rational </a> --  (<em><a href="#rational:description">full description</a></em>)
+<dd> <a href="#trational"> trational </a> --  (<em><a href="#trational:description">full description</a></em>)
+</dl>
+<hr>
+
+<h1>class rational</a></h1>
+<h1>Interface</h1>
+<dl>
+<dd> <b>Public Members</b>
+
+<dl>
+
+<dd> inline static void <a href="#rational:set_io_base(int)">set_io_base</a> (int b)
+<dd> inline static int <a href="#rational:get_io_base()">get_io_base</a> ()
+<dd> inline static void <a href="#rational:exception_set(long)">exception_set</a> (long ex)
+<dd> inline static void <a href="#rational:exception_clr(long)">exception_clr</a> (long ex)
+<dd> inline static long <a href="#rational:exception_tst(long)">exception_tst</a> (long ex)
+<dd> inline static void <a href="#rational:control_set(long)">control_set</a> (long tr)
+<dd> inline static void <a href="#rational:control_clr(long)">control_clr</a> (long tr)
+<dd> inline static long <a href="#rational:control_tst(long)">control_tst</a> (long tr)
+<dd> inline static void <a href="#rational:set_rounding_param(unsigned)">set_rounding_param</a> (unsigned long rp)
+<dd> inline static unsigned long <a href="#rational:get_rounding_param()">get_rounding_param</a> ()
+<dd> <a href="#rational:rational()">rational</a> ()
+<dd> inline <a href="#rational:rational(int)">rational</a> (int i)
+<dd> inline <a href="#rational:rational(long)">rational</a> (long l)
+<dd> <a href="#rational:rational(double)">rational</a> (double d)
+<dd> <a href="#rational:rational(const Mpieee&amp;)">rational</a> (const <a href="Mpieee.html#Mpieee">Mpieee</a>&amp; f)
+<dd> inline <a href="#rational:rational(const bigint&amp;)">rational</a> (const bigint&amp; n)
+<dd> inline <a href="#rational:rational(const tbigint&amp;)">rational</a> (const tbigint&amp; n)
+<dd> <a href="#rational:rational(const bigint&amp;,const bigint&amp;)">rational</a> (const bigint&amp; n, const bigint&amp; d)
+<dd> inline <a href="#rational:rational(const trational&amp;)">rational</a> (const <a href="rational.html#trational">trational</a>&amp; S)
+<dd> <a href="#rational:rational(char*)">rational</a> (char* s)
+<dd> inline void <a href="#rational:setsign(int)">setsign</a> (int s)
+<dd> inline int <a href="#rational:getsign()const">getsign</a> () const
+<dd> inline void <a href="#rational:setnan(unsigned)">setnan</a> (unsigned char nv = NAN_VALUE)
+<dd> inline void <a href="#rational:setinf()">setinf</a> ()
+<dd> inline void <a href="#rational:setzero()">setzero</a> ()
+<dd> inline void <a href="#rational:setext()">setext</a> ()
+<dd> inline void <a href="#rational:setextnan(unsigned)">setextnan</a> (unsigned char nv = NAN_VALUE)
+<dd> inline void <a href="#rational:clrext()">clrext</a> ()
+<dd> inline int <a href="#rational:tstnan()const">tstnan</a> () const
+<dd> inline int <a href="#rational:tstinf()const">tstinf</a> () const
+<dd> inline int <a href="#rational:tstzero()const">tstzero</a> () const
+<dd> inline int <a href="#rational:tstext()const">tstext</a> () const
+<dd> friend void <a href="#rational:sum(rational&amp;,const rational&amp;,const rational&amp;)">sum</a> (rational&amp; T, const rational&amp; R, const rational&amp; S)
+<dd> friend void <a href="#rational:dif(rational&amp;,const rational&amp;,const rational&amp;)">dif</a> (rational&amp; T, const rational&amp; R, const rational&amp; S)
+<dd> friend void <a href="#rational:prod(rational&amp;,const rational&amp;,const rational&amp;)">prod</a> (rational&amp; T, const rational&amp; R, const rational&amp; S)
+<dd> friend void <a href="#rational:quot(rational&amp;,const rational&amp;,const rational&amp;)">quot</a> (rational&amp; T, const rational&amp; R, const rational&amp; S)
+<dd> friend void <a href="#rational:floor(bigint&amp;,const rational&amp;)">floor</a> (bigint&amp; C, const rational&amp; R)
+<dd> friend void <a href="#rational:ceil(bigint&amp;,const rational&amp;)">ceil</a> (bigint&amp; C, const rational&amp; R)
+<dd> inline friend void <a href="#rational:abs(rational&amp;,const rational&amp;)">abs</a> (rational&amp; T, const rational&amp; R)
+<dd> inline friend void <a href="#rational:neg(rational&amp;,const rational&amp;)">neg</a> (rational&amp; T, const rational&amp; R)
+<dd> friend void <a href="#rational:inv(rational&amp;,const rational&amp;)">inv</a> (rational&amp; T, const rational&amp; R)
+<dd> friend void <a href="#rational:sqrt(rational&amp;,const rational&amp;)">sqrt</a> (rational&amp; T, const rational&amp; R)
+<dd> friend void <a href="#rational:pow(rational&amp;,const rational&amp;,const bigint&amp;)">pow</a> (rational&amp; T, const rational&amp; R, const bigint&amp; B)
+<dd> friend void <a href="#rational:pow(rational&amp;,const rational&amp;,const rational&amp;)">pow</a> (rational&amp; T, const rational&amp; R, const rational&amp; S)
+<dd> friend void <a href="#rational:root(rational&amp;,const rational&amp;,const bigint&amp;)">root</a> (rational&amp; T, const rational&amp; R, const bigint&amp; B)
+<dd> friend void <a href="#rational:getnum(bigint&amp;,const rational&amp;)">getnum</a> (bigint&amp; C, const rational&amp; R)
+<dd> friend void <a href="#rational:getnum(bigint&amp;,const trational&amp;)">getnum</a> (bigint&amp; C, const <a href="rational.html#big">big</a>&amp; R)
+<dd> friend void <a href="#rational:getden(bigint&amp;,const rational&amp;)">getden</a> (bigint&amp; C, const rational&amp; R)
+<dd> friend void <a href="#rational:getden(bigint&amp;,const trational&amp;)">getden</a> (bigint&amp; C, const <a href="rational.html#big">big</a>&amp; R)
+<dd> inline rational&amp; <a href="#rational:operator=(const rational&amp;)">operator=</a> (const rational&amp; S)
+<dd> inline rational&amp; <a href="#rational:operator=(const trational&amp;)">operator=</a> (const <a href="rational.html#trational">trational</a>&amp; S)
+<dd> inline rational&amp; <a href="#rational:operator=(const bigint&amp;)">operator=</a> (const bigint&amp; B)
+<dd> inline rational&amp; <a href="#rational:operator=(const tbigint&amp;)">operator=</a> (const tbigint&amp; B)
+<dd> inline friend trational <a href="#rational:operator+(const rational&amp;,const rational&amp;)">operator+</a> (const rational&amp; R, const rational&amp; S)
+<dd> inline friend trational <a href="#rational:operator-(const rational&amp;,const rational&amp;)">operator-</a> (const rational&amp; R, const rational&amp; S)
+<dd> inline friend trational <a href="#rational:operator*(const rational&amp;,const rational&amp;)">operator*</a> (const rational&amp; R, const rational&amp; S)
+<dd> inline friend trational <a href="#rational:operator/(const rational&amp;,const rational&amp;)">operator/</a> (const rational&amp; R, const rational&amp; S)
+<dd> inline <a href="rational.html#trational">trational</a> <a href="#rational:operator-()const">operator-</a> () const
+<dd> friend ostream&amp; <a href="#rational:operator&lt;&lt;(ostream&amp;,const rational&amp;)">operator&lt;&lt;</a> (ostream&amp; os, const rational&amp; S)
+<dd> friend istream&amp; <a href="#rational:operator&gt;&gt;(istream&amp;,rational&amp;)">operator&gt;&gt;</a> (istream&amp; is, rational&amp; S)
+<dd> inline <a href="rational.html#trational">trational</a> <a href="#rational:pow(const rational&amp;,const rational&amp;)">pow</a> (const rational&amp; R, const rational&amp; S)
+<dd> inline <a href="rational.html#trational">trational</a> <a href="#rational:pow(const bigint&amp;)const">pow</a> (const bigint&amp; B) const
+<dd> inline <a href="rational.html#trational">trational</a> <a href="#rational:root(const bigint&amp;)const">root</a> (const bigint&amp; B) const
+<dd> friend int <a href="#rational:comp(const rational&amp;,const rational&amp;)">comp</a> (const rational&amp; R, const rational&amp; S)
+<dd> inline friend int <a href="#rational:operator&lt;(const rational&amp;,const rational&amp;)">operator&lt;</a> (const rational&amp; R, const rational&amp; S)
+<dd> inline friend int <a href="#rational:operator&gt;(const rational&amp;,const rational&amp;)">operator&gt;</a> (const rational&amp; R, const rational&amp; S)
+<dd> inline friend int <a href="#rational:operator==(const rational&amp;,const rational&amp;)">operator==</a> (const rational&amp; R, const rational&amp; S)
+<dd> inline friend int <a href="#rational:operator&lt;=(const rational&amp;,const rational&amp;)">operator&lt;=</a> (const rational&amp; R, const rational&amp; S)
+<dd> inline friend int <a href="#rational:operator&gt;=(const rational&amp;,const rational&amp;)">operator&gt;=</a> (const rational&amp; R, const rational&amp; S)
+<dd> inline friend int <a href="#rational:operator!=(const rational&amp;,const rational&amp;)">operator!=</a> (const rational&amp; R, const rational&amp; S)
+<dd> inline friend int <a href="#rational:unordered(const rational&amp;,const rational&amp;)">unordered</a> (const rational&amp; R, const rational&amp; S)
+<dd> inline rational&amp; <a href="#rational:operator+=(const rational&amp;)">operator+=</a> (const rational&amp; S)
+<dd> inline rational&amp; <a href="#rational:operator-=(const rational&amp;)">operator-=</a> (const rational&amp; S)
+<dd> inline rational&amp; <a href="#rational:operator*=(const rational&amp;)">operator*=</a> (const rational&amp; S)
+<dd> inline rational&amp; <a href="#rational:operator/=(const rational&amp;)">operator/=</a> (const rational&amp; S)
+<dd> inline tbigint <a href="#rational:floor()const">floor</a> () const
+<dd> inline tbigint <a href="#rational:ceil()const">ceil</a> () const
+<dd> inline <a href="rational.html#trational">trational</a> <a href="#rational:abs()const">abs</a> () const
+<dd> inline <a href="rational.html#trational">trational</a> <a href="#rational:inv()const">inv</a> () const
+<dd> inline <a href="rational.html#trational">trational</a> <a href="#rational:sqrt()const">sqrt</a> () const
+<dd> inline tbigint <a href="#rational:getnum()const">getnum</a> () const
+<dd> inline tbigint <a href="#rational:getden()const">getden</a> () const
+<dd> inline int <a href="#rational:to_int()const">to_int</a> () const
+<dd> inline long <a href="#rational:to_long()const">to_long</a> () const
+<dd> inline tbigint <a href="#rational:to_bigint()const">to_bigint</a> () const
+<dd> inline float <a href="#rational:to_float()const">to_float</a> () const
+<dd> inline double <a href="#rational:to_double()const">to_double</a> () const
+<dd> <a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a href="#rational:to_Mpieee()const">to_Mpieee</a> () const
+<dd> void <a href="#rational:to_string(char*,int)const">to_string</a> (char* string, int lengte) const
+</dl>
+</dl>
+<h1><a name="rational:description">Description</a></h1>
+
+<h1>Member Description</h1>
+<h3>inline static void <a name="rational:set_io_base(int)">set_io_base</a> (int b)</h3>
+<h3>inline static int <a name="rational:get_io_base()">get_io_base</a> ()</h3>
+<h3>inline static void <a name="rational:exception_set(long)">exception_set</a> (long ex)</h3>
+<h3>inline static void <a name="rational:exception_clr(long)">exception_clr</a> (long ex)</h3>
+<h3>inline static long <a name="rational:exception_tst(long)">exception_tst</a> (long ex)</h3>
+<h3>inline static void <a name="rational:control_set(long)">control_set</a> (long tr)</h3>
+<h3>inline static void <a name="rational:control_clr(long)">control_clr</a> (long tr)</h3>
+<h3>inline static long <a name="rational:control_tst(long)">control_tst</a> (long tr)</h3>
+<h3>inline static void <a name="rational:set_rounding_param(unsigned)">set_rounding_param</a> (unsigned long rp)</h3>
+<h3>inline static unsigned long <a name="rational:get_rounding_param()">get_rounding_param</a> ()</h3>
+<h3><a name="rational:rational()">rational</a> ()</h3>
+<h3>inline <a name="rational:rational(int)">rational</a> (int i)</h3>
+<h3>inline <a name="rational:rational(long)">rational</a> (long l)</h3>
+<h3><a name="rational:rational(double)">rational</a> (double d)</h3>
+<h3><a name="rational:rational(const Mpieee&amp;)">rational</a> (const <a href="Mpieee.html#Mpieee">Mpieee</a>&amp; f)</h3>
+<h3>inline <a name="rational:rational(const bigint&amp;)">rational</a> (const bigint&amp; n)</h3>
+<h3>inline <a name="rational:rational(const tbigint&amp;)">rational</a> (const tbigint&amp; n)</h3>
+<h3><a name="rational:rational(const bigint&amp;,const bigint&amp;)">rational</a> (const bigint&amp; n, const bigint&amp; d)</h3>
+<h3>inline <a name="rational:rational(const trational&amp;)">rational</a> (const <a href="rational.html#trational">trational</a>&amp; S)</h3>
+<h3><a name="rational:rational(char*)">rational</a> (char* s)</h3>
+<h3>inline void <a name="rational:setsign(int)">setsign</a> (int s)</h3>
+<h3>inline int <a name="rational:getsign()const">getsign</a> () const</h3>
+<h3>inline void <a name="rational:setnan(unsigned)">setnan</a> (unsigned char nv = NAN_VALUE)</h3>
+<h3>inline void <a name="rational:setinf()">setinf</a> ()</h3>
+<h3>inline void <a name="rational:setzero()">setzero</a> ()</h3>
+<h3>inline void <a name="rational:setext()">setext</a> ()</h3>
+<h3>inline void <a name="rational:setextnan(unsigned)">setextnan</a> (unsigned char nv = NAN_VALUE)</h3>
+<h3>inline void <a name="rational:clrext()">clrext</a> ()</h3>
+<h3>inline int <a name="rational:tstnan()const">tstnan</a> () const</h3>
+<h3>inline int <a name="rational:tstinf()const">tstinf</a> () const</h3>
+<h3>inline int <a name="rational:tstzero()const">tstzero</a> () const</h3>
+<h3>inline int <a name="rational:tstext()const">tstext</a> () const</h3>
+<h3>friend void <a name="rational:sum(rational&amp;,const rational&amp;,const rational&amp;)">sum</a> (rational&amp; T, const rational&amp; R, const rational&amp; S)</h3>
+<h3>friend void <a name="rational:dif(rational&amp;,const rational&amp;,const rational&amp;)">dif</a> (rational&amp; T, const rational&amp; R, const rational&amp; S)</h3>
+<h3>friend void <a name="rational:prod(rational&amp;,const rational&amp;,const rational&amp;)">prod</a> (rational&amp; T, const rational&amp; R, const rational&amp; S)</h3>
+<h3>friend void <a name="rational:quot(rational&amp;,const rational&amp;,const rational&amp;)">quot</a> (rational&amp; T, const rational&amp; R, const rational&amp; S)</h3>
+<h3>friend void <a name="rational:floor(bigint&amp;,const rational&amp;)">floor</a> (bigint&amp; C, const rational&amp; R)</h3>
+<h3>friend void <a name="rational:ceil(bigint&amp;,const rational&amp;)">ceil</a> (bigint&amp; C, const rational&amp; R)</h3>
+<h3>inline friend void <a name="rational:abs(rational&amp;,const rational&amp;)">abs</a> (rational&amp; T, const rational&amp; R)</h3>
+<h3>inline friend void <a name="rational:neg(rational&amp;,const rational&amp;)">neg</a> (rational&amp; T, const rational&amp; R)</h3>
+<h3>friend void <a name="rational:inv(rational&amp;,const rational&amp;)">inv</a> (rational&amp; T, const rational&amp; R)</h3>
+<h3>friend void <a name="rational:sqrt(rational&amp;,const rational&amp;)">sqrt</a> (rational&amp; T, const rational&amp; R)</h3>
+<h3>friend void <a name="rational:pow(rational&amp;,const rational&amp;,const bigint&amp;)">pow</a> (rational&amp; T, const rational&amp; R, const bigint&amp; B)</h3>
+<h3>friend void <a name="rational:pow(rational&amp;,const rational&amp;,const rational&amp;)">pow</a> (rational&amp; T, const rational&amp; R, const rational&amp; S)</h3>
+<h3>friend void <a name="rational:root(rational&amp;,const rational&amp;,const bigint&amp;)">root</a> (rational&amp; T, const rational&amp; R, const bigint&amp; B)</h3>
+<h3>friend void <a name="rational:getnum(bigint&amp;,const rational&amp;)">getnum</a> (bigint&amp; C, const rational&amp; R)</h3>
+<h3>friend void <a name="rational:getnum(bigint&amp;,const trational&amp;)">getnum</a> (bigint&amp; C, const <a href="rational.html#big">big</a>&amp; R)</h3>
+<h3>friend void <a name="rational:getden(bigint&amp;,const rational&amp;)">getden</a> (bigint&amp; C, const rational&amp; R)</h3>
+<h3>friend void <a name="rational:getden(bigint&amp;,const trational&amp;)">getden</a> (bigint&amp; C, const <a href="rational.html#big">big</a>&amp; R)</h3>
+<h3>inline rational&amp; <a name="rational:operator=(const rational&amp;)">operator=</a> (const rational&amp; S)</h3>
+<h3>inline rational&amp; <a name="rational:operator=(const trational&amp;)">operator=</a> (const <a href="rational.html#trational">trational</a>&amp; S)</h3>
+<h3>inline rational&amp; <a name="rational:operator=(const bigint&amp;)">operator=</a> (const bigint&amp; B)</h3>
+<h3>inline rational&amp; <a name="rational:operator=(const tbigint&amp;)">operator=</a> (const tbigint&amp; B)</h3>
+<h3>inline friend trational <a name="rational:operator+(const rational&amp;,const rational&amp;)">operator+</a> (const rational&amp; R, const rational&amp; S)</h3>
+<h3>inline friend trational <a name="rational:operator-(const rational&amp;,const rational&amp;)">operator-</a> (const rational&amp; R, const rational&amp; S)</h3>
+<h3>inline friend trational <a name="rational:operator*(const rational&amp;,const rational&amp;)">operator*</a> (const rational&amp; R, const rational&amp; S)</h3>
+<h3>inline friend trational <a name="rational:operator/(const rational&amp;,const rational&amp;)">operator/</a> (const rational&amp; R, const rational&amp; S)</h3>
+<h3>inline <a href="rational.html#trational">trational</a> <a name="rational:operator-()const">operator-</a> () const</h3>
+<h3>friend ostream&amp; <a name="rational:operator&lt;&lt;(ostream&amp;,const rational&amp;)">operator&lt;&lt;</a> (ostream&amp; os, const rational&amp; S)</h3>
+<h3>friend istream&amp; <a name="rational:operator&gt;&gt;(istream&amp;,rational&amp;)">operator&gt;&gt;</a> (istream&amp; is, rational&amp; S)</h3>
+<h3>inline <a href="rational.html#trational">trational</a> <a name="rational:pow(const rational&amp;,const rational&amp;)">pow</a> (const rational&amp; R, const rational&amp; S)</h3>
+<h3>inline <a href="rational.html#trational">trational</a> <a name="rational:pow(const bigint&amp;)const">pow</a> (const bigint&amp; B) const</h3>
+<h3>inline <a href="rational.html#trational">trational</a> <a name="rational:root(const bigint&amp;)const">root</a> (const bigint&amp; B) const</h3>
+<h3>friend int <a name="rational:comp(const rational&amp;,const rational&amp;)">comp</a> (const rational&amp; R, const rational&amp; S)</h3>
+<h3>inline friend int <a name="rational:operator&lt;(const rational&amp;,const rational&amp;)">operator&lt;</a> (const rational&amp; R, const rational&amp; S)</h3>
+<h3>inline friend int <a name="rational:operator&gt;(const rational&amp;,const rational&amp;)">operator&gt;</a> (const rational&amp; R, const rational&amp; S)</h3>
+<h3>inline friend int <a name="rational:operator==(const rational&amp;,const rational&amp;)">operator==</a> (const rational&amp; R, const rational&amp; S)</h3>
+<h3>inline friend int <a name="rational:operator&lt;=(const rational&amp;,const rational&amp;)">operator&lt;=</a> (const rational&amp; R, const rational&amp; S)</h3>
+<h3>inline friend int <a name="rational:operator&gt;=(const rational&amp;,const rational&amp;)">operator&gt;=</a> (const rational&amp; R, const rational&amp; S)</h3>
+<h3>inline friend int <a name="rational:operator!=(const rational&amp;,const rational&amp;)">operator!=</a> (const rational&amp; R, const rational&amp; S)</h3>
+<h3>inline friend int <a name="rational:unordered(const rational&amp;,const rational&amp;)">unordered</a> (const rational&amp; R, const rational&amp; S)</h3>
+<h3>inline rational&amp; <a name="rational:operator+=(const rational&amp;)">operator+=</a> (const rational&amp; S)</h3>
+<h3>inline rational&amp; <a name="rational:operator-=(const rational&amp;)">operator-=</a> (const rational&amp; S)</h3>
+<h3>inline rational&amp; <a name="rational:operator*=(const rational&amp;)">operator*=</a> (const rational&amp; S)</h3>
+<h3>inline rational&amp; <a name="rational:operator/=(const rational&amp;)">operator/=</a> (const rational&amp; S)</h3>
+<h3>inline tbigint <a name="rational:floor()const">floor</a> () const</h3>
+<h3>inline tbigint <a name="rational:ceil()const">ceil</a> () const</h3>
+<h3>inline <a href="rational.html#trational">trational</a> <a name="rational:abs()const">abs</a> () const</h3>
+<h3>inline <a href="rational.html#trational">trational</a> <a name="rational:inv()const">inv</a> () const</h3>
+<h3>inline <a href="rational.html#trational">trational</a> <a name="rational:sqrt()const">sqrt</a> () const</h3>
+<h3>inline tbigint <a name="rational:getnum()const">getnum</a> () const</h3>
+<h3>inline tbigint <a name="rational:getden()const">getden</a> () const</h3>
+<h3>inline int <a name="rational:to_int()const">to_int</a> () const</h3>
+<h3>inline long <a name="rational:to_long()const">to_long</a> () const</h3>
+<h3>inline tbigint <a name="rational:to_bigint()const">to_bigint</a> () const</h3>
+<h3>inline float <a name="rational:to_float()const">to_float</a> () const</h3>
+<h3>inline double <a name="rational:to_double()const">to_double</a> () const</h3>
+<h3><a href="Mpieee.html#TmpMpieee">TmpMpieee</a> <a name="rational:to_Mpieee()const">to_Mpieee</a> () const</h3>
+<h3>void <a name="rational:to_string(char*,int)const">to_string</a> (char* string, int lengte) const</h3>
+<hr>
+
+<h1>class trational: public <a href="rational.html#rational">rational</a></h1>
+<h1>Interface</h1>
+<dl>
+<dd> inline <a href="#trational:trational(): rational)">trational</a> () : <a href="rational.html#rational">rational</a> ()
+<dd> inline <a href="#trational:trational(int)">trational</a> (int i) : rational (i)
+<dd> inline <a href="#trational:trational(const bigint&amp;,const bigint&amp;,d)">trational</a> (const bigint&amp; n, const bigint&amp; d) : rational (n, d)
+<dd> inline <a href="#trational:trational(const tbigint&amp;)">trational</a> (const tbigint&amp; n) : rational (n)
+<dd> inline <a href="#trational:trational(const trational&amp;)">trational</a> (const trational&amp; S) : rational (S)
+<dd> inline <a href="#trational:~trational()">~trational</a> ()
+<dd> inline trational <a href="#trational:abs()const">abs</a> () const
+<dd> inline trational <a href="#trational:inv()const">inv</a> () const
+<dd> inline tbigint <a href="#trational:getnum()const">getnum</a> () const
+<dd> inline tbigint <a href="#trational:getden()const">getden</a> () const
+<dd> inline trational <a href="#trational:operator-()const">operator-</a> () const
+<dd> inline trational <a href="#trational:pow(const bigint&amp;)const">pow</a> (const bigint&amp; B) const
+<dd> inline trational <a href="#trational:root(const bigint&amp;)const">root</a> (const bigint&amp; B) const
+</dl>
+</dl>
+<h1><a name="trational:description">Description</a></h1>
+
+<h1>Member Description</h1>
+<h3>inline <a name="trational:trational(): rational)">trational</a> () : <a href="rational.html#rational">rational</a> ()</h3>
+<h3>inline <a name="trational:trational(int)">trational</a> (int i) : rational (i)</h3>
+<h3>inline <a name="trational:trational(const bigint&amp;,const bigint&amp;,d)">trational</a> (const bigint&amp; n, const bigint&amp; d) : rational (n, d)</h3>
+<h3>inline <a name="trational:trational(const tbigint&amp;)">trational</a> (const tbigint&amp; n) : rational (n)</h3>
+<h3>inline <a name="trational:trational(const trational&amp;)">trational</a> (const trational&amp; S) : rational (S)</h3>
+<h3>inline <a name="trational:~trational()">~trational</a> ()</h3>
+<h3>inline trational <a name="trational:abs()const">abs</a> () const</h3>
+<h3>inline trational <a name="trational:inv()const">inv</a> () const</h3>
+<h3>inline tbigint <a name="trational:getnum()const">getnum</a> () const</h3>
+<h3>inline tbigint <a name="trational:getden()const">getden</a> () const</h3>
+<h3>inline trational <a name="trational:operator-()const">operator-</a> () const</h3>
+<h3>inline trational <a name="trational:pow(const bigint&amp;)const">pow</a> (const bigint&amp; B) const</h3>
+<h3>inline trational <a name="trational:root(const bigint&amp;)const">root</a> (const bigint&amp; B) const</h3>
+</body>
+</html>

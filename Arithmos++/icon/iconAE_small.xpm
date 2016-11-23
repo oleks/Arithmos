@@ -1,0 +1,30 @@
+/* XPM */
+static const char *iconAE_small[] = {
+/* width height num_colors chars_per_pixel */
+"    16    16        7            1",
+/* colors */
+". c #000000",
+"# c #800080",
+"a c #c0c0c0",
+"b c #808080",
+"c c #ff0000",
+"d c #ffff00",
+"e c #ffffff",
+/* pixels */
+".c#cc###cccccc#.",
+".##c#.##ccccc#..",
+".####.b##cccc#..",
+"..c##.b##cccc...",
+".ee.c.b##ccc....",
+".eeee.cc###.dd..",
+".eeee.e.cc.dddd.",
+".eee..bee.dddd.b",
+".eaee.be.eeee.bc",
+"..eea.b..bbbbbcc",
+"........bbeeeea.",
+"..eeebbbbbeeeeee",
+".eeeeeeeeeaeeeee",
+".eeeeeeeeeeeaeee",
+".eeeeeeeeeeeeeae",
+"................"
+};

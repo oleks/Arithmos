@@ -1,0 +1,1155 @@
+/**
+ ** @file    BigInt.icc
+ ** @brief   inline functions for the BigInt class
+ **
+ ** $Id: BigInt.icc,v 1.17 2001/04/12 08:11:33 jvvloet Exp $
+ ** $Date: 2001/04/12 08:11:33 $
+ ** $Author: jvvloet $
+ **/
+
+/*
+ * Stand-alone inline functions
+ */
+
+/*
+ * I hope this functions will some day be part of GMP...
+ */
+
+#ifndef mpz_odd
+#ifndef OUTLINE
+inline
+#endif
+unsigned int mpz_odd( const mpz_t a )
+{
+  return mpz_tstbit( a, 0 );
+}
+#endif
+
+#ifndef mpz_even
+#ifndef OUTLINE
+inline
+#endif
+unsigned int mpz_even( const mpz_t a )
+{
+  return !mpz_tstbit( a, 0 );
+}
+#endif
+
+ /*
+  * Public inline functions
+  */
+
+/**
+ ** @brief	Assignation of SpecialValue to Bigint
+ ** @param  s SpecialValue to be assigned
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::operator=( SpecialValue s )
+{
+	mpz_set_ui( mValue, 0 );
+	mProperties = s;
+	mProperties.setCSP( spExactCS );
+	return *this;
+}
+
+/**
+ ** @brief  Assignation of SpecialExact to BigInt.
+ ** @param  s SpecialExact to be assigned
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::operator=( SpecialExact s )
+{
+  mpz_set_ui( mValue, 0 );
+  mProperties = s;
+  return *this;
+}
+
+/**
+ ** @brief  Assignation of hardware integer to BigInt.
+ ** @param  i integer to be assigned
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::operator=( int i )
+{
+  mpz_set_si( mValue, i );
+  if (i) mProperties.setPhi();
+  else mProperties.setZero();
+  return *this;
+}
+
+/**
+ ** @brief  Assignation of long hardware integer to BigInt.
+ ** @param  l long integer to be assigned
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::operator=( long int l )
+{
+  mpz_set_si( mValue, l );
+  if (l) mProperties.setPhi();
+  else mProperties.setZero();
+  return *this;
+}
+
+/**
+ ** @brief  Assignation of unsigned long hardware integer to BigInt.
+ ** @param  ul unsigned long integer to be assigned
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::operator=( unsigned long int ul )
+{
+  mpz_set_si( mValue, ul );
+  if (ul) mProperties.setPhi();
+  else mProperties.setZero();
+  return *this;
+}
+
+/**
+ ** @brief  Assignation of string to BigInt.
+ ** @param  s string to be assigned.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::operator=( const char *s )
+{
+  return (*this = (TmpBigInt)s);
+}
+
+/**
+ ** @brief  Assignation of BigInt to BigInt
+ ** @param  b BigInt to be assigned.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::operator=( const BigInt& b )
+{
+  if (this != &b)
+  {
+    mpz_set( mValue, b.mValue );
+    mProperties = b.mProperties;
+  }
+  return *this;
+}
+
+/**
+ ** @brief    Assignation of TmpBigInt to BigInt
+ ** @param    t TmpBigInt to be assigned.
+ ** @warning  After this assignment, the value of b will be destroyed
+ **   	      (despite the const declaration)
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::operator=( const TmpBigInt& t )
+{
+  mpz_swap( mValue, (const_cast<TmpBigInt*>(&t))->mValue );
+  mProperties = t.mProperties;
+  return *this;
+}
+
+/**
+ ** @brief  Assignation of MpIeee to BigInt.
+ ** @param  s MpIeee to be assigned.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::operator=( const MpIeee& m )
+{
+  return (*this = (TmpBigInt)m);
+}
+
+/**
+ ** @brief  Assign Phi to a bigint
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::setPhi()
+{
+  mpz_set_ui( mValue, 0 );
+  mProperties.setPhi();
+  return *this;
+}
+
+/**
+ ** @brief  Assign NaN to a bigint
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::setNan()
+{
+  mpz_set_ui( mValue, 0 );
+  mProperties.setNan();
+  return *this;
+}
+
+/**
+ ** @brief  Assign infinity to a BigInt.
+ ** @param  sign Sign of infinity.  If omitted, the infinity will be
+ **   	    unsigned (projective).
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::setInf( SignBitsType sign )
+{
+  mpz_set_ui( mValue, 0 );
+  mProperties.setInf( sign );
+  return *this;
+}
+
+/**
+ ** @brief  Assign zero to a BigInt.
+ ** @param  sign Sign of zero.  If omitted, the zero will be
+ **   	    unsigned.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::setZero( SignBitsType sign )
+{
+  mpz_set_ui( mValue, 0 );
+  mProperties.setZero( sign );
+  return *this;
+}
+
+/**
+ ** @brief  Check whether the BigInt represents a special value.
+ ** @return nonzero iff the BigInt represents a special value.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int BigInt::isSpecial() const
+{
+  return !(mpz_cmp_ui( mValue, 0 ));
+}
+
+/**
+ ** @brief  Check whether the BigInt is Phi
+ ** @return nonzero iff the BigInt is Phi
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int BigInt::isPhi() const
+{
+  return (!mpz_cmp_ui( mValue, 0 ) && mProperties.isPhi());
+}
+
+/**
+ ** @brief  Check whether the BigInt is NaN.
+ ** @return nonzero iff the BigInt is NaN.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int BigInt::isNan() const
+{
+  return (!mpz_cmp_ui( mValue, 0 ) && mProperties.isNan());
+}
+
+/**
+ ** @brief  Check whether the BigInt is Inf.
+ ** @return nonzero iff the BigInt is Inf.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int BigInt::isInf() const
+{
+  return (!mpz_cmp_ui( mValue, 0 ) && mProperties.isInf());
+}
+
+/**
+ ** @brief  Check whether the BigInt is zero.
+ ** @return nonzero iff the BigInt is zero.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int BigInt::isZero() const
+{
+  return (!mpz_cmp_ui( mValue, 0 ) && mProperties.isZero());
+}
+
+/**
+ ** @brief  Gets the sign of the BigInt
+ ** @return Sign of the BigInt
+ **
+ ** If the BigInt is (certainly) strict positive, 1 is returned; if
+ ** it's (certainly) strict negative, -1 is returned; otherwise 0 is
+ ** returned.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+int BigInt::sgn() const
+{
+  return (isSpecial() ? mProperties.sgn() : mpz_sgn( mValue ));
+}
+
+/**
+ ** @brief  Get the sign bits of an integer.
+ ** @return spPlus, spMinus or spUnsigned, corresponding to the
+ **   	    BigInts sign bits.
+ ** @remark This function DOES NOT return the sign of an integer.
+ **   	    E.g. the sign of `-0' is zero, but it's sign bits are
+ **   	    spMinus.  The same holds for `-inf'.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SignBitsType BigInt::getSignBits() const
+{
+  /*
+   * The `0' case is handled by the `isSpecial' clause.
+   */
+  return (isSpecial() ? mProperties.getSignBits() : mpz_sgn( mValue ) <
+      	  0 ? spMinus : spPlus );
+}
+
+/**
+ ** @brief  Check whether the BigInt is odd.
+ ** @return nonzero iff the BigInt is odd.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int BigInt::odd() const
+{
+  return isSpecial() ? mProperties.odd() : mpz_odd( mValue );
+}
+
+/**
+ ** @brief  Check whether the BigInt is even.
+ ** @return nonzero iff the BigInt is even.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int BigInt::even() const
+{
+  return isSpecial() ? mProperties.even() : mpz_even( mValue );
+}
+
+/**
+ ** @brief  Checks whether the BigInt is the square of an integer.
+ ** @return nonzero iff the BigInt is a square of an integer.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int BigInt::perfectSquare() const
+{
+  return isZero() || isInf() || !isSpecial() && mpz_perfect_square_p( mValue );
+}
+
+/**
+ ** @brief  Checks whether the BigInt contains zero.
+ ** @return nonzero iff the BigInt contains zero.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int BigInt::hasZero() const
+{
+  return mProperties.hasZero();
+}
+
+/**
+ ** @brief  natural power of BigInt
+ ** @param  b power to be taken
+ ** @return b'th power of this BigInt
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt BigInt::pow( unsigned long b ) const
+{
+  TmpBigInt result;
+  ::pow( result, *this, b );
+  return result;
+}
+
+/**
+ ** @brief  integer power of BigInt
+ ** @param  b power to be taken
+ ** @return b'th power of this BigInt
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt BigInt::pow( const BigInt& b ) const
+{
+  TmpBigInt result;
+  ::pow( result, *this, b );
+  return result;
+}
+
+/**
+ ** @brief  natural root of BigInt
+ ** @param  b root to be taken
+ ** @return b'th root of this BigInt
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt BigInt::root( unsigned long b ) const
+{
+  TmpBigInt result;
+  ::root( result, *this, b );
+  return result;
+}
+
+/**
+ ** @brief  integer root of BigInt
+ ** @param  b root to be taken
+ ** @return b'th root of this BigInt
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt BigInt::root( const BigInt& b ) const
+{
+  TmpBigInt result;
+  ::root( result, *this, b );
+  return result;
+}
+
+/**
+ ** @brief  BigInt inverse
+ ** @return The inverse of this BigInt.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt BigInt::inv() const
+{
+  TmpBigInt result;
+  ::inv( result, *this );
+  return result;
+}
+
+/**
+ ** @brief  BigInt square root
+ ** @return The square root of this BigInt.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt BigInt::sqrt() const
+{
+  TmpBigInt result;
+  ::sqrt( result, *this );
+  return result;
+}
+
+/**
+ ** @brief  BigInt negation.
+ ** @param  a BigInt to be negated.
+ ** @param  c will hold -a
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void neg( BigInt& c, const BigInt& a )
+{
+  mpz_neg( c.mValue, a.mValue );
+  c.mProperties = -a.mProperties;
+}
+
+/**
+ ** @brief  BigInt inverse.
+ ** @param  a BigInt to be inverted.
+ ** @param  c will hold 1/a
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void inv( BigInt& c, const BigInt& a )
+{
+  if (!mpz_cmpabs_ui( a.mValue, 1 ))
+  {
+    c = a;
+  }
+  else
+  {
+    c = a.toSpecialExact().inv();
+  }
+}
+
+/**
+ ** @brief  BigInt multiplication.
+ ** @param  a First factor.
+ ** @param  b Second factor.
+ ** @param  c Product will be stored here.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void mul( BigInt& c, const BigInt& a, const BigInt& b )
+{
+  if (a.isSpecial() || b.isSpecial())
+  {
+    c = a.toSpecialExact()*b.toSpecialExact();
+  }
+  else
+  {
+    mpz_mul( c.mValue, a.mValue, b.mValue );
+    c.mProperties.setPhi();
+    /*
+     * Result cannot be zero if a and b are nonzero.
+     */
+  }
+}
+
+/**
+ ** @brief  BigInt modulo.
+ ** @param  a A BigInt.
+ ** @param  b Another BigInt.
+ ** @param  c Remainder of A/B will be stored here.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void mod( BigInt& c, const BigInt& a, const BigInt& b )
+{
+  if (a.isSpecial() || b.isSpecial())
+  {
+    c = a.toSpecialExact()*b.toSpecialExact();
+  }
+  else
+  {
+    mpz_mod( c.mValue, a.mValue, b.mValue );
+    if (mpz_cmp_ui( c.mValue, 0 ))
+    {
+      c.mProperties.setPhi();
+    }
+    else
+    {
+      c.mProperties.setZero();
+    }
+  }
+}
+
+/**
+ ** @brief  BigInt negation.
+ ** @return Negative of this BigInt.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt BigInt::operator-() const
+{
+  TmpBigInt c;
+
+  neg( c, *this );
+  return c;
+}
+
+/**
+ ** @brief  BigInt prefix increment.
+ ** @return Reference to incremented BigInt.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::operator++()
+{
+  if (isSpecial())
+  {
+    ++mProperties;
+    return *this;
+  }
+  else
+  {
+    mpz_add_ui( mValue, mValue, 1 );
+    return *this;
+  }
+}
+
+/**
+ ** @brief  BigInt postfix increment.
+ ** @return A copy of this BigInt before it was incremented.
+ ** @remark If you can, you should use the prefix increment instead of
+ **   	    the postfix, for performance reasons.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt BigInt::operator++( int dummy )
+{
+  TmpBigInt result = *this;
+  ++*this;
+  return result;
+}
+
+/**
+ ** @brief  BigInt prefix decrement.
+ ** @return Reference to decremented BigInt.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::operator--()
+{
+  if (isSpecial())
+  {
+    --mProperties;
+    return *this;
+  }
+  else
+  {
+    mpz_sub_ui( mValue, mValue, 1 );
+    return *this;
+  }
+}
+
+/**
+ ** @brief  BigInt postfix decrement.
+ ** @return A copy of this BigInt before it was decremented.
+ ** @remark If you can, you should use the prefix decrement instead of
+ **   	    the postfix, for performance reasons.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt BigInt::operator--( int dummy )
+{
+  TmpBigInt result = *this;
+  --*this;
+  return result;
+}
+
+
+/**
+ ** @brief  BigInt addition.
+ ** @param  a first term.
+ ** @param  b second term.
+ ** @return Sum of a and b.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt operator+( const BigInt& a, const BigInt& b )
+{
+  TmpBigInt c;
+
+  add( c, a, b );
+  return c;
+}
+
+/**
+ ** @brief  BigInt addition.
+ ** @param  a first term.
+ ** @param  b second term.
+ ** @return Sum of a and b.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt operator+( const TmpBigInt& a, const BigInt& b )
+{
+  TmpBigInt c;
+
+  add( c, *(const_cast<TmpBigInt*>(&a)), b );
+  return c;
+}
+
+/**
+ ** @brief  BigInt addition.
+ ** @param  a first term.
+ ** @param  b second term.
+ ** @return Sum of a and b.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt operator+( const BigInt& a, const TmpBigInt& b )
+{
+  TmpBigInt c;
+
+  add( c, a, *(const_cast<TmpBigInt*>(&b)) );
+  return c;
+}
+
+/**
+ ** @brief  BigInt addition.
+ ** @param  a first term.
+ ** @param  b second term.
+ ** @return Sum of a and b.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt operator+( const TmpBigInt& a, const TmpBigInt& b )
+{
+  TmpBigInt c;
+
+  add( c, *(const_cast<TmpBigInt*>(&a)), b );
+  return c;
+}
+
+/**
+ ** @brief  BigInt addition.
+ ** @param  b BigInt to add this one to.
+ ** @return Reference to the sum.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::operator+=( const BigInt& b )
+{
+  add( *this, *this, b );
+  return *this;
+}
+
+/**
+ ** @brief  BigInt subtraction.
+ ** @param  a first term.
+ ** @param  b second term.
+ ** @return Difference between a and b.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt operator-( const BigInt& a, const BigInt& b )
+{
+  TmpBigInt c;
+
+  sub( c, a, b );
+  return c;
+}
+
+/**
+ ** @brief  BigInt subtraction.
+ ** @param  a first term.
+ ** @param  b second term.
+ ** @return Differtence of a and b.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt operator-( const TmpBigInt& a, const BigInt& b )
+{
+  TmpBigInt c;
+
+  sub( c, *(const_cast<TmpBigInt*>(&a)), b );
+  return c;
+}
+
+/**
+ ** @brief  BigInt subtraction.
+ ** @param  a first term.
+ ** @param  b second term.
+ ** @return Difference between a and b.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt operator-( const BigInt& a, const TmpBigInt& b )
+{
+  TmpBigInt c;
+
+  sub( c, a, *(const_cast<TmpBigInt*>(&b)) );
+  return c;
+}
+
+/**
+ ** @brief  BigInt subtraction.
+ ** @param  a first term.
+ ** @param  b second term.
+ ** @return Difference between a and b.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt operator-( const TmpBigInt& a, const TmpBigInt& b )
+{
+  TmpBigInt c;
+
+  sub( c, *(const_cast<TmpBigInt*>(&a)), b );
+  return c;
+}
+
+/**
+ ** @brief  BigInt subtraction.
+ ** @param  b BigInt to subtract from this one.
+ ** @return Reference to the difference.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::operator-=( const BigInt& b )
+{
+  sub( *this, *this, b );
+  return *this;
+}
+
+/**
+ ** @brief  BigInt multiplication.
+ ** @param  a first factor.
+ ** @param  b second factor.
+ ** @return Product of a and b.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt operator*( const BigInt& a, const BigInt& b )
+{
+  TmpBigInt c;
+
+  mul( c, a, b );
+  return c;
+}
+
+/**
+ ** @brief  BigInt multiplication.
+ ** @param  b BigInt to multiply with this one.
+ ** @return Reference to the product.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::operator*=( const BigInt& b )
+{
+  mul( *this, *this, b );
+  return *this;
+}
+
+/**
+ ** @brief  BigInt division.
+ ** @param  a BigInt to divide.
+ ** @param  b BigInt to divide by.
+ ** @return Result of division.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt operator/( const BigInt& a, const BigInt& b )
+{
+  TmpBigInt c;
+
+  div( c, a, b );
+  return c;
+}
+
+/**
+ ** @brief  BigInt division.
+ ** @param  b BigInt to divide this one by.
+ ** @return Reference to the result.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::operator/=( const BigInt& b )
+{
+  div( *this, *this, b );
+  return *this;
+}
+
+/**
+ ** @brief  BigInt modulo.
+ ** @param  a BigInt to divide.
+ ** @param  b BigInt to divide by.
+ ** @return Remainder of division.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt operator%( const BigInt& a, const BigInt& b )
+{
+  TmpBigInt c;
+
+  mod( c, a, b );
+  return c;
+}
+
+/**
+ ** @brief  BigInt modulo.
+ ** @param  b BigInt to divide this one by.
+ ** @return Reference to the modulo (stored in this BigInt).
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::operator%=( const BigInt& b )
+{
+  mod( *this, *this, b );
+  return *this;
+}
+
+/**
+ ** @brief  BigInt equal
+ ** @param  a first BigInt to compare
+ ** @param  b second BigInt to compare
+ ** @return nonzero iff a and b are (certainly) equal
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int operator==( const BigInt& a, const BigInt& b )
+{
+  if (a.isSpecial() || b.isSpecial())
+  {
+    return (a.toSpecialExact() == b.toSpecialExact());
+  }
+  else
+  {
+    return !mpz_cmp( a.mValue, b.mValue );
+  }
+}
+
+/**
+ ** @brief  BigInt not equal
+ ** @param  a first BigInt to compare
+ ** @param  b second BigInt to compare
+ ** @return nonzero iff a and b are (possibly) not equal
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int operator!=( const BigInt& a, const BigInt& b )
+{
+  if (a.isSpecial() || b.isSpecial())
+  {
+    return (a.toSpecialExact() != b.toSpecialExact());
+  }
+  else
+  {
+    return (mpz_cmp( a.mValue, b.mValue ) != 0);
+  }
+}
+
+/**
+ ** @brief  BigInt less than
+ ** @param  a first BigInt to compare
+ ** @param  b second BigInt to compare
+ ** @return nonzero iff a is (certainly) less than b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int operator<( const BigInt& a, const BigInt& b )
+{
+  if (a.isSpecial() || b.isSpecial())
+  {
+    return (a.toSpecialExact() < b.toSpecialExact());
+  }
+  else
+  {
+    return mpz_cmp( a.mValue, b.mValue ) < 0;
+  }
+}
+
+/**
+ ** @brief  BigInt greater than or equal
+ ** @param  a first BigInt to compare
+ ** @param  b second BigInt to compare
+ ** @return nonzero iff a is (certainly) greater than or equal to b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int operator>=( const BigInt& a, const BigInt& b )
+{
+  if (a.isSpecial() || b.isSpecial())
+  {
+    return (a.toSpecialExact() >= b.toSpecialExact());
+  }
+  else
+  {
+    return mpz_cmp( a.mValue, b.mValue ) >= 0;
+  }
+}
+
+/**
+ ** @brief  BigInt greater than
+ ** @param  a first BigInt to compare
+ ** @param  b second BigInt to compare
+ ** @return nonzero iff a is (certainly) greater than b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int operator>( const BigInt& a, const BigInt& b )
+{
+  if (a.isSpecial() || b.isSpecial())
+  {
+    return (a.toSpecialExact() > b.toSpecialExact());
+  }
+  else
+  {
+    return mpz_cmp( a.mValue, b.mValue ) > 0;
+  }
+}
+
+/**
+ ** @brief  BigInt less than or equal
+ ** @param  a first BigInt to compare
+ ** @param  b second BigInt to compare
+ ** @return nonzero iff a is (certainly) less than or equal to b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int operator<=( const BigInt& a, const BigInt& b )
+{
+  if (a.isSpecial() || b.isSpecial())
+  {
+    return (a.toSpecialExact() <= b.toSpecialExact());
+  }
+  else
+  {
+    return mpz_cmp( a.mValue, b.mValue ) <= 0;
+  }
+}
+
+/**
+ ** @brief  BigInt unordered
+ ** @param  a first BigInt to compare
+ ** @param  b second BigInt to compare
+ ** @return nonzero iff a and b are unordered
+ ** @remark a and b are unordered if nor (a <= b) nor (a >= b)
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int unordered( const BigInt& a, const BigInt& b )
+{
+  return (a.isSpecial() || b.isSpecial()) && unordered( a.toSpecialExact(),
+      	      	      	      	      	      	      	b.toSpecialExact()
+      	  );
+}
+
+/*
+ * Arithmetic shifts
+ */
+
+/**
+ ** @brief  Right arithmetic shift
+ ** @param  c BigInt to store result in.
+ ** @param  a BigInt to shift
+ ** @param  l number of bits to shift
+ ** @remark If the BigInt is a nonzero special value, the result is
+ **   	    undefined, and NaN will be returned.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void rshift( BigInt& c, const BigInt& a, unsigned long l )
+{
+  if (a.isSpecial() && !a.isZero())
+  {
+    c.setNan();
+    theExactCS.exceptionSet( csInvalidOperation );
+  }
+  else
+  {
+    mpz_fdiv_q_2exp( c.mValue, a.mValue, l );
+    if (!mpz_cmp_ui( c.mValue, 0 ))
+    {
+      c.mProperties.setZero();
+    }
+  }
+}
+
+/**
+ ** @brief  Left arithmetic shift
+ ** @param  c BigInt to store result in.
+ ** @param  a BigInt to shift
+ ** @param  l number of bits to shift
+ ** @remark If the BigInt is a nonzero special value, the result is
+ **   	    undefined, and NaN will be returned.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void lshift( BigInt& c, const BigInt& a, unsigned long l )
+{
+  if (a.isSpecial() && !a.isZero())
+  {
+    c.setNan();
+    theExactCS.exceptionSet( csInvalidOperation );
+  }
+  else
+  {
+    mpz_mul_2exp( c.mValue, a.mValue, l );
+  }
+}
+
+/**
+ ** @brief  Right arithmetic shift
+ ** @param  l number of bits to shift.
+ ** @return This BigInt, shifted l bits to the right.
+ ** @remark If l is a nonzero special value, the result is undefined,
+ **   	    and NaN will be returned.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt BigInt::operator>>( unsigned long l ) const
+{
+  TmpBigInt result;
+  return rshift( result, *this, l ), result;
+}
+
+/**
+ ** @brief  Performs a right arithmetic shift to this BigInt.
+ ** @param  l number of bits to shift.
+ ** @return A reference to this BigInt, after the shift.
+ ** @remark If l is a nonzero special value, the result is undefined,
+ **   	    and NaN will be returned.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::operator>>=( unsigned long l )
+{
+  return rshift( *this, *this, l ), *this;
+}
+
+/**
+ ** @brief  Left arithmetic shift
+ ** @param  l number of bits to shift.
+ ** @return This BigInt, shifted l bits to the left.
+ ** @remark If l is a nonzero special value, the result is undefined,
+ **   	    and NaN will be returned.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt BigInt::operator<<( unsigned long l ) const
+{
+  TmpBigInt result;
+  return lshift( result, *this, l ), result;
+}
+
+/**
+ ** @brief  Performs a left arithmetic shift to this BigInt.
+ ** @param  l number of bits to shift.
+ ** @return A reference to this BigInt, after the shift.
+ ** @remark If l is a nonzero special value, the result is undefined,
+ **   	    and NaN will be returned.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BigInt& BigInt::operator<<=( unsigned long l )
+{
+  return lshift( *this, *this, l ), *this;
+}

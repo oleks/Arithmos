@@ -1,0 +1,1019 @@
+/**
+ ** @file    SpecialValue.icc
+ ** @brief   inline functions for the SpecialValue class
+ **
+ ** $Id: SpecialValue.icc,v 1.11 2001/04/12 08:11:45 jvvloet Exp $
+ ** $Date: 2001/04/12 08:11:45 $
+ ** $Author: jvvloet $
+ **/
+
+/*
+ * Relational operators could use recoding
+ */
+
+/*
+ * public inline functions
+ */
+
+/**
+ ** @brief Assign phi to the special value.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void SpecialValue::setPhi()
+{
+  mProperties = 0;
+}
+
+/**
+ ** @brief Assign nan to the special value.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void SpecialValue::setNan()
+{
+  setSignBits( spNanBits );
+  setIaxBits( spIaxMask );
+  setZeroBit( 1 );
+  setInfBit( 1 );
+}
+
+/**
+ ** @brief Assign infinity to the special value.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void SpecialValue::setInf( SignBitsType sign )
+{
+  setPhi();
+  setInfBit( 1 );
+  setSignBits( sign );
+}
+
+/**
+ ** @brief  Assign zero to the special value.
+ ** @param  sign Sign of the zero (spPlus, spMinus or spUnsigned)
+ ** @remark if no sign is given, the zero will be unsigned.
+ ** @see    SignBitsType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void SpecialValue::setZero( SignBitsType sign )
+{
+  setPhi();
+  addZero();
+  setSignBits( sign );
+}
+
+/**
+ ** @brief  Checks whether the special value is Phi
+ ** @return nonzero iff the special value is Phi
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int SpecialValue::isPhi() const
+{
+  /*
+   * A special value is Phi when it isn't nan, and it has no other
+   * bits set than the sign bits.
+   */
+  return !isNan() && !(mProperties & ~spSignMask);
+}
+
+/**
+ ** @brief  Checks whether the special value is NaN
+ ** @return nonzero iff the special value is NaN
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int SpecialValue::isNan() const
+{
+  return getSignBits() == spNanBits;
+}
+
+/**
+ ** @brief  Checks whether the special value is infinite
+ ** @return nonzero iff the special value is infinite
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int SpecialValue::isInf() const
+{
+  return !isNan() && ((mProperties & ~(spSignMask)) == spInfinityBit);
+}
+
+/**
+ ** @brief  Checks whether the special value is zero
+ ** @return nonzero iff the special value is zero
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int SpecialValue::isZero() const
+{
+  return !isNan() && ((mProperties & ~(spSignMask)) == spZeroBit);
+}
+
+/**
+ ** @brief  Returns Phi
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue SpecialValue::phi()
+{
+  SpecialValue result;
+  result.setPhi();
+  return result;
+}
+
+/**
+ ** @brief  Returns a NaN.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue SpecialValue::nan()
+{
+  SpecialValue result;
+  result.setNan();
+  return result;
+}
+
+/**
+ ** @brief  Returns an !IaC
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue SpecialValue::iac()
+{
+  SpecialValue result;
+  result.setIaxBits( spIac );
+  return result;
+}
+
+/**
+ ** @brief  Returns an !IaR
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue SpecialValue::iar()
+{
+  SpecialValue result;
+  result.setIaxBits( spIar );
+  return result;
+}
+
+/**
+ ** @brief  Returns an !IaQ
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue SpecialValue::iaq()
+{
+  SpecialValue result;
+  result.setIaxBits( spIaq );
+  return result;
+}
+
+/**
+ ** @brief  Returns an !IaZ
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue SpecialValue::iaz()
+{
+  SpecialValue result;
+  result.setIaxBits( spIaz );
+  return result;
+}
+
+/**
+ ** @brief  Returns a zero.
+ ** @param  sign (optional) Sign of the zero.  spUnsigned if omitted.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue SpecialValue::zero( SignBitsType sign )
+{
+  SpecialValue result;
+  result.setZero( sign );
+  return result;
+}
+
+/**
+ ** @brief  Adds zero to the special value's set.
+ ** @return Reference to the new value.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue& SpecialValue::addZero()
+{
+  if (getIaxBits() == 0)
+  {
+    /*
+     * unsigned zero is added.
+     */
+    setSignBits( spUnsigned );
+  }
+  setZeroBit( 1 );
+  return *this;
+}
+
+/**
+ ** @brief  Adds infinity to the special value's set.
+ ** @return Reference to the new value.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue& SpecialValue::addInf()
+{
+  if (getIaxBits() == 0)
+  {
+    /*
+     * unsigned infinity is added.
+     */
+    setSignBits( spUnsigned );
+  }
+  setInfBit( 1 );
+  return *this;
+}
+
+/**
+ ** @brief  Removes infinity from the special value's set.
+ ** @return Reference to the new value.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue& SpecialValue::removeInf()
+{
+  setInfBit( 0 );
+  return *this;
+}
+
+/**
+ ** @brief  Removes all real numbers from the special value's set.
+ ** @return Reference to the new value.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue& SpecialValue::removeReals()
+{
+  if (!isPhi() && getIaxBits() <= spIar)
+  {
+    if (getIaxBits())
+    {
+      setSignBits( spUnsigned );
+    }
+    setIaxBits( 0 );
+  }
+  removeZero(); /* also for complex */
+  return *this;
+}
+
+/**
+ ** @brief  Checks whether the special value contains zero.
+ ** @return nonzero iff it contains zero.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int SpecialValue::hasZero() const
+{
+  return (isNan() || ((mProperties & spZeroBit) != 0));
+}
+
+/**
+ ** @brief  Checks whether the special value contains infinity.
+ ** @return nonzero iff it contains infinity.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int SpecialValue::hasInf() const
+{
+  return (isNan() || ((mProperties & spInfinityBit) != 0));
+}
+
+/**
+ ** @brief  Checks whether the special value only contains real numbers
+ ** @return Nonzero iff the special value only contains real numbers
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int SpecialValue::isReal() const
+{
+  return (!hasInf() && getIaxBits() <= spIar);
+}
+
+/**
+ ** @brief  Checks whether the special value only contains positive real
+ **	    Numbers.
+ ** @return nonzero iff the special value only contains positive real
+ **	    numbers.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int SpecialValue::isPositive() const
+{
+  return isZero() || getSignBits() == spPlus;
+}
+
+/**
+ ** @brief  Checks whether the special value only contains negative real
+ **	    numbers.
+ ** @return nonzero iff the special value only contains negative real
+ **	    numbers.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int SpecialValue::isNegative() const
+{
+  return isZero() || getSignBits() == spMinus;
+}
+
+/**
+ ** @brief  Removes zero from a special value's set
+ ** @return Reference to the new value.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue& SpecialValue::removeZero()
+{
+  if (!isNan())
+  {
+    mProperties &= (~spZeroBit);
+  }
+  return *this;
+}
+
+/**
+ ** @brief  Returns the sign bits of the special value.
+ ** @return sign bits of the special value
+ ** @see    SignBitsType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SignBitsType SpecialValue::getSignBits() const
+{
+  return (mProperties & spSignMask);
+}
+
+/**
+ ** @brief  Returns the iax bits of the special value.
+ ** @return iax bits of the special value
+ ** @see    IaxBitsType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+IaxBitsType SpecialValue::getIaxBits() const
+{
+  return (mProperties & spIaxMask);
+}
+
+/**
+ ** @brief  Returns the state of the special value's zero bit.
+ ** @return nonzero iff the zero bit is set.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int SpecialValue::getZeroBit() const
+{
+  return ((mProperties & spZeroBit) != 0);
+}
+
+/**
+ ** @brief  Returns the state of the special value's infinity bit.
+ ** @return nonzero iff the infinity bit is set.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int SpecialValue::getInfBit() const
+{
+  return ((mProperties & spInfinityBit) != 0);
+}
+
+/**
+ ** @brief  Returns the bit pattern of the special value.
+ ** @return The requested bit pattern.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+BitPatternType SpecialValue::getBitPattern() const
+{
+  return mProperties;
+}
+
+/*
+ * protected inline functions
+ */
+
+/**
+ ** @brief  Writes a new pattern into the sign bits of a special
+ **   	    value.
+ ** @param  sign bit combination to write.
+ ** @see    SignBitsType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void SpecialValue::setSignBits( SignBitsType sign )
+{
+  (mProperties &= ~spSignMask) |= (sign & spSignMask);
+}
+
+/**
+ ** @brief  Writes a new pattern into the iax bits of a special value.
+ ** @param  iax bit combination to write.
+ ** @see    IaxBitsType
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void SpecialValue::setIaxBits( IaxBitsType iax )
+{
+  (mProperties &= ~spIaxMask) |= (iax & spIaxMask);
+}
+
+/**
+ ** @brief  Sets/clears the zero bit of the special value.
+ ** @param  state If this parameter is zero, the zero bit will be
+ **   	    cleared, otherwise it will be set.
+ ** @remark If `param' is omitted, the zero bit will be set.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void SpecialValue::setZeroBit( unsigned int state )
+{
+  if (state)
+  {
+    mProperties |= spZeroBit;
+  }
+  else
+  {
+    mProperties &= (~spZeroBit);
+  }
+}
+
+/**
+ ** @brief  Sets/clears the infinity bit of the special value.
+ ** @param  state If this parameter is zero, the infinity bit will be
+ **   	    cleared, otherwise it will be set.
+ ** @remark If `param' is omitted, the infinity bit will be set.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void SpecialValue::setInfBit( unsigned int state )
+{
+  if (state)
+  {
+    mProperties |= spInfinityBit;
+  }
+  else
+  {
+    mProperties &= (~spInfinityBit);
+  }
+}
+
+/**
+ ** @brief  Sets the bit pattern of the special value.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void SpecialValue::setBitPattern( BitPatternType bits )
+{
+  mProperties = bits;
+}
+
+/**
+ ** @brief  subtraction
+ ** @param  a number to subtract of
+ ** @param  b number to subtract
+ ** @return difference between a and b.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue operator-( SpecialValue a, SpecialValue b )
+{
+  return a + (-b);
+}
+
+/**
+ ** @brief  SpecialValue prefix increment
+ ** @return Reference to the incremented SpecialValue
+ **
+ ** This function adds 1 to this special value.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue& SpecialValue::operator++()
+{
+  return (*this += 1);
+}
+
+/**
+ ** @brief  SpecialValue postfix increment
+ ** @return The value before it was incremented
+ **
+ ** This function adds 1 to this special value.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue SpecialValue::operator++( int dummy )
+{
+  SpecialValue result = *this;
+  *this += 1;
+  return result;
+}
+
+/**
+ ** @brief  SpecialValue prefix decrement
+ ** @return Reference to the decremented SpecialValue
+ **
+ ** This function subtracts 1 from this special value.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue& SpecialValue::operator--()
+{
+  return (*this -= 1);
+}
+
+/**
+ ** @brief  SpecialValue postfix decrement
+ ** @return The value before it was decremented
+ **
+ ** This function subtracts 1 from this special value.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue SpecialValue::operator--( int dummy )
+{
+  SpecialValue result = *this;
+  *this -= 1;
+  return result;
+}
+
+/**
+ ** @brief  SpecialValue addition
+ ** @param  b SpecialValue to add to this one.
+ ** @return Reference to the sum
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue& SpecialValue::operator+=( SpecialValue b )
+{
+  return *this = *this + b;
+}
+
+/**
+ ** @brief  SpecialValue subtraction
+ ** @param  b SpecialValue to subtract from this one.
+ ** @return Reference to the difference
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue& SpecialValue::operator-=( SpecialValue b )
+{
+  return *this = *this - b;
+}
+
+/**
+ ** @brief  Ternary SpecialValue hull
+ ** @param  a first value
+ ** @param  b second value
+ ** @param  c third value
+ ** @return smallest special value containing a, b and c.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue hull( SpecialValue a, SpecialValue b, SpecialValue c )
+{
+  return hull( hull( a, b ), c );
+}
+
+/**
+ ** @brief  4-ary SpecialValue hull
+ ** @param  a first value
+ ** @param  b second value
+ ** @param  c third value
+ ** @param  d fourth value
+ ** @return smallest special value containing a, b, c and d.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue hull( SpecialValue a, SpecialValue b, SpecialValue c,
+      	      	   SpecialValue d )
+{
+  return hull( hull( a, b ), hull( c, d ) );
+}
+
+/**
+ ** @brief  Check for disjoint special values.
+ ** @param  a first special value
+ ** @param  b second special value
+ ** @return nonzero iff a and b have no common elements.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int disjoint( SpecialValue a, SpecialValue b )
+{
+  return intersection( a, b ).isPhi();
+}
+
+/**
+ ** @brief  SpecialValue certainly equal
+ ** @param  a first value to compare
+ ** @param  b second value to compare
+ ** @return nonzero iff every element of a is equal to every element of b
+ **   	    (i.e. a and b are both empty or both singletons with the
+ **   	    same element, i.e. zero or infinity)
+ ** @warning The sign of infinity is just extra information about how
+ **   	    this infinity was generated.  This means that, analoguous
+ **   	    to 0, ceq( -inf, inf ) = ceq( inf, +inf ) = 1
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int ceq( SpecialValue a, SpecialValue b )
+{
+  return (a.isInf() && b.isInf() && a.getSignBits() == b.getSignBits() ||
+          a.isZero() && b.isZero() ||
+      	  a.isPhi() && b.isPhi());
+}
+
+/**
+ ** @brief  SpecialValue possibly different
+ ** @param  a first special value
+ ** @param  b second special value
+ ** @return !ceq( a, b )
+ ** @see    ceq
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int pneq( SpecialValue a, SpecialValue b )
+{
+  return !ceq( a, b );
+}
+
+/**
+ ** @brief  SpecialValue certainly different
+ ** @param  a first special value
+ ** @param  b second special value
+ ** @return !peq( a, b )
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int cneq( SpecialValue a, SpecialValue b )
+{
+  return disjoint( a, b );
+}
+
+/**
+ ** @brief  SpecialValue certainly less than
+ ** @param  a first value to compare
+ ** @param  b second value to compare
+ ** @return nonzero iff every element of a is less than every element of b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int cles( SpecialValue a, SpecialValue b )
+{
+  if (a.isInf() && a.getSignBits() == spMinus && b.isReal() ||
+      b.isInf() && b.getSignBits() == spPlus && a.isReal() ||
+      a.isZero() && !b.hasZero() && b.getSignBits() == spPlus ||
+      b.isZero() && !a.hasZero() && a.getSignBits() == spMinus)
+  {
+    return 1;
+    /*
+     * signed infinity and real number
+     * signed zero and real number
+     */
+  }
+  else
+  {
+    return (unordered( a, b ) || a.hasZero() && b.hasZero()) ?  0 :
+      a.getSignBits() == spMinus && b.getSignBits() == spPlus;
+  }
+}
+
+/**
+ ** @brief  SpecialValue certainly greater than or equal
+ ** @param  a first value to compare
+ ** @param  b second value to compare
+ ** @return nonzero iff every element of a is greater than or equal to
+ **   	    every element of b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int cgeq( SpecialValue a, SpecialValue b )
+{
+  if (unordered( a, b ))
+  {
+    return 0;
+  }
+  else if (a.isZero() && b.isNegative() ||
+	   b.isZero() && a.isPositive() ||
+	   a.isInf() && a.getSignBits() == spPlus && b.isReal() ||
+	   b.isInf() && b.getSignBits() == spMinus && a.isReal() ||
+	   a.isInf() && b.isInf() && a.getSignBits() == b.getSignBits())
+  {
+    return 1;
+  }
+  else
+  {
+    return a.getSignBits() == spPlus && b.getSignBits() == spMinus;
+  }
+}
+
+/**
+ ** @brief  SpecialValue certainly greater than
+ ** @param  a first value to compare
+ ** @param  b second value to compare
+ ** @return nonzero iff every element of a is greater than every element of b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int cgtr( SpecialValue a, SpecialValue b )
+{
+  if (a.isInf() && a.getSignBits() == spPlus && b.isReal() ||
+      b.isInf() && b.getSignBits() == spMinus && a.isReal() ||
+      a.isZero() && !b.hasZero() && b.getSignBits() == spMinus ||
+      b.isZero() && !a.hasZero() && a.getSignBits() == spPlus)
+  {
+    return 1;
+    /*
+     * signed infinity and real number
+     * signed zero and real number
+     */
+  }
+  else
+  {
+    return (unordered( a, b ) || a.hasZero() && b.hasZero()) ?  0 :
+           a.getSignBits() == spPlus && b.getSignBits() == spMinus;
+  }
+}
+
+/**
+ ** @brief  SpecialValue certainly less than or equal
+ ** @param  a first value to compare
+ ** @param  b second value to compare
+ ** @return nonzero iff every element of a is less than or equal to
+ **   	    every element of b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int cleq( SpecialValue a, SpecialValue b )
+{
+  if (unordered( a, b ))
+  {
+    return 0;
+  }
+  else if (a.isZero() && b.isPositive() ||
+	   b.isZero() && a.isNegative() ||
+	   a.isInf() && a.getSignBits() == spMinus && b.isReal() ||
+	   b.isInf() && b.getSignBits() == spPlus && a.isReal() ||
+	   a.isInf() && b.isInf() && a.getSignBits() == b.getSignBits())
+  {
+    return 1;
+  }
+  else
+  {
+    return a.getSignBits() == spMinus && b.getSignBits() == spPlus;
+  }
+}
+
+/**
+ ** @brief  SpecialValue possibly less than
+ ** @param  a first value to compare
+ ** @param  b second value to compare
+ ** @return nonzero iff an element of a is less than an element of b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int ples( SpecialValue a, SpecialValue b )
+{
+  return !cgeq( a, b );
+}
+
+/**
+ ** @brief  SpecialValue possibly less than or equal
+ ** @param  a first value to compare
+ ** @param  b second value to compare
+ ** @return nonzero iff an element of a is less than or equal to
+ **   	    an element of b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int pleq( SpecialValue a, SpecialValue b )
+{
+  return !cgtr( a, b );
+}
+
+
+/// relational operator
+#ifndef OUTLINE
+inline
+#endif
+unsigned operator==( SpecialValue a, SpecialValue b )
+{
+  return ceq( a, b );
+}
+
+/// relational operator
+#ifndef OUTLINE
+inline
+#endif
+unsigned operator!=( SpecialValue a, SpecialValue b )
+{
+  if (unordered( a, b ))
+  {
+    SpecialValue::pairs[max( a.mcs, b.mcs )]->exceptionSet( csUndefinedResult );
+  }
+  return pneq( a, b );
+}
+
+/// relational operator
+#ifndef OUTLINE
+inline
+#endif
+unsigned operator>( SpecialValue a, SpecialValue b )
+{
+  if (unordered( a, b ))
+  {
+    SpecialValue::pairs[max( a.mcs, b.mcs )]->exceptionSet( csUndefinedResult );
+  }
+  return cgtr( a, b );
+}
+
+/// relational operator
+#ifndef OUTLINE
+inline
+#endif
+unsigned operator<=( SpecialValue a, SpecialValue b )
+{
+  if (unordered( a, b ))
+  {
+    SpecialValue::pairs[max( a.mcs, b.mcs )]->exceptionSet( csUndefinedResult );
+  }
+  return cleq( a, b );
+}
+
+/// relational operator
+#ifndef OUTLINE
+inline
+#endif
+unsigned operator<( SpecialValue a, SpecialValue b )
+{
+  if (unordered( a, b ))
+  {
+    SpecialValue::pairs[max( a.mcs, b.mcs )]->exceptionSet( csUndefinedResult );
+  }
+  return cles( a, b );
+}
+
+/// relational operator
+#ifndef OUTLINE
+inline
+#endif
+unsigned operator>=( SpecialValue a, SpecialValue b )
+{
+  if (unordered( a, b ))
+  {
+    SpecialValue::pairs[max( a.mcs, b.mcs )]->exceptionSet( csUndefinedResult );
+  }
+  return cgeq( a, b );
+}
+
+/**
+ ** @brief  Test for odd SpecialValue
+ ** @return nonzero iff the SpecialValue is odd
+ ** @remark A SpecialValue can never be odd.  This function always
+ **   	    returns 0.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int SpecialValue::odd() const
+{
+  return 0;
+}
+
+/**
+ ** @brief  Test for even SpecialValue
+ ** @return nonzero iff the SpecialValue is even
+ ** @remark This function has the same effect as SpecialValue#isZero()
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int SpecialValue::even() const
+{
+  return isZero();
+}
+
+/**
+ ** @brief  SpecialValue sign
+ ** @return something strict positive if the value is strict
+ **   	    positive, something strict negative if the value is
+ **   	    strict negative, and zero in all other cases.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+int SpecialValue::sgn() const
+{
+  return isPhi() || isNan() || hasInf() || hasZero() ? 0 : getSignBits()
+      == spMinus ? -1 : getSignBits() == spPlus;
+}
+
+/**
+ ** @brief  SpecialValue root of SpecialValue
+ ** @param  b root to be taken
+ ** @return the b'th root of this SpecialValue.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+SpecialValue SpecialValue::root( SpecialValue b ) const
+{
+  ExceptionsType origExcep =
+      pairs[mcs]->exceptionTst( csAllExceptions );
+  SpecialValue bInverted = b.inv();
+  pairs[mcs]->exceptionClr( csAllExceptions );
+  pairs[mcs]->exceptionSet( origExcep );
+  return pow( bInverted );
+}
+
+/**
+ ** @brief	Get the control-status pair
+ ** @return	spGenericCS, spRoundedCS or spExactCS
+ ** @see 	ControlStatusPair
+ **/
+#ifndef OUTLINE
+inline
+#endif
+ControlStatusPair SpecialValue::getCSP() const
+{
+	return mcs;
+};
+
+/**
+ ** @brief	Set the control-status pair
+ ** @param  spGenericCS, spRoundedCS or spExactCS
+ ** @see	ControlStatusPair
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void SpecialValue::setCSP( ControlStatusPair cs )
+{
+	mcs = cs;
+};
+

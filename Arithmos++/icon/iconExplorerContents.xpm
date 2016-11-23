@@ -1,0 +1,31 @@
+/* XPM */
+static const char *iconExplorerContents[] = {
+/* width height num_colors chars_per_pixel */
+"    20    20        4            1",
+/* colors */
+". c #000000",
+"# c #800080",
+"a c none",
+"b c #ff00ff",
+/* pixels */
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaa......aaaaaaa",
+"aaaaaa.bbbbbb.aaaaaa",
+"aaaaa.bb#..##b.aaaaa",
+"aaaaa.b#.aa.b#.aaaaa",
+"aaaaaa..aaa.b#.aaaaa",
+"aaaaaaaaaa.b#.aaaaaa",
+"aaaaaaaaa.b#.aaaaaaa",
+"aaaaaaaa.b#.aaaaaaaa",
+"aaaaaaaa.b#.aaaaaaaa",
+"aaaaaaaa.b#.aaaaaaaa",
+"aaaaaaaaa..aaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaa..aaaaaaaaa",
+"aaaaaaaa.b#.aaaaaaaa",
+"aaaaaaaaa..aaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa"
+};

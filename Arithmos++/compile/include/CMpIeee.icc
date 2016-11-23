@@ -1,0 +1,279 @@
+/**
+ ** @file     CMpIeee.icc
+ ** @brief    Inline functions for the CMpIeee class
+ **
+ ** $Id: CMpIeee.icc,v 1.4 2001/04/30 07:32:56 backelj Exp $
+ ** $Date: 2001/04/30 07:32:56 $
+ ** $Author: backelj $
+ **/
+
+#include "ArithmosIO.hh"
+
+/* addition */
+
+#ifndef OUTLINE
+inline
+#endif
+void CMpIeee::operator += ( const CMpIeee& y )
+{  
+  cadd( *this, *this, y );
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpCMpIeee operator + ( const CMpIeee& x, const CMpIeee& y )
+{
+  TmpCMpIeee z;
+  cadd( z, x, y );
+  return z;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpCMpIeee operator + ( const CMpIeee& x, const TmpCMpIeee& t )
+{
+  return ( cadd( *(const_cast<TmpCMpIeee*>(&t)), x, t ), t );
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpCMpIeee operator + ( const TmpCMpIeee& s, const CMpIeee& y )
+{
+  return( cadd( *(const_cast<TmpCMpIeee*>(&s)), s, y ), s );  
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpCMpIeee operator + ( const TmpCMpIeee& s, const TmpCMpIeee& t )
+{
+  return( cadd( *(const_cast<TmpCMpIeee*>(&s)), s, t ), s );
+}
+
+/* subtraction */
+
+#ifndef OUTLINE
+inline
+#endif
+void CMpIeee::operator -= ( const CMpIeee& y )
+{  
+  csub( *this, *this, y );
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpCMpIeee operator - ( const CMpIeee& x, const CMpIeee& y )
+{
+  TmpCMpIeee z;
+  csub( z, x, y );
+  return z;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpCMpIeee operator - ( const CMpIeee& x, const TmpCMpIeee& t )
+{
+  return ( csub( *(const_cast<TmpCMpIeee*>(&t)), x, t ), t );
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpCMpIeee operator - ( const TmpCMpIeee& s, const CMpIeee& y )
+{
+  return ( csub( *(const_cast<TmpCMpIeee*>(&s)), s, y ), s );
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpCMpIeee operator - ( const TmpCMpIeee& s, const TmpCMpIeee& t )
+{
+  return( csub( *(const_cast<TmpCMpIeee*>(&s)), s, t ), s );
+}
+
+/* multiplication */
+
+#ifndef OUTLINE
+inline
+#endif
+void CMpIeee::operator *= ( const CMpIeee& y )
+{  
+  cmul( *this, *this, y );
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpCMpIeee operator * ( const CMpIeee& x, const CMpIeee& y )
+{
+  TmpCMpIeee z;
+  cmul( z, x, y );
+  return z;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpCMpIeee operator * ( const CMpIeee& x, const TmpCMpIeee& t )
+{
+  return ( cmul( *(const_cast<TmpCMpIeee*>(&t)), x, t ), t );
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpCMpIeee operator * ( const TmpCMpIeee& s, const CMpIeee& y )
+{
+  return( cmul( *(const_cast<TmpCMpIeee*>(&s)), s, y ), s );  
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpCMpIeee operator * ( const TmpCMpIeee& s, const TmpCMpIeee& t )
+{
+  return( cmul( *(const_cast<TmpCMpIeee*>(&s)), s, t ), s );
+}
+
+/* division */
+
+#ifndef OUTLINE
+inline
+#endif
+void CMpIeee::operator /= ( const CMpIeee& y )
+{  
+  cdiv( *this, *this, y );
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpCMpIeee operator / ( const CMpIeee& x, const CMpIeee& y )
+{
+  TmpCMpIeee z;
+  cdiv( z, x, y );
+  return z;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpCMpIeee operator / ( const CMpIeee& x, const TmpCMpIeee& t )
+{
+  return ( cdiv( *(const_cast<TmpCMpIeee*>(&t)), x, t ), t );
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpCMpIeee operator / ( const TmpCMpIeee& s, const CMpIeee& y )
+{
+  return ( cdiv( *(const_cast<TmpCMpIeee*>(&s)), s, y ), s );
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpCMpIeee operator / ( const TmpCMpIeee& s, const TmpCMpIeee& t )
+{
+  return( cdiv( *(const_cast<TmpCMpIeee*>(&s)), s, t ), s );
+}
+
+/* special representations */
+
+#ifndef OUTLINE
+inline
+#endif
+int CMpIeee::isZero () const
+{
+  return ( (*re).isZero() && (*im).isZero() );
+}
+
+#ifndef OUTLINE
+inline
+#endif
+int CMpIeee::isInf () const
+{
+  return ( (*re).isInf() || (*im).isInf() );
+}
+
+#ifndef OUTLINE
+inline
+#endif
+int CMpIeee::isNan () const
+{
+  return ( ( (*re).isNan() && !(*im).isInf() ) ||
+           ( !(*re).isInf() && (*im).isNan() ) );
+}
+
+/* auxiliary member functions */
+
+#ifndef OUTLINE
+inline
+#endif
+void creal ( MpIeee& c, const CMpIeee& x )
+{
+  c = *x.re;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpMpIeee CMpIeee::creal () const
+{
+  return TmpMpIeee( *re );
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpMpIeee creal ( const CMpIeee& x )
+{
+  return x.creal();
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void cimag ( MpIeee& c, const CMpIeee& x )
+{
+  c = *x.im;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpMpIeee CMpIeee::cimag () const
+{
+  return TmpMpIeee( *im );
+}
+
+#ifndef OUTLINE
+inline
+#endif
+TmpMpIeee cimag ( const CMpIeee& x )
+{
+  return x.cimag();
+}
+
+#ifndef OUTLINE
+inline
+#endif
+unsigned int CMpIeee::prec () const
+{
+  return (*re).prec();
+}
+
+#ifndef OUTLINE
+inline
+#endif
+unsigned int prec ( const CMpIeee& x )
+{
+  return x.prec();
+}

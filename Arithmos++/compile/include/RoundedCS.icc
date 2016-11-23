@@ -1,0 +1,13 @@
+/**
+ ** @file    RoundedCS.icc
+ ** @brief   inline functions for the RoundedCS class
+ ** 
+ ** $Id: RoundedCS.icc,v 1.1 2001/04/12 08:11:43 jvvloet Exp $
+ ** $Date: 2001/04/12 08:11:43 $
+ ** $Author: jvvloet $
+ **/
+ 
+/*
+ * In fact there aren't any inline functions for this class.  But allez,
+ * it's the gedacht that counts he. ;o)
+ */

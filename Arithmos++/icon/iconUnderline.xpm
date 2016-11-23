@@ -1,0 +1,30 @@
+/* XPM */
+static const char *iconUnderline[] = {
+/* width height num_colors chars_per_pixel */
+"    20    20        3            1",
+/* colors */
+". c #000000",
+"# c #808080",
+"a c none",
+/* pixels */
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaa....a....aaaaaa",
+"aaaaaa..aaa..aaaaaaa",
+"aaaaaa..aaa..aaaaaaa",
+"aaaaaa..aaa..aaaaaaa",
+"aaaaaa..aaa..aaaaaaa",
+"aaaaaa..aaa..aaaaaaa",
+"aaaaaa..aaa..aaaaaaa",
+"aaaaaa..#a#..aaaaaaa",
+"aaaaaaa.....aaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaa.........aaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa"
+};

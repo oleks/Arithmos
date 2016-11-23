@@ -1,0 +1,785 @@
+/**
+ ** @file    Rational.icc
+ ** @brief   inline functions for the Rational class
+ **
+ ** $Id: Rational.icc,v 1.13 2001/06/19 13:06:05 jvvloet Exp $
+ ** $Date: 2001/06/19 13:06:05 $
+ ** $Author: jvvloet $
+ **/
+
+
+/*
+ * TABLE OF CONTENTS  -------------------------------------------------
+ *    1  Assignations
+ *    2  Setting special values
+ *    3  Checking for special values
+ *    4  Numerator and denominator
+ *    5  Basic operations and square root
+ *    	5.1  friends
+ *    	5.2  members
+ *    6  relational operators
+ *    7  miscellaneous
+ */
+
+
+/*
+ *
+ * 1  Assignations ---------------------------------------------------
+ *
+ */
+
+
+/**
+ ** @brief    Assignation of SpecialExact to Rational
+ ** @param    v Value to assign
+ ** @return   Reference to the Rational
+ **/
+#ifndef OUTLINE
+inline
+#endif
+Rational& Rational::operator=( SpecialExact v )
+{
+  mpq_set_ui( mValue, 0, 1 );
+  mProperties = v;
+  return *this;
+}
+
+/**
+ ** @brief    Assignation of SpecialValue to Rational
+ ** @param    v Value to assign
+ ** @return   Reference to the Rational
+ **/
+#ifndef OUTLINE
+inline
+#endif
+Rational& Rational::operator=( SpecialValue v )
+{
+  mpq_set_ui( mValue, 0, 1 );
+  mProperties = v;
+  mProperties.setCSP( spExactCS );
+  return *this;
+}
+
+/**
+ ** @brief    Assignation of BigInt to Rational.
+ ** @param    b BigInt to be assigned
+ ** @return   Reference to the rational
+ **/
+#ifndef OUTLINE
+inline
+#endif
+Rational& Rational::operator=( const BigInt& b )
+{
+#ifdef _TEMPORARY_TEST_
+  cerr << "[rab]";
+#endif
+  mpz_set( mpq_numref( mValue ), b.mValue );
+  mpz_set_ui( mpq_denref( mValue ), 1 );
+  mProperties = b.mProperties;
+  return *this;
+}
+
+/**
+ ** @brief    Assignation of TmpBigInt to Rational.
+ ** @param    t BigInt to be assigned
+ ** @return   Reference to the rational
+ ** @warning  After the assignation, the value of t will be lost
+ **   	      (despite the `const' declaration).
+ **/
+#ifndef OUTLINE
+inline
+#endif
+Rational& Rational::operator=( const TmpBigInt& t )
+{
+#ifdef _TEMPORARY_TEST_
+  cerr << "[rat]";
+#endif
+  mpz_swap( mpq_numref( mValue ), (const_cast<TmpBigInt*>(&t))->mValue );
+  mpz_set_ui( mpq_denref( mValue ), 1 );
+  mProperties = t.mProperties;
+  return *this;
+}
+
+/**
+ ** @brief    Assignation of Rational to Rational.
+ ** @param    b Rational to be assigned
+ ** @return   Reference to the Rational
+ **/
+#ifndef OUTLINE
+inline
+#endif
+Rational& Rational::operator=( const Rational& b )
+{
+  mpq_set( mValue, b.mValue );
+  mProperties = b.mProperties;
+  return *this;
+}
+
+/**
+ ** @brief    Assignation of TmpRational to Rational.
+ ** @param    t Rational to be assigned
+ ** @return   Reference to the Rational
+ ** @warning  After the assignation, the value of t will be lost
+ **   	      (despite the `const' declaration).
+ **/
+#ifndef OUTLINE
+inline
+#endif
+Rational& Rational::operator=( const TmpRational& t )
+{
+#ifdef _TEMPORARY_TEST_
+  cerr << "[rat]";
+#endif
+  mpq_swap( mValue, (const_cast<TmpRational*>(&t))->mValue );
+  mProperties = t.mProperties;
+  return *this;
+}
+
+
+/*
+ *
+ * 2  Setting special values -----------------------------------------
+ *
+ */
+
+
+/**
+ ** @brief  Assign NaN to a Rational
+ ** @return Reference to the Rational
+ **/
+#ifndef OUTLINE
+inline
+#endif
+Rational& Rational::setNan()
+{
+  mpq_set_ui( mValue, 0, 1 );
+  mProperties.setNan();
+  return *this;
+}
+
+/**
+ ** @brief  Assigns infinity to a Rational
+ ** @param  sign optional sign information (default spUnsigned)
+ ** @return Reference to the Rational
+ **/
+#ifndef OUTLINE
+inline
+#endif
+Rational& Rational::setInf( SignBitsType sign )
+{
+  mpq_set_ui( mValue, 0, 1 );
+  mProperties.setInf( sign );
+  return *this;
+}
+
+/**
+ ** @brief  Assign zero to a Rational
+ ** @return Reference to the Rational
+ **/
+#ifndef OUTLINE
+inline
+#endif
+Rational& Rational::setZero( SignBitsType sign )
+{
+  mpq_set_ui( mValue, 0, 1 );
+  mProperties.setZero( sign );
+  return *this;
+}
+
+
+/*
+ *
+ * 3  Testing for special values -------------------------------------
+ *
+ */
+
+
+/**
+ ** @brief  Special value check
+ ** @return Nonzero iff the rational is a special value.
+ ** @remark Zero is regarded as a special value too
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int Rational::isSpecial() const
+{
+  return (!mpz_cmp_ui( mpq_numref( mValue ), 0 ));
+}
+
+/**
+ ** @brief  Check for zero
+ ** @return Nonzero iff the rational equals zero.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int Rational::isZero() const
+{
+  return isSpecial() && mProperties.isZero();
+}
+
+/**
+ ** @brief  Check for infinity
+ ** @return Nonzero iff the rational is infinite.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int Rational::isInf() const
+{
+  return isSpecial() && mProperties.isInf();
+}
+
+/**
+ ** @brief  Check for NaN
+ ** @return Nonzero iff the rational is NaN (not a number)
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int Rational::isNan() const
+{
+  return isSpecial() && mProperties.isNan();
+}
+
+
+/*
+ *
+ * 4  Numerator and denominator --------------------------------------
+ *
+ */
+
+
+/**
+ ** @brief    Extract numerator.
+ ** @return   A copy of the numerator of this Rational.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt Rational::num() const
+{
+  return numRef(); /* Copy constructor will do it's job. */
+}
+
+/**
+ ** @brief    Extract denominator.
+ ** @return   A copy of the denominator of this Rational.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpBigInt Rational::den() const
+{
+  return denRef(); /* Copy constructor will do it's job. */
+}
+
+/**
+ ** @brief    Reference to numerator.
+ ** @return   A BigInt interface around the numerator of this Rational.
+ ** @warning  You're not allowed to change the numerator using the
+ **   	      reference this function delivers.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+const RefBigInt Rational::numRef() const
+{
+  return (isSpecial() ? (RefBigInt)mProperties.num() :
+          (RefBigInt)((mpz_srcptr)mpq_numref( mValue )));
+}
+
+/**
+ ** @brief  Reference to denominator.
+ ** @return A BigInt interface around the denominator of this
+ **   	    Rational.
+ ** @warning  You're not allowed to change the denominator using the
+ **   	      reference this function delivers.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+const RefBigInt Rational::denRef() const
+{
+  return (isSpecial() && !isZero() ? (RefBigInt)mProperties.den() :
+      	  (RefBigInt)((mpz_srcptr)mpq_denref( mValue )));
+}
+
+
+/*
+ *
+ * 5  Basic Operations -------------------------------------------
+ *
+ */
+
+/*
+ * 5.1  Friend functions - - - - - - - - - - - - - - - - - - - - - - -
+ */
+
+/**
+ ** @brief  Rational negation
+ ** @param  a Rational to be negated.
+ ** @param  c will hold the negated rational.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void neg( Rational& c, const Rational& a )
+{
+  c.mProperties = -a.mProperties;
+  mpq_neg( c.mValue, a.mValue );
+}
+
+/**
+ ** @brief  Rational inverse
+ ** @param  a Rational to be inverted
+ ** @param  c will hold the inverted rational.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void inv( Rational& c, const Rational& a )
+{
+  c.mProperties = a.mProperties.inv();
+  if (a.isSpecial())
+  {
+    mpq_set_ui( c.mValue, 0, 1 );
+  }
+  else
+  {
+    mpq_inv( c.mValue, a.mValue );
+  }
+}
+
+/**
+ ** @brief  Rational multiplication
+ ** @param  a a term
+ ** @param  b another term
+ ** @param  c result will be stored here.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void mul( Rational& c, const Rational& a, const Rational& b )
+{
+  if (a.isSpecial() || b.isSpecial())
+  {
+    c = a.toSpecialExact()*b.toSpecialExact();
+  }
+  else
+  {
+    mpq_mul( c.mValue, a.mValue, b.mValue );
+    c.mProperties.setPhi();
+    /*
+     * Result cannot be zero if a and b are nonzero.
+     */
+  }
+}
+
+/**
+ ** @brief  Rational division
+ ** @param  a Rational to be divided
+ ** @param  b divisor
+ ** @param  c result will be stored here.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+void div( Rational& c, const Rational& a, const Rational& b )
+{
+  if (a.isSpecial() || b.isSpecial())
+  {
+    c = a.toSpecialExact()/b.toSpecialExact();
+  }
+  else
+  {
+    mpq_div( c.mValue, a.mValue, b.mValue );
+    c.mProperties.setPhi();
+    /*
+     * Result cannot be zero if a and b are nonzero.
+     */
+  }
+}
+
+/*
+ * 5.2  Member functions - - - - - - - - - - - - - - - - - - - - - - -
+ */
+
+/**
+ ** @brief  Rational sum
+ ** @param  b Rational to add to this one.
+ ** @return Reference to the result
+ **
+ ** Adds b to this rational.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+Rational& Rational::operator+=( const Rational& b )
+{
+  return add( *this, *this, b ), *this;
+}
+
+/**
+ ** @brief  Rational sum
+ ** @param  a a Rational
+ ** @param  b another Rational
+ ** @return sum of a and b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpRational operator+( const Rational& a, const Rational& b )
+{
+  TmpRational c;
+  return add( c, a, b ), c;
+}
+
+/**
+ ** @brief  Rational subtraction
+ ** @param  b Rational to subtract from this one
+ ** @return Reference to the result
+ **
+ ** Subtracts b from this rational.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+Rational& Rational::operator-=( const Rational& b )
+{
+  return sub( *this, *this, b ), *this;
+}
+
+/**
+ ** @brief	Rational negation
+ ** @param	b Rational to be negated
+ ** @return	-b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpRational operator-( const Rational& b )
+{
+  TmpRational c;
+  return neg( c, b ), c;
+}
+
+/**
+ ** @brief  Rational subtraction
+ ** @param  a a Rational
+ ** @param  b another Rational
+ ** @return difference of a and b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpRational operator-( const Rational& a, const Rational& b )
+{
+  TmpRational c;
+  return sub( c, a, b ), c;
+}
+
+/**
+ ** @brief  Rational product
+ ** @param  b Rational to multiply with this one
+ ** @return Reference to the result
+ **
+ ** Multiplies b with this Rational.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+Rational& Rational::operator*=( const Rational& b )
+{
+  return mul( *this, *this, b ), *this;
+}
+
+/**
+ ** @brief  Rational product
+ ** @param  a a Rational
+ ** @param  b another Rational
+ ** @return product of a and b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpRational operator*( const Rational& a, const Rational& b )
+{
+  TmpRational c;
+  return mul( c, a, b ), c;
+}
+
+/**
+ ** @brief  Rational division
+ ** @param  b Rational to divide by
+ ** @return Reference to the result
+ **
+ ** Divide this Rational by b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+Rational& Rational::operator/=( const Rational& b )
+{
+  return div( *this, *this, b ), *this;
+}
+
+/**
+ ** @brief  Rational division
+ ** @param  a a Rational
+ ** @param  b another Rational
+ ** @return a/b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpRational operator/( const Rational& a, const Rational& b )
+{
+  TmpRational c;
+  return div( c, a, b ), c;
+}
+
+/**
+ ** @brief  Rational square root
+ ** @return square root of this rational.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpRational Rational::sqrt() const
+{
+  TmpRational c;
+  return ::sqrt( c, *this ), c;
+}
+
+/**
+ ** @brief  Rational inverse
+ ** @return inverse of this rational.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpRational Rational::inv() const
+{
+  TmpRational c;
+  return ::inv( c, *this ), c;
+}
+
+/*
+ *
+ * 6  Relational Operators -------------------------------------------
+ *
+ */
+
+
+/**
+ ** @brief  Rational equal
+ ** @param  a first Rational to compare
+ ** @param  b second Rational to compare
+ ** @return nonzero iff a and b are (certainly) equal
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int operator==( const Rational& a, const Rational& b )
+{
+  if (a.isSpecial() || b.isSpecial())
+  {
+    return (a.toSpecialExact() == b.toSpecialExact());
+  }
+  else
+  {
+    return mpq_equal( a.mValue, b.mValue );
+  }
+}
+
+/**
+ ** @brief  Rational not equal
+ ** @param  a first Rational to compare
+ ** @param  b second Rational to compare
+ ** @return nonzero iff a and b are (possibly) not equal
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int operator!=( const Rational& a, const Rational& b )
+{
+  if (a.isSpecial() || b.isSpecial())
+  {
+    return (a.toSpecialExact() != b.toSpecialExact());
+  }
+  else
+  {
+    return !mpq_equal( a.mValue, b.mValue );
+  }
+}
+
+/**
+ ** @brief  Rational less than
+ ** @param  a first Rational to compare
+ ** @param  b second Rational to compare
+ ** @return nonzero iff a is (certainly) less than b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int operator<( const Rational& a, const Rational& b )
+{
+  if (a.isSpecial() || b.isSpecial())
+  {
+    return (a.toSpecialExact() < b.toSpecialExact());
+  }
+  else
+  {
+    return mpq_cmp( a.mValue, b.mValue ) < 0;
+  }
+}
+
+/**
+ ** @brief  Rational greater than or equal
+ ** @param  a first Rational to compare
+ ** @param  b second Rational to compare
+ ** @return nonzero iff a is (certainly) greater than or equal to b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int operator>=( const Rational& a, const Rational& b )
+{
+  if (a.isSpecial() || b.isSpecial())
+  {
+    return (a.toSpecialExact() >= b.toSpecialExact());
+  }
+  else
+  {
+    return mpq_cmp( a.mValue, b.mValue ) >= 0;
+  }
+}
+
+/**
+ ** @brief  Rational greater than
+ ** @param  a first Rational to compare
+ ** @param  b second Rational to compare
+ ** @return nonzero iff a is (certainly) greater than b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int operator>( const Rational& a, const Rational& b )
+{
+  if (a.isSpecial() || b.isSpecial())
+  {
+    return (a.toSpecialExact() > b.toSpecialExact());
+  }
+  else
+  {
+    return mpq_cmp( a.mValue, b.mValue ) > 0;
+  }
+}
+
+/**
+ ** @brief  Rational less than or equal
+ ** @param  a first Rational to compare
+ ** @param  b second Rational to compare
+ ** @return nonzero iff a is (certainly) less than or equal to b
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int operator<=( const Rational& a, const Rational& b )
+{
+  if (a.isSpecial() || b.isSpecial())
+  {
+    return (a.toSpecialExact() <= b.toSpecialExact());
+  }
+  else
+  {
+    return mpq_cmp( a.mValue, b.mValue ) <= 0;
+  }
+}
+
+/**
+ ** @brief  Rational unordered
+ ** @param  a first Rational to compare
+ ** @param  b second Rational to compare
+ ** @return nonzero iff a and b are unordered
+ ** @remark a and b are unordered if nor (a <= b) nor (a >= b)
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int unordered( const Rational& a, const Rational& b )
+{
+  return (a.isSpecial() || b.isSpecial()) && unordered( a.toSpecialExact(),
+      	      	      	      	      	      	      	b.toSpecialExact()
+      	  );
+}
+
+
+
+/*
+ *
+ * 7  Miscellaneous --------------------------------------------------
+ *
+ */
+
+
+/**
+ ** @brief  check for perfect square
+ ** @return nonzero iff this Rational is a perfect square.
+ **
+ ** This function checks whether there exists a rational number, which
+ ** has this Rational as its square.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+unsigned int Rational::perfectSquare() const
+{
+  return (isZero() || isInf() || !isSpecial() &&
+          mpz_perfect_square_p( mpq_numref( mValue ) ) &&
+          mpz_perfect_square_p( mpq_denref( mValue ) ));
+}
+
+/**
+ ** @brief  Rational sign
+ ** @return something strict positive if the rational is strict
+ **   	    positive, something strict negative if the rational is
+ **   	    strict negative, and zero in all other cases.
+ **/
+#ifndef OUTLINE
+inline
+#endif
+int Rational::sgn() const
+{
+  if (isSpecial())
+  {
+    return mProperties.sgn();
+  }
+  else return mpq_sgn( mValue );
+}
+
+/**
+ ** @brief  Rational 2-exp function
+ ** @return $2^x$
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpRational Rational::exp2() const
+{
+  return ((Rational)2).pow(*this);
+}
+
+/**
+ ** @brief  Rational 10-exp function
+ ** @return $2^x$
+ **/
+#ifndef OUTLINE
+inline
+#endif
+TmpRational Rational::exp10() const
+{
+  return ((Rational)10).pow(*this);
+}

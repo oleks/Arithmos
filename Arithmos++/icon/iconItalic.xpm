@@ -1,0 +1,30 @@
+/* XPM */
+static const char *iconItalic[] = {
+/* width height num_colors chars_per_pixel */
+"    20    20        3            1",
+/* colors */
+". c #000000",
+"# c #808080",
+"a c none",
+/* pixels */
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaa.....aaaaaa",
+"aaaaaaaaaa..#aaaaaaa",
+"aaaaaaaaa#..aaaaaaaa",
+"aaaaaaaaa..#aaaaaaaa",
+"aaaaaaaa#..aaaaaaaaa",
+"aaaaaaaa..#aaaaaaaaa",
+"aaaaaaa#..aaaaaaaaaa",
+"aaaaaaa..#aaaaaaaaaa",
+"aaaaa......aaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa"
+};

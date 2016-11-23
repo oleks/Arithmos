@@ -1,0 +1,30 @@
+/* XPM */
+static const char *iconCut[] = {
+/* width height num_colors chars_per_pixel */
+"    20    20        3            1",
+/* colors */
+". c #000000",
+"# c #000080",
+"a c none",
+/* pixels */
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaa.aaa.aaaaaaaa",
+"aaaaaaa.aaa.aaaaaaaa",
+"aaaaaaa.aaa.aaaaaaaa",
+"aaaaaaa..a..aaaaaaaa",
+"aaaaaaaa.a.aaaaaaaaa",
+"aaaaaaaa...aaaaaaaaa",
+"aaaaaaaaa.aaaaaaaaaa",
+"aaaaaaaa#.#aaaaaaaaa",
+"aaaaaaaa#a###aaaaaaa",
+"aaaaaa###a#aa#aaaaaa",
+"aaaaa#aa#a#aa#aaaaaa",
+"aaaaa#aa#a#aa#aaaaaa",
+"aaaaa#aa#aa##aaaaaaa",
+"aaaaaa##aaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa"
+};

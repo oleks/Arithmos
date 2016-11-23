@@ -1,0 +1,78 @@
+<html>
+<head>
+<title> fpenv.h </title>
+</head>
+<body>
+<hr WIDTH="100%">
+<p><b>Next:</b>&nbsp;&nbsp;
+<a href="Mpieee.html">Mpieee.h</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>
+Up:&nbsp;&nbsp;</b> <a href="indexProgram.html">Program Index Help</a>
+<br>
+<hr WIDTH="100%">
+<h1> fpenv.h </h1>
+<h1>Classes</h1>
+<dl>
+<dd> <a href="#fp_rnd"> fp_rnd </a> --  (<em><a href="#fp_rnd:description">full description</a></em>)
+<dd> <a href="#fpenvironment"> fpenvironment </a> --  (<em><a href="#fpenvironment:description">full description</a></em>)
+</dl>
+<hr>
+
+<h1>typedef enum fp_rnd </h1>
+<blockquote>
+
+<dl>
+<dt> <b>FP_RN</b> = 0
+<dd>
+</dd>
+<dt> <b>FP_RZ</b> = 1
+<dd>
+</dd>
+<dt> <b>FP_RP</b> = 2
+<dd>
+</dd>
+<dt> <b>FP_RM</b> = 3
+<dd>
+</dd>
+</dl>
+</blockquote>
+<h1><a name="fp_rnd:description">Description</a></h1>
+
+<hr>
+
+<h1>class fpenvironment </h1>
+<h1>Interface</h1>
+<dl>
+<dd> <b>Public Members</b>
+
+<dl>
+
+<dd> <a href="#fpenvironment:fpenvironment()">fpenvironment</a>()
+<dd> void <a href="#fpenvironment:signal(fp_except)">signal</a> (fp_except e)
+<dd> void <a href="#fpenvironment:setround(fp_rnd)">setround</a>(<a href="fpenv.html#fp_rnd">fp_rnd</a> rounding)
+<dd> <a href="fpenv.html#fp_rnd">fp_rnd</a> <a href="#fpenvironment:getround(void)">getround</a>(void)
+<dd> fp_except <a href="#fpenvironment:getmask(void)">getmask</a>(void)
+<dd> void <a href="#fpenvironment:setmask(fp_except)">setmask</a>(fp_except mask)
+<dd> fp_except <a href="#fpenvironment:getexcept(void)">getexcept</a>(void)
+<dd> void <a href="#fpenvironment:clearexcept(void)">clearexcept</a>(void)
+<dd> void <a href="#fpenvironment:setradix(unsigned)">setradix</a>(unsigned int newradix)
+<dd> void <a href="#fpenvironment:setexprange(int,int)">setexprange</a>(int newL, int newU)
+<dd> void <a href="#fpenvironment:setprecision(unsigned)">setprecision</a>(unsigned int newprec)
+</dl>
+</dl>
+<h1><a name="fpenvironment:description">Description</a></h1>
+
+<h1>Member Description</h1>
+<h3><a name="fpenvironment:fpenvironment()">fpenvironment</a>()</h3>
+<p>
+<h3>void <a name="fpenvironment:signal(fp_except)">signal</a> (fp_except e)</h3>
+<h3>void <a name="fpenvironment:setround(fp_rnd)">setround</a>(<a href="fpenv.html#fp_rnd">fp_rnd</a> rounding)</h3>
+<h3><a href="fpenv.html#fp_rnd">fp_rnd</a> <a name="fpenvironment:getround(void)">getround</a>(void)</h3>
+<h3>fp_except <a name="fpenvironment:getmask(void)">getmask</a>(void)</h3>
+<h3>void <a name="fpenvironment:setmask(fp_except)">setmask</a>(fp_except mask)</h3>
+<h3>fp_except <a name="fpenvironment:getexcept(void)">getexcept</a>(void)</h3>
+<h3>void <a name="fpenvironment:clearexcept(void)">clearexcept</a>(void)</h3>
+<h3>void <a name="fpenvironment:setradix(unsigned)">setradix</a>(unsigned int newradix)</h3>
+<h3>void <a name="fpenvironment:setexprange(int,int)">setexprange</a>(int newL, int newU)</h3>
+<h3>void <a name="fpenvironment:setprecision(unsigned)">setprecision</a>(unsigned int newprec)</h3>
+</body>
+</html>

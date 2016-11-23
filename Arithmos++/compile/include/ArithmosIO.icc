@@ -1,0 +1,49 @@
+/******************************************************************************
+**
+** Arithmos class library
+** 
+** ArithmosIO : class for manipulating I/O in the Arithmos class library
+**
+** Copyright (C) 2000
+** Research Group Computer Arithmetic & Numerical Techniques (CANT)
+** Department of Mathematics & Computer Science
+** University of Antwerp
+** Universiteitsplein 1
+** B-2610 Wilrijk
+** BELGIUM
+**
+** contact : cant@uia.ua.ac.be
+**
+******************************************************************************/
+
+#include <iostream.h>
+
+#ifndef OUTLINE
+inline
+#endif
+void ArithmosIO::setIoMode( long newMode ) {
+  ioMode = newMode;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+long ArithmosIO::getIoMode( void ) {
+  return ioMode;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void ArithmosIO::setDefaultMode( void ) {
+  ioMode = ARITHMOS_IO_DEFAULT;
+}
+
+#ifndef OUTLINE
+inline
+#endif
+void debugInfo( char *info ) {
+
+  if ( ArithmosIO::ioMode & ARITHMOS_IO_DEBUG )
+    cout << info << endl;
+}

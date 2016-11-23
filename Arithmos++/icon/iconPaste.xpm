@@ -1,0 +1,35 @@
+/* XPM */
+static const char *iconPaste[] = {
+/* width height num_colors chars_per_pixel */
+"    20    20        8            1",
+/* colors */
+". c #000000",
+"# c #000080",
+"a c #808000",
+"b c #808080",
+"c c none",
+"d c #c0c0c0",
+"e c #ffff00",
+"f c #ffffff",
+/* pixels */
+"cccccccccccccccccccc",
+"cccccccccccccccccccc",
+"cccccccccccccccccccc",
+"ccccccc....ccccccccc",
+"ccc.....ee.....ccccc",
+"cc.aba.e..e.bab.cccc",
+"cc.bb.dddddd.ba.cccc",
+"cc.ab........bb.cccc",
+"cc.babababababa.cccc",
+"cc.ababa#######.cccc",
+"cc.babab#fffff##cccc",
+"cc.ababa#fffff#f#ccc",
+"cc.babab#f###f####cc",
+"cc.ababa#ffffffff#cc",
+"cc.babab#f######f#cc",
+"ccc.....#ffffffff#cc",
+"cccccccc##########cc",
+"cccccccccccccccccccc",
+"cccccccccccccccccccc",
+"cccccccccccccccccccc"
+};
